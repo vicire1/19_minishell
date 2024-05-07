@@ -6,7 +6,9 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:59:08 by lbirloue          #+#    #+#             */
-/*   Updated: 2024/05/07 15:59:09 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:49:17 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../include/minishell.h"
 
