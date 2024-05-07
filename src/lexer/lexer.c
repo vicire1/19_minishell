@@ -6,7 +6,9 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:16:16 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:21:56 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/minishell.h"
 
