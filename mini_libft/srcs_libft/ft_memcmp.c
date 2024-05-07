@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:49 by lbirloue         ###   ########.fr       */
+/*   Created: 2023/10/12 15:29:20 by lbirloue          #+#    #+#             */
+/*   Updated: 2024/03/21 16:40:31 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../includes/libft.h"
 
-int main(int ac, char **av, char **envp)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-    char *line;
-    (void)ac;
-    (void)av;
-    (void)envp;
-    
-    while (1)
-    {
-        line = readline("minishell: ");
-    }
+	int				i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	while (n > 0)
+	{
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
+		n--;
+	}
+	return (0);
 }

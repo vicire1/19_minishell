@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   flag_X.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:49 by lbirloue         ###   ########.fr       */
+/*   Created: 2023/10/30 15:50:28 by lbirloue          #+#    #+#             */
+/*   Updated: 2024/03/21 17:08:44 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../includes/ft_printf.h"
 
-int main(int ac, char **av, char **envp)
+void	ft_putnbr_hexatoupper(unsigned int n)
 {
-    char *line;
-    (void)ac;
-    (void)av;
-    (void)envp;
-    
-    while (1)
-    {
-        line = readline("minishell: ");
-    }
+	char	*base;
+
+	base = "0123456789ABCDEF";
+	if (n >= 16)
+	{
+		ft_putnbr_hexatoupper(n / 16);
+		ft_putnbr_hexatoupper(n % 16);
+	}
+	if (n < 16)
+		ft_putchar_prf(base[n]);
 }

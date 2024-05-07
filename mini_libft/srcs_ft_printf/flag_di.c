@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   flag_di.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:49 by lbirloue         ###   ########.fr       */
+/*   Created: 2023/10/30 16:05:55 by lbirloue          #+#    #+#             */
+/*   Updated: 2024/03/21 17:10:09 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../includes/ft_printf.h"
 
-int main(int ac, char **av, char **envp)
+void	ft_putnbr_prf(int n)
 {
-    char *line;
-    (void)ac;
-    (void)av;
-    (void)envp;
-    
-    while (1)
-    {
-        line = readline("minishell: ");
-    }
+	if (n == -2147483648)
+	{
+		ft_putstr_prf("-2147483648");
+		return ;
+	}
+	if (n < 0)
+	{
+		ft_putchar_prf('-');
+		n = -n ;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_prf(n / 10);
+		ft_putnbr_prf(n % 10);
+	}
+	else
+	{
+		ft_putchar_prf(n + 48);
+	}
+	return ;
 }

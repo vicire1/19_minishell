@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:49 by lbirloue         ###   ########.fr       */
+/*   Created: 2023/10/12 15:34:13 by lbirloue          #+#    #+#             */
+/*   Updated: 2024/03/21 16:40:31 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../includes/libft.h"
 
-int main(int ac, char **av, char **envp)
+char	*ft_strchr(const char *s, int c)
 {
-    char *line;
-    (void)ac;
-    (void)av;
-    (void)envp;
-    
-    while (1)
-    {
-        line = readline("minishell: ");
-    }
+	int				i;
+	unsigned char	*ret;
+
+	ret = (unsigned char *)s;
+	i = 0;
+	while (ret[i] != (unsigned char)c)
+	{
+		if (ret[i] == 0)
+			return (0);
+		i++;
+	}
+	return ((char *)ret + i);
 }

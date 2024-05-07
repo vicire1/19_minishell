@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:49 by lbirloue         ###   ########.fr       */
+/*   Created: 2023/10/16 13:23:04 by lbirloue          #+#    #+#             */
+/*   Updated: 2024/03/21 16:41:46 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../includes/libft.h"
 
-int main(int ac, char **av, char **envp)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-    char *line;
-    (void)ac;
-    (void)av;
-    (void)envp;
-    
-    while (1)
-    {
-        line = readline("minishell: ");
-    }
+	unsigned int	i;
+	char			*ret;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (i < len && start + i < ft_strlen(s))
+		i++;
+	ret = malloc((i + 1) * sizeof(char));
+	if (!ret)
+		return (0);
+	i = 0;
+	while (len > i && start + i < ft_strlen(s))
+	{
+		ret[i] = s[start + i];
+		i++;
+	}
+	ret[i] = 0;
+	return (ret);
 }

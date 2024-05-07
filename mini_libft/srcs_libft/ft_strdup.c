@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:49 by lbirloue         ###   ########.fr       */
+/*   Created: 2023/10/16 13:04:50 by lbirloue          #+#    #+#             */
+/*   Updated: 2024/03/21 16:40:31 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../includes/libft.h"
 
-int main(int ac, char **av, char **envp)
+char	*ft_strdup(const char *s)
 {
-    char *line;
-    (void)ac;
-    (void)av;
-    (void)envp;
-    
-    while (1)
-    {
-        line = readline("minishell: ");
-    }
+	char	*ret;
+	int		i;
+
+	i = 0;
+	ret = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!ret)
+		return (0);
+	while (s[i] != 0)
+	{
+		ret[i] = s[i];
+		i++;
+	}
+	ret[i] = 0;
+	return (ret);
 }

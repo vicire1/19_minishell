@@ -1,26 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils_ft_printf.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:49 by lbirloue         ###   ########.fr       */
+/*   Created: 2023/10/27 15:36:28 by lbirloue          #+#    #+#             */
+/*   Updated: 2024/03/21 17:09:31 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../includes/ft_printf.h"
 
-int main(int ac, char **av, char **envp)
+size_t	ft_strlen_prf(const char *str)
 {
-    char *line;
-    (void)ac;
-    (void)av;
-    (void)envp;
-    
-    while (1)
-    {
-        line = readline("minishell: ");
-    }
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] != 0)
+		i++;
+	return (i);
+}
+
+int	ft_putchar_prf(char c)
+{
+	write (1, &c, 1);
+	return (1);
+}
+
+int	ft_putstr_prf(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (ft_putstr_prf("(null)"));
+	while (str[i] != 0)
+	{
+		write (1, &str[i], 1);
+		i++;
+	}
+	return (i);
 }
