@@ -6,19 +6,19 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:59:08 by lbirloue          #+#    #+#             */
-/*   Updated: 2024/05/08 00:37:27 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:38:29 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void free_all(t_data *data, char *str)
+int free_all(t_data *data, char *str, int esc)
 {
     t_lexer *current;
     t_lexer *temp;
 
     if (str)
-        free(str);
+        printf("%s\n", str);
     current = data->first;
     if (data->first)
     {
@@ -32,4 +32,7 @@ void free_all(t_data *data, char *str)
         free(current->token_str);
         free(current);
     }
+    if (esc)
+        exit (esc);
+    return (0);
 }
