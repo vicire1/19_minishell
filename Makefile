@@ -11,6 +11,10 @@ OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}
 
 # MINI_LIBFT_PATH	= mini_libft
 
+PRINTF_PATH		= Printf_fd
+
+PRINTF			= libftprinf.a
+
 CC				= cc
 
 RM				= rm -rf
@@ -22,22 +26,22 @@ LIBS			= -lreadline
 %.o: %.c
 	$(CC) $(C_FLAGS) -c $< -o $@ 
 
-all: ${NAME}
+all: ${PRINTF} ${NAME}
 
 ${NAME}: ${OBJ_MANDATORY}
-	${CC} ${OBJ_MANDATORY} -o ${NAME} ${LIBS}
+	${CC} ${OBJ_MANDATORY} -L${PRINTF_PATH} -lftprintf -o ${NAME} ${LIBS}
 
-# ${MINI_LIBFT}:
-# 	${MAKE} -C ${MINI_LIBFT_PATH} 
-# 	mv ${MINI_LIBFT_PATH}/${MINI_LIBFT} .
+${PRINTF}:
+	${MAKE} -C ${PRINTF_PATH}
 
 clean:
-#	${MAKE} clean -C
+	${MAKE} clean -C ${PRINTF_PATH}
 	${RM} ${OBJ_MANDATORY}
-#	${RM} ${FT_PRINTF} 
+	${RM} ${PRINTF}
 
 fclean: clean
-	${RM} ${NAME} ${MINI_LIBFT} 
+	${MAKE} fclean -C ${PRINTF_PATH}
+	${RM} ${NAME}
 
 re: fclean all
 

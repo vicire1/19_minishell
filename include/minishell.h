@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/08 19:52:27 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:22:02 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include "../Printf_fd/ft_printf.h"
 
 // DEFINE
 
