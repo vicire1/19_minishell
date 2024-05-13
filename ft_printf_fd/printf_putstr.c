@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   printf_putstr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 15:32:14 by lbirloue          #+#    #+#             */
-/*   Updated: 2024/05/07 23:59:37 by vdecleir         ###   ########.fr       */
+/*   Created: 2023/10/26 17:32:54 by vdecleir          #+#    #+#             */
+/*   Updated: 2024/02/28 13:59:27 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "ft_printf.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+int	printf_putstr(char *str, int fd)
 {
-	char		*ret;
-	const char	*cpy;
+	int	i;
 
-	ret = (char *)dest;
-	cpy = (const char *)src;
-	if (len == 0)
-		return (dest);
-	if (dest > src)
+	i = 0;
+	if (!str)
+		str = "(null)";
+	while (str[i])
 	{
-		while (len - 1 > 0)
-		{
-			ret[len -1] = cpy[len - 1];
-			len--;
-		}
-		ret[len - 1] = cpy[len - 1];
+		write(fd, &str[i], 1);
+		i++;
 	}
-	else
-		ft_memcpy(dest, src, len);
-	return ((void *)dest);
+	return (i);
 }

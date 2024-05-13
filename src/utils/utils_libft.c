@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   utils_libft.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 13:23:04 by lbirloue          #+#    #+#             */
-/*   Updated: 2024/05/08 18:56:54 by vdecleir         ###   ########.fr       */
+/*   Created: 2024/05/08 18:58:39 by vdecleir          #+#    #+#             */
+/*   Updated: 2024/05/08 19:37:37 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../include/minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] != 0)
+		i++;
+	return (i);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data)
 {
 	unsigned int	i;
 	char			*ret;
@@ -24,7 +36,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i++;
 	ret = malloc((i + 1) * sizeof(char));
 	if (!ret)
-		return (0);
+		free_all(data, ERR_MAL, 1);
 	i = 0;
 	while (len > i && start + i < ft_strlen(s))
 	{
@@ -33,4 +45,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	ret[i] = 0;
 	return (ret);
+}
+
+int	is_white_space(char c)
+{
+	if (c == ' ' || (c >= '\t' && c <= '\r'))
+		return (1);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:57:00 by lbirloue          #+#    #+#             */
-/*   Updated: 2024/03/21 16:40:31 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:14:53 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,10 @@ static char	**split2(char const *s, char c, char **ret)
 {
 	unsigned int	i;
 	unsigned int	j;
-	unsigned int	count_str;
 	unsigned int	len_str;
 
 	i = 0;
 	j = -1;
-	count_str = str_count(s, c);
 	while (s[i] != 0)
 	{
 		if (s[i] == c)
@@ -91,12 +89,8 @@ static char	**split2(char const *s, char c, char **ret)
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	j;
-	ssize_t	i;
 	char	**ret;
 
-	j = 0;
-	i = 0;
 	if (!s)
 		return (0);
 	ret = malloc((str_count(s, c) + 1) * sizeof(char *));

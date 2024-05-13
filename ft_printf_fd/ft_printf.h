@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 15:32:14 by lbirloue          #+#    #+#             */
-/*   Updated: 2024/05/07 23:59:37 by vdecleir         ###   ########.fr       */
+/*   Created: 2023/11/09 14:28:58 by vdecleir          #+#    #+#             */
+/*   Updated: 2024/05/13 12:50:30 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
-{
-	char		*ret;
-	const char	*cpy;
+# include <stdarg.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-	ret = (char *)dest;
-	cpy = (const char *)src;
-	if (len == 0)
-		return (dest);
-	if (dest > src)
-	{
-		while (len - 1 > 0)
-		{
-			ret[len -1] = cpy[len - 1];
-			len--;
-		}
-		ret[len - 1] = cpy[len - 1];
-	}
-	else
-		ft_memcpy(dest, src, len);
-	return ((void *)dest);
-}
+int	ft_printf_fd(int fd, const char *format, ...);
+int	printf_putstr(char *str, int fd);
+int	count_unsigned(unsigned int nb, char *str, int fd);
+int	ft_strlen2(char *str);
+int	printf_putchar(int c, int fd);
+int	count_signed(int nb, int fd);
+int	count_adress(void const *adr, char *str, int fd);
+
+#endif
