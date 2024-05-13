@@ -11,7 +11,7 @@ OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}
 
 # MINI_LIBFT_PATH	= mini_libft
 
-PRINTF_PATH		= Printf_fd
+PRINTF_PATH		= ft_printf_fd
 
 PRINTF			= libftprinf.a
 
