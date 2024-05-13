@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/13 16:05:39 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:58:20 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ typedef struct s_data
 	int		pos;
 }   t_data;
 
+
+//src/expand
+int expander(t_data *data);
 
 
 //src/parser
