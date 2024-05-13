@@ -3,10 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:09 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/07 14:16:10 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:57:10 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minishell.h"
+
+int expander(t_data *data)
+{
+	return (0);
+}
