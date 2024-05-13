@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/13 13:23:37 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:05:39 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,13 @@ typedef struct s_data
 
 
 
-//srcs/lexer
+//src/parser
+int	parser( t_data *data);
+
+//src/lexer
 int lexer(char *line, t_data *data);
 
-//srcs/utils
+//src/utils
 int		free_all(t_data *data, char *str, int esc);
 char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 size_t	ft_strlen(const char *str);
