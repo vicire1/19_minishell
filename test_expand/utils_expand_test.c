@@ -106,8 +106,8 @@ int	valid_quotes_env(t_expand *expand, char *str, int i)
 					return (1);
 				else if (count_quotes(expand,str, j))	//a faire
 				{
-				printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", str[j+1]);
-				return (1);
+					printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", str[j+1]);
+					return (2);
 				}
 			}
 		}

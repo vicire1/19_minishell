@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:09 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/22 13:15:23 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:33:37 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ void	env_str(t_expand *expand, int w_str)
 	while (i < nb_env)
 	{
 		if (valid_quotes_env(expand, expand->test[w_str], i))
+		{
 			printf("valid quotes\n");
 	//		j = realloc et replace(str, j)		//le j sera la position a partir de ou recommencer a check
+			
+		}
 		i++;
 	}
-	//	i++
 
 	return;
 }
@@ -140,13 +142,68 @@ transform_str			// tej les quotes que je peu tej
 ?????? ECHO $$$$USER le chiffre 2 fois 
 
 */
+/*=====================================================ENV===============================================================*/
+void	print_env(t_expand *data)
+{
+	t_env	*temp;
+
+	temp = data->first_env;
+	printf("----------------------\n");
+	while (temp->next)
+	{
+		printf("string : %s\n", temp->env_str);
+		printf("\033[1;31madr : %p | prev adr : %p | next adr : %p\n\033[0m", temp, temp->prev, temp->next);
+		temp = temp->next;
+	}
+	printf("string : %s\n", temp->env_str);
+	printf("\033[1;31madr : %p | prev adr : %p | next adr : %p\n\033[0m", temp, temp->prev, temp->next);
+	printf("----------------------\n");
+}
+
+int	new_node_env(char *str, t_expand *data)
+{
+	t_env		*new;
+	t_env		*temp;
+
+	new = malloc(sizeof(t_env));
+	new->next = NULL;
+	new->env_str = str;
+	if (data->first_env == NULL)
+	{
+		new->prev = NULL;
+		data->first_env = new;
+		return (0);
+	}
+	temp = data->first_env;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+	new->prev = temp;
+	return (0);
+}
+
+int	init_env(t_expand	*data, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while(envp[i])
+	{
+		new_node_env(envp[i], data);
+		i++;
+	}
+	print_env(data);
+	return(0);
+}
+/*=====================================================ENV===============================================================*/
 
 
 
 /*----MAIN DE TEST-----*/
 
-int main()
+int main(int ac, char **av, char **envp)
 {
+	
 	int i = 0;
 	t_expand expand;
 	expand.test = malloc(sizeof(char *) * 2);
@@ -154,8 +211,10 @@ int main()
 	expand.test[1] = malloc(sizeof(char) * 50);
 	
 	expand.test[0] = "cmd0";
-	expand.test[1] = "oui$USER\'\'$iS\'\'ou";
+	expand.test[1] = "ou\'i\'u$USER$iSou";
 
+	init_env(&expand, envp);
 	expander(&expand);
+	printf("[%s]\n", expand.test[1])
 	printf("---FIN---\n");
 }

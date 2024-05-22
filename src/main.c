@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/22 14:00:58 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:28:19 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int ac, char **av, char **envp)
 		line = readline("minishell: ");
 		if (lexer(line, &data))
 			printf("%s\n", ERR_SYN);
+		expander(&data);
 		parser(&data);
 		add_history(line);
 		free(line);

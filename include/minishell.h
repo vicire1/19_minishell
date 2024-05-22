@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/22 13:47:53 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:29:12 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ typedef enum s_token
 	LESS_LESS,
 }			t_token;
 
+typedef struct s_expander
+{
+	int	l_s_quotes;
+	int	l_db_quotes;
+	int	r_s_quotes;
+	int	r_db_quotes;
+}			t_expander;
+
+
 typedef struct s_lexer
 {
 	int		pos;
@@ -47,6 +56,7 @@ typedef struct s_lexer
 	void	*next;
 	void	*prev;
 }			t_lexer;
+
 typedef struct s_env
 {
 	char	*env_str;
@@ -56,6 +66,7 @@ typedef struct s_env
 
 typedef struct s_data
 {
+	t_expander	*expand;
     t_lexer	*first;
     t_env	*first_env;
 	int		pos;
@@ -78,8 +89,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 size_t	ft_strlen(const char *str);
 int		is_white_space(char c);
 
+//src/utils/utils_expand
+int	check_v_env(char *str);
+int	check_longuest_q(char *str, int j);
+int count_quotes(t_data *data, t_lexer *exp, int start);
+
 //src/utils/utils_env
 void	print_env(t_data *data);
-int	new_node_env(char *str, t_data *data);
+int		new_node_env(char *str, t_data *data);
 
 #endif

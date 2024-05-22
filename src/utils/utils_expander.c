@@ -1,0 +1,104 @@
+#include "../../include/minishell.h"
+
+int count_l_quotes(t_data *data, t_lexer *exp, int start)
+{
+	while (start > 0)
+	{
+		if (exp->token_str[start] == '\"')
+			data->expand->l_db_quotes++;
+		else if (exp->token_str[start] == '\'')
+			data->expand->l_s_quotes++;
+		start--;
+	}
+	return (0);
+}
+
+int count_r_quotes(t_data *data, t_lexer *exp, int start)
+{
+	while (exp->token_str[start])
+	{
+		if (exp->token_str[start] == '\"')
+			data->expand->r_db_quotes++;
+		else if (exp->token_str[start] == '\'')
+			data->expand->r_s_quotes++;
+		start++;
+	}
+	return (0);
+}
+
+int count_quotes(t_data *data, t_lexer *exp, int start)
+{
+	printf("LET COUNT\n");
+	data->expand->l_s_quotes = 0;
+	printf("gdf\n");
+	data->expand->l_db_quotes = 0;
+	data->expand->r_s_quotes = 0;
+	data->expand->r_db_quotes = 0;
+	count_l_quotes(data, exp, start);
+	count_r_quotes(data, exp, start);
+	if (data->expand->l_db_quotes == 0 && data->expand->l_s_quotes == 0 && data->expand->r_db_quotes == 0 && data->expand->r_s_quotes == 0)
+		return (1);
+	if ((data->expand->l_s_quotes % 2 == 0) || (data->expand->r_s_quotes % 2 == 0))
+		return (1);
+	return (0);
+}
+
+int	check_longuest_q(char *str, int j)
+{
+	int	i;
+	int left;
+	int	right;
+
+	i = 0;
+	left = -1;
+	right = -1;
+	int	len = ft_strlen(str);
+	while (i != j)
+	{
+		if (str[i] == 39)	//single quotes ascii
+		{
+			left = 0;
+			break;
+		}
+		else if (str[i] == 34) //double quotes ascii
+		{
+			left = 1;
+			break;
+		}
+		i++;
+	}
+	while (len != j)
+	{
+		if (str[len] == 39)	//single quotes ascii
+		{
+			right = 0;
+			break;
+		}
+		else if (str[len] == 34) //double quotes ascii
+		{
+			right = 1;
+			break;
+		}
+		len--;
+	}
+	if (right == 1 && left == 1)
+		return (1);
+	return (0);
+}
+
+int	check_v_env(char *str)
+{
+	printf("entre check_v_env\n");
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if(str[i ]== '$')
+			j++;
+		i++;
+	}
+	return (j);
+}
