@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/13 16:11:30 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:00:58 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ int	init_data(t_data *data)
 	return (0);
 }
 
+int	init_env(t_data	*data, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while(envp[i])
+	{
+		new_node_env(envp[i], data);
+		i++;
+	}
+	print_env(data);
+	return(0);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char*	line;
@@ -26,7 +40,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	(void)envp;
+	init_env(&data, envp);
 	while (1)
 	{
 		init_data(&data);

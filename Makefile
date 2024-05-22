@@ -4,6 +4,7 @@ SRC_MANDATORY	= 	src/main.c \
 					src/lexer/lexer.c \
 					src/utils/utils_lexer.c \
 					src/utils/utils_libft.c \
+					src/utils/utils_env.c \
 					src/parser/parser.c \
 
 OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}

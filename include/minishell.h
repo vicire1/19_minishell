@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/13 16:58:20 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:47:53 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,17 @@ typedef struct s_lexer
 	void	*next;
 	void	*prev;
 }			t_lexer;
+typedef struct s_env
+{
+	char	*env_str;
+	void	*next;
+	void	*prev;
+}			t_env;
 
 typedef struct s_data
 {
-    t_lexer *first;
+    t_lexer	*first;
+    t_env	*first_env;
 	int		pos;
 }   t_data;
 
@@ -70,5 +77,9 @@ int		free_all(t_data *data, char *str, int esc);
 char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 size_t	ft_strlen(const char *str);
 int		is_white_space(char c);
+
+//src/utils/utils_env
+void	print_env(t_data *data);
+int	new_node_env(char *str, t_data *data);
 
 #endif
