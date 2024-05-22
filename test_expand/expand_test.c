@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:09 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/15 14:06:47 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:15:23 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,14 @@ SI SIMPLE, JUSTE RETIRER LES SIMPLE QUOTES
 SI PAS DE $
 
 
+=================================================
+check_v_env				//c heck si y a un ou plusieur $
+env_str					// check et remplace les $ dans la string
+check_quotes			// check si il y a des quotes
+transform_str			// tej les quotes que je peu tej
+=================================================
+
+
 
 
 
@@ -146,7 +154,7 @@ int main()
 	expand.test[1] = malloc(sizeof(char) * 50);
 	
 	expand.test[0] = "cmd0";
-	expand.test[1] = "n\"$do\'$t\'st\"";
+	expand.test[1] = "oui$USER\'\'$iS\'\'ou";
 
 	expander(&expand);
 	printf("---FIN---\n");

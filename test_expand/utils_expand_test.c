@@ -13,7 +13,22 @@ int count_l_quotes(t_expand *expand, char *str, int start)
 			expand->l_s_quotes++;
 		start--;
 	}
-	// if ()
+	return (0);
+}
+
+int count_r_quotes(t_expand *expand, char *str, int start)
+{
+	expand->r_s_quotes = 0;
+	expand->r_db_quotes = 0;
+
+	while (str[start])
+	{
+		if (str[start] == '\"')
+			expand->r_db_quotes++;
+		else if (str[start] == '\'')
+			expand->r_s_quotes++;
+		start++;
+	}
 	return (0);
 }
 
@@ -21,6 +36,11 @@ int count_quotes(t_expand *expand, char *str, int start)
 {
 	printf("LET COUNT\n");
 	count_l_quotes(expand, str, start);
+	count_r_quotes(expand, str, start);
+	if (expand->l_db_quotes == 0 && expand->l_s_quotes == 0 && expand->r_db_quotes == 0 && expand->r_s_quotes == 0)
+		return (1);
+	if ((expand->l_s_quotes % 2 == 0) || (expand->r_s_quotes % 2 == 0))
+		return (1);
 	return (0);
 }
 
@@ -86,7 +106,7 @@ int	valid_quotes_env(t_expand *expand, char *str, int i)
 					return (1);
 				else if (count_quotes(expand,str, j))	//a faire
 				{
-				printf("VALID_QUOTES_FAUT REPLACE");
+				printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", str[j+1]);
 				return (1);
 				}
 			}
