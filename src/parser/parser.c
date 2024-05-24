@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:19 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/13 16:06:37 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:09:18 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	parser( t_data *data)
+int	parser(t_data *data)
 {
-	printf("start parsing\n");
-	(void)data;
-	return (0);	
+	
 }
