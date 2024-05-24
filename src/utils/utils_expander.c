@@ -1,5 +1,21 @@
 #include "../../include/minishell.h"
 
+int	env_cmp(char *str, char *str_env)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i] && str_env[i])
+	{
+		if (str[i] != str_env[i])
+			return (0);
+		i++;
+	}
+	if (str_env[i] != '=')
+		return (0);
+	return (1);
+}
+
 int count_l_quotes(t_data *data, t_lexer *exp, int start)
 {
 	while (start > 0)
@@ -28,9 +44,7 @@ int count_r_quotes(t_data *data, t_lexer *exp, int start)
 
 int count_quotes(t_data *data, t_lexer *exp, int start)
 {
-	printf("LET COUNT\n");
 	data->expand->l_s_quotes = 0;
-	printf("gdf\n");
 	data->expand->l_db_quotes = 0;
 	data->expand->r_s_quotes = 0;
 	data->expand->r_db_quotes = 0;

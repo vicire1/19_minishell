@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/22 16:29:12 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:57:40 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ typedef struct s_env
 typedef struct s_data
 {
 	t_expander	*expand;
-    t_lexer	*first;
-    t_env	*first_env;
+	t_lexer	*first;
+	t_env	*first_env;
 	int		pos;
-}   t_data;
+}t_data;
 
 
 //src/expand
@@ -87,12 +87,18 @@ int lexer(char *line, t_data *data);
 int		free_all(t_data *data, char *str, int esc);
 char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 size_t	ft_strlen(const char *str);
+int	ft_isalnum(int c);
 int		is_white_space(char c);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
 
 //src/utils/utils_expand
 int	check_v_env(char *str);
 int	check_longuest_q(char *str, int j);
+int count_l_quotes(t_data *data, t_lexer *exp, int start);
+int count_r_quotes(t_data *data, t_lexer *exp, int start);
 int count_quotes(t_data *data, t_lexer *exp, int start);
+int	env_cmp(char *str, char *str_env);
 
 //src/utils/utils_env
 void	print_env(t_data *data);

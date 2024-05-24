@@ -1,5 +1,32 @@
 #include "../../include/minishell.h"
 
+int	in_env(t_data *data, t_env *env, char *str)
+{
+	int	i;
+	char *tempo;
+	i = 0;
+	while (ft_isalnum(str[i]))
+		i++;
+	tempo = ft_substr(str, 0, i, data);
+	if (!tempo)
+	{
+		free(tempo);
+		return (0);
+	}
+	while(env->next)
+	{
+		if (env_cmp(tempo, env->env_str))
+		{
+			free(tempo);
+			printf("ouiii\n");
+			return (1);
+		}
+		env = env->next;
+	}
+	free(tempo);
+	return (0);
+}
+
 int	valid_quotes_env(t_data *data, t_lexer *exp, int i)
 {
 	int	j;
@@ -15,15 +42,20 @@ int	valid_quotes_env(t_data *data, t_lexer *exp, int i)
 			if (doll == i)
 			{
 				printf("DOLL = i\n");
-				if (check_longuest_q(exp->token_str, j))		//ca a l'air ok
+				// test_quotes(data, exp, j);
+				// if (check_longuest_q(exp->token_str, j))		//ca a l'air ok
+				// {
+				// 	printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", exp->token_str[j+1]);
+				// 	if (in_env(data, data->first_env, exp->token_str + j + 1))
+				// 		printf("inv envvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
+				// 	return (1);
+				// }
+				if (count_quotes(data, exp, j))	//a faire
 				{
 					printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", exp->token_str[j+1]);
+					if (in_env(data, data->first_env, exp->token_str + j + 1))
+						printf("inv envvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
 					return (1);
-				}
-				else if (count_quotes(data, exp, j))	//a faire
-				{
-					printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", exp->token_str[j+1]);
-					return (2);
 				}
 			}
 		}
