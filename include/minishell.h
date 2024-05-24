@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/24 14:57:40 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:49:41 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 
 //src/utils/utils_expand
+int	size_env_value(char *env_line);
+int	size_env_name(char *env_line);
 int	check_v_env(char *str);
-int	check_longuest_q(char *str, int j);
 int count_l_quotes(t_data *data, t_lexer *exp, int start);
 int count_r_quotes(t_data *data, t_lexer *exp, int start);
 int count_quotes(t_data *data, t_lexer *exp, int start);

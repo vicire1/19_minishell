@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int	in_env(t_data *data, t_env *env, char *str)
+char	*in_env(t_data *data, t_env *env, char *str)
 {
 	int	i;
 	char *tempo;
@@ -19,21 +19,26 @@ int	in_env(t_data *data, t_env *env, char *str)
 		{
 			free(tempo);
 			printf("ouiii\n");
-			return (1);
+			return (env->env_str);
 		}
 		env = env->next;
 	}
 	free(tempo);
-	return (0);
+	return (NULL);
 }
 
 int	valid_quotes_env(t_data *data, t_lexer *exp, int i)
 {
 	int	j;
 	int	doll;
+	char *tempo;
+	int	val_len;
+	int	name_len;
 
 	j = 0;
 	doll = -1;
+	val_len = 0;
+	name_len = 0;
 	while (exp->token_str[j])
 	{
 		if (exp->token_str[j] == '$')
@@ -41,20 +46,18 @@ int	valid_quotes_env(t_data *data, t_lexer *exp, int i)
 			doll++;
 			if (doll == i)
 			{
-				printf("DOLL = i\n");
-				// test_quotes(data, exp, j);
-				// if (check_longuest_q(exp->token_str, j))		//ca a l'air ok
-				// {
-				// 	printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", exp->token_str[j+1]);
-				// 	if (in_env(data, data->first_env, exp->token_str + j + 1))
-				// 		printf("inv envvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
-				// 	return (1);
-				// }
-				if (count_quotes(data, exp, j))	//a faire
+				if (count_quotes(data, exp, j))
 				{
 					printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", exp->token_str[j+1]);
-					if (in_env(data, data->first_env, exp->token_str + j + 1))
-						printf("inv envvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
+					tempo = in_env(data, data->first_env, exp->token_str + j + 1);
+					if (tempo)
+					{
+						val_len = size_env_value(tempo);
+						name_len = size_env_name(tempo);
+						printf("EXISTE => %d\n", val_len);
+					}
+					
+					printf("[%s]\n", tempo);
 					return (1);
 				}
 			}
@@ -74,10 +77,10 @@ void	env_str(t_data *data, t_lexer	*exp)
 	while (i < nb_env)
 	{
 		j = valid_quotes_env(data, exp, i);
-		if (j == 1)
-			printf("cas db quotes\n");
-		else if (j == 2)
-			printf("cas singles quotes\n");
+		// if (j == 1)
+		// 	printf("cas db quotes\n");
+		// else if (j == 2)
+		// 	printf("cas singles quotes\n");
 		i++;
 	}
 	return;
