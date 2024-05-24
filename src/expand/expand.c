@@ -4,6 +4,7 @@ char	*in_env(t_data *data, t_env *env, char *str)
 {
 	int	i;
 	char *tempo;
+
 	i = 0;
 	while (ft_isalnum(str[i]))
 		i++;
@@ -13,12 +14,11 @@ char	*in_env(t_data *data, t_env *env, char *str)
 		free(tempo);
 		return (0);
 	}
-	while(env->next)
+	while (env->next)
 	{
 		if (env_cmp(tempo, env->env_str))
 		{
 			free(tempo);
-			printf("ouiii\n");
 			return (env->env_str);
 		}
 		env = env->next;
@@ -31,6 +31,7 @@ int	valid_quotes_env(t_data *data, t_lexer *exp, int i)
 {
 	int	j;
 	int	doll;
+	char *tempo_val;
 	char *tempo;
 	int	val_len;
 	int	name_len;
@@ -49,15 +50,36 @@ int	valid_quotes_env(t_data *data, t_lexer *exp, int i)
 				if (count_quotes(data, exp, j))
 				{
 					printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", exp->token_str[j+1]);
-					tempo = in_env(data, data->first_env, exp->token_str + j + 1);
-					if (tempo)
+					tempo_val = in_env(data, data->first_env, exp->token_str + j + 1);
+					name_len = size_env_doll(exp->token_str + j);
+					if (tempo_val)
 					{
-						val_len = size_env_value(tempo);
-						name_len = size_env_name(tempo);
+						val_len = size_env_value(tempo_val);
+						name_len = size_env_name(tempo_val);
 						printf("EXISTE => %d\n", val_len);
 					}
-					
-					printf("[%s]\n", tempo);
+					printf("[%s][%d]\n", tempo_val, j);
+					printf("RETIRER %d et AJT %d donc realloc de \n", name_len, val_len);
+					tempo = ft_strdup(exp->token_str);
+					if (!tempo)
+						free_all(data, ERR_MAL, 1);
+					exp->token_str = realloc(exp->token_str, (ft_strlen(tempo) - name_len + val_len));
+					// exp->token_str = NULL;
+					printf("======EVOLUTION======\n");
+					printf("LENS => val_len = %d | name_len = %d | j = %d\n", val_len, name_len, j);
+					strncpy(exp->token_str, tempo, j);
+					printf("[1] %s\n", exp->token_str);
+					strcpy(exp->token_str + j, tempo_val+name_len);
+					printf("[2] %s\n", exp->token_str);
+					strcpy(exp->token_str + j + val_len, tempo + val_len + 1 );
+					printf("[3] %s\n", exp->token_str);
+					free(tempo);
+					printf("(%s)\n", exp->token_str);
+					//faire avec des joins !!!!!!!!!!!!!!!!!!!!!!
+					//faire une seule boucle (en quelques sorte delete celle de la fonction precedente), des que je crois un doll je m'en occupe direct, puis je pass au suivant.
+					//pour les quotes, je gere ca tout a la fin
+					// copier jusqua j, copine tempo puis copier la fin
+
 					return (1);
 				}
 			}

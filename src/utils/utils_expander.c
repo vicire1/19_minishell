@@ -1,5 +1,13 @@
 #include "../../include/minishell.h"
 
+int	size_env_doll(char *str)
+{
+	int	i = 0;
+	while (ft_isalnum(str[i]))
+		i++;
+	return (i);
+}
+
 int	size_env_name(char *env_line)
 {
 	int	i;
