@@ -89,6 +89,7 @@ int count_quotes(t_data *data, t_lexer *exp, int start)
 		return (1);
 	if ((data->expand->l_s_quotes % 2 == 0) || (data->expand->r_s_quotes % 2 == 0))
 		return (1);
+	printf("***********RET 0***********\n");
 	return (0);
 }
 

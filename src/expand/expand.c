@@ -50,46 +50,31 @@ int	valid_quotes_env(t_data *data, t_lexer *exp, int i)
 			{
 				printf("VALID_QUOTES_FAUT REPLACE [$%c]\n", exp->token_str[j+1]);
 				tempo_val = in_env(data, data->first_env, exp->token_str + j + 1);
-				printf("[1] [%s]\n", tempo_val);
 				name_len = size_env_doll(exp->token_str + j + 1);
-				printf("[2] [%d]\n", name_len);
 				val_len = 0;
 				if (tempo_val)
 				{
 					val_len = size_env_value(tempo_val);
-				printf("[3] [%d]\n", val_len);
 					name_len = size_env_name(tempo_val);
-				printf("[4] [%d]\n", name_len);
 				}
 				tempo = ft_strdup(exp->token_str);
-				printf("[5] [%s]\n", tempo);
 				if (!tempo)
 					free_all(data, ERR_MAL, 1);
 				first_part = ft_substr(tempo, 0, j, data);
-				printf("[6] [%s]\n", first_part);
 				sec_part = ft_substr(tempo_val, name_len, val_len, data);
-				printf("[7] [%s]\n", sec_part);
 				if (sec_part)
-				{
-					third_part = ft_substr(tempo, j + name_len, strlen(tempo), data);
-					printf("[8] [%s]\n", third_part);
-				}
+					third_part = ft_substr(tempo, j + name_len, ft_strlen(tempo), data);
 				else
-				{
-					third_part = ft_substr(tempo, j + name_len + 1, strlen(tempo), data);
-					printf("[8] [%s]\n", third_part);
-				}
+					third_part = ft_substr(tempo, j + name_len + 1, ft_strlen(tempo), data);
 				free(exp->token_str);
 				free(tempo);
 				tempo = ft_strjoin(first_part, sec_part);
-				printf("[9] [%s]\n", tempo);
 				if (tempo)
 					exp->token_str = ft_strjoin(tempo , third_part);
 				else
 					exp->token_str = ft_strjoin(first_part , third_part);
 				free(tempo);
 			}
-			
 		}
 		j++;
 	}
