@@ -160,6 +160,7 @@ int	delete_quotes(t_data *data, t_lexer *exp)
 			exp->token_str = ft_strdup(sec_part);
 			free(first_part);
 			free(sec_part);
+			i-=2;
 		}
 		else if (exp->token_str[i] == '\'')
 		{
@@ -174,6 +175,7 @@ int	delete_quotes(t_data *data, t_lexer *exp)
 			exp->token_str = ft_strdup(sec_part);
 			free(first_part);
 			free(sec_part);
+			i-=2;
 		}
 		i++;
 	}
