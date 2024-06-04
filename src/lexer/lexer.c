@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/24 17:33:17 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:40:21 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	check_double_token(t_data *data)
 		temp = current->next;
 		if (current->token && temp->token)
 			return (1);
+		if (current->token && !current->next)
+			return (1);
 		current = temp;
 	}
 	return (0);
@@ -142,6 +144,6 @@ int	lexer(char *line, t_data *data)
 	}
 	if (check_double_token(data))
 		return (1);
-	print_struct(data);
+	//print_struct(data);
 	return (0);
 }

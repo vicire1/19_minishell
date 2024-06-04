@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:58:39 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/08 19:37:37 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:16:15 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,22 @@ int	is_white_space(char c)
 	if (c == ' ' || (c >= '\t' && c <= '\r'))
 		return (1);
 	return (0);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*ret;
+	int		i;
+
+	i = 0;
+	ret = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!ret)
+		return (0);
+	while (s[i] != 0)
+	{
+		ret[i] = s[i];
+		i++;
+	}
+	ret[i] = 0;
+	return (ret);
 }
