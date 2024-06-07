@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/24 16:58:05 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:35:19 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ typedef struct s_data
 //src/expand
 int expander(t_data *data);
 
+//src/expand_quotes
+int	check_quotes(t_lexer *exp, int j, int i);
+
 
 //src/parser
 int	parser( t_data *data);
@@ -103,9 +106,6 @@ int	size_env_doll(char *str);
 int	size_env_value(char *env_line);
 int	size_env_name(char *env_line);
 int	check_v_env(char *str);
-int count_l_quotes(t_data *data, t_lexer *exp, int start);
-int count_r_quotes(t_data *data, t_lexer *exp, int start);
-int count_quotes(t_data *data, t_lexer *exp, int start);
 int	env_cmp(char *str, char *str_env);
 
 //src/utils/utils_env
@@ -113,3 +113,11 @@ void	print_env(t_data *data);
 int		new_node_env(char *str, t_data *data);
 
 #endif
+
+
+/*
+
+test"$USER"'$USER'$USER"test"$non
+testlbirloue$USERlbirlouetest
+
+*/
