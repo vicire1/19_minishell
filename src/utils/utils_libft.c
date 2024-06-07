@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:58:39 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/07 12:39:06 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:03:41 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (1);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(const char *s, t_data *data)
 {
 	char	*ret;
 	int		i;
@@ -91,7 +91,7 @@ char	*ft_strdup(const char *s)
 	i = 0;
 	ret = malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (!ret)
-		return (0);
+		free_all(data, ERR_MAL, 1);
 	while (s[i] != 0)
 	{
 		ret[i] = s[i];
@@ -116,7 +116,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return ((size_t)ft_strlen(src));
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, t_data *data)
 {
 	char	*ret;
 	size_t	i;
@@ -132,7 +132,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_s2 = ft_strlen(s2);
 	ret = malloc((size_s1 + size_s2 + 1) * sizeof(char));
 	if (!ret)
-		return (0);
+		free_all(data, ERR_MAL, 1);
 	ft_strlcpy(ret, s1, size_s1 + 1);
 	i = size_s1;
 	while (i < size_s1 + size_s2)

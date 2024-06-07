@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/07 12:35:19 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:46:57 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ typedef enum s_token
 
 typedef struct s_expander
 {
-	int	l_s_quotes;
-	int	l_db_quotes;
-	int	r_s_quotes;
-	int	r_db_quotes;
+	int		val_len;
+	int		n_len;
+	char	*tmp_val;
+	char	*tmp;
+	char	*first_part;
+	char	*sec_part;
+	char	*third_part;
 }			t_expander;
 
 
@@ -69,7 +72,7 @@ typedef struct s_env
 
 typedef struct s_data
 {
-	t_expander	*expand;
+	t_expander	*expa;
 	t_lexer	*first;
 	t_env	*first_env;
 	int		pos;
@@ -77,10 +80,15 @@ typedef struct s_data
 
 
 //src/expand
-int expander(t_data *data);
+char	*in_env(t_data *data, t_env *env, char *str);
+int		expander(t_data *data);
 
 //src/expand_quotes
+int	delete_quotes(t_data *data, t_lexer *exp);
 int	check_quotes(t_lexer *exp, int j, int i);
+
+//src/expand_env
+void	replace_env(t_data *data, t_lexer *exp, int j, t_expander *expa);
 
 
 //src/parser
@@ -96,9 +104,9 @@ size_t	ft_strlen(const char *str);
 int	ft_isalnum(int c);
 int		is_white_space(char c);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strdup(const char *s);
+char	*ft_strdup(const char *s, t_data *data);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char const *s2, t_data *data);
 
 
 //src/utils/utils_expand
@@ -106,7 +114,11 @@ int	size_env_doll(char *str);
 int	size_env_value(char *env_line);
 int	size_env_name(char *env_line);
 int	check_v_env(char *str);
+void	free_two(void *first, void *sec);
 int	env_cmp(char *str, char *str_env);
+
+//src/utils/utils_free
+void	free_two(void *first, void *sec);
 
 //src/utils/utils_env
 void	print_env(t_data *data);

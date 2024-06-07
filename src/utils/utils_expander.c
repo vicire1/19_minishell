@@ -2,7 +2,9 @@
 
 int	size_env_doll(char *str)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while (ft_isalnum(str[i]))
 		i++;
 	return (i);
@@ -13,7 +15,7 @@ int	size_env_name(char *env_line)
 	int	i;
 
 	i = 0;
-	while(env_line[i] != '=')
+	while (env_line[i] != '=')
 		i++;
 	return (i + 1);
 }
@@ -25,20 +27,20 @@ int	size_env_value(char *env_line)
 
 	i = 0;
 	j = 0;
-	while(env_line[i] && env_line[i] != '=')
+	while (env_line[i] && env_line[i] != '=')
 		i++;
-	while(env_line[i])
+	while (env_line[i])
 	{
 		j++;
 		i++;
 	}
-	return(j - 1);
+	return (j - 1);
 }
 
 int	env_cmp(char *str, char *str_env)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i] && str_env[i])
 	{

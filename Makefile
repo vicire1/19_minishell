@@ -3,11 +3,13 @@ NAME			= minishell
 SRC_MANDATORY	= 	src/main.c \
 					src/lexer/lexer.c \
 					src/expand/expand.c \
+					src/expand/expand_env.c \
 					src/expand/expand_quotes.c \
 					src/utils/utils_lexer.c \
 					src/utils/utils_libft.c \
 					src/utils/utils_env.c \
 					src/utils/utils_expander.c \
+					src/utils/utils_free.c \
 					src/parser/parser.c \
 
 OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}
