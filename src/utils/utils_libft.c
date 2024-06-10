@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:58:39 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/07 15:03:41 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:59:17 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,29 @@ char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data)
 	ret = malloc((i + 1) * sizeof(char));
 	if (!ret)
 		free_all(data, ERR_MAL, 1);
+	i = 0;
+	while (len > i && start + i < ft_strlen(s))
+	{
+		ret[i] = s[start + i];
+		i++;
+	}
+	ret[i] = 0;
+	return (ret);
+}
+
+char	*ft_substr_bis(char const *s, unsigned int start, size_t len)
+{
+	unsigned int	i;
+	char			*ret;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (i < len && start + i < ft_strlen(s))
+		i++;
+	ret = malloc((i + 1) * sizeof(char));
+	if (!ret)
+		return (NULL);
 	i = 0;
 	while (len > i && start + i < ft_strlen(s))
 	{
@@ -114,6 +137,34 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	if (dstsize != 0)
 		dst[i] = 0;
 	return ((size_t)ft_strlen(src));
+}
+
+char	*ft_strjoin_bis(char const *s1, char const *s2)
+{
+	char	*ret;
+	size_t	i;
+	size_t	j;
+	size_t	size_s1;
+	size_t	size_s2;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	size_s1 = ft_strlen(s1);
+	size_s2 = ft_strlen(s2);
+	ret = malloc((size_s1 + size_s2 + 1) * sizeof(char));
+	if (!ret)
+		return (NULL);
+	ft_strlcpy(ret, s1, size_s1 + 1);
+	i = size_s1;
+	while (i < size_s1 + size_s2)
+	{
+		ret[i] = s2[j++];
+		i++;
+	}
+	ret[i] = 0;
+	return (ret);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2, t_data *data)
