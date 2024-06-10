@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/04 18:08:55 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:44:52 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	init_data(t_data *data)
 {
-	data->pos = -1;
 	data->first = NULL;
 	data->first_pars = NULL;
 	return (0);
@@ -34,7 +33,8 @@ int	main(int ac, char **av, char **envp)
 		line = readline("minishell: ");
 		if (lexer(line, &data))
 			printf("%s\n", ERR_SYN);
-		parser(&data);
+		else
+			parser(&data);
 		add_history(line);
 		free(line);
 		free_all(&data, NULL, 0);

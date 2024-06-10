@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/04 18:40:21 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:48:20 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_struct(t_data *data)
 	printf("----------------------\n");
 }
 
-int	new_node(char *str, t_token token, t_data *data)
+int	new_node(char *str, t_token token, t_data *data, int *pos)
 {
 	t_lexer		*new;
 	t_lexer		*temp;
@@ -52,7 +52,7 @@ int	new_node(char *str, t_token token, t_data *data)
 	}
 	new->token_str = str;
 	new->token = token;
-	new->pos = ++data->pos;
+	new->pos = ++(*pos);
 	new->next = NULL;
 	if (data->first == NULL)
 	{
@@ -79,30 +79,30 @@ int	check_double_token(t_data *data)
 		temp = current->next;
 		if (current->token && temp->token)
 			return (1);
-		if (current->token && !current->next)
-			return (1);
 		current = temp;
 	}
+	if (current->token)
+		return (1);
 	return (0);
 }
 
-int	tokenize(char *str, int i, t_data *data)
+int	tokenize(char *str, int i, t_data *data, int *pos)
 {
 	if (str[i] == '|')
-		return (new_node(ft_substr(str, i, 1, data), 1, data), 1);
+		return (new_node(ft_substr(str, i, 1, data), 1, data, pos), 1);
 	else if (str[i] == '<' && str[i + 1] == '<')
-		return (new_node(ft_substr(str, i, 2, data), 5, data), 2);
+		return (new_node(ft_substr(str, i, 2, data), 5, data, pos), 2);
 	else if (str[i] == '>' && str[i + 1] == '>')
-		return (new_node(ft_substr(str, i, 2, data), 3, data), 2);
+		return (new_node(ft_substr(str, i, 2, data), 3, data, pos), 2);
 	else if (str[i] == '<')
-		return (new_node(ft_substr(str, i, 1, data), 4, data), 1);
+		return (new_node(ft_substr(str, i, 1, data), 4, data, pos), 1);
 	else if (str[i] == '>')
-		return (new_node(ft_substr(str, i, 1, data), 2, data), 1);
+		return (new_node(ft_substr(str, i, 1, data), 2, data, pos), 1);
 	else
 		return (0);
 }
 
-int	save_cmds(char *str, t_data *data)
+int	save_cmds(char *str, t_data *data, int *pos)
 {
 	int		i;
 	char	c;
@@ -122,7 +122,7 @@ int	save_cmds(char *str, t_data *data)
 		i++;
 	}
 	if (i != 0)
-		new_node(ft_substr(str, 0, i, data), 0, data);
+		new_node(ft_substr(str, 0, i, data), 0, data, pos);
 	return (i);
 }
 
@@ -130,20 +130,22 @@ int	lexer(char *line, t_data *data)
 {
 	int	i;
 	int quotes;
+	int	pos;
 
 	i = 0;
+	pos = -1;
 	while (line[i])
 	{
 		while (is_white_space(line[i]))
 			i++;
-		i += tokenize(line, i, data);
-		quotes = save_cmds(&line[i], data);
+		i += tokenize(line, i, data, &pos);
+		quotes = save_cmds(&line[i], data, &pos);
 		if (quotes < 0)
 			return (1);
 		i += quotes;
 	}
 	if (check_double_token(data))
 		return (1);
-	//print_struct(data);
+	// print_struct(data);
 	return (0);
 }

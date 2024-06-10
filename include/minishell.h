@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/04 18:14:16 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:22:33 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,21 @@ typedef struct s_data
 {
     t_lexer *first;
 	t_pars	*first_pars;
-	int		pos;
 }   t_data;
-
-
-
-//src/parser
-// int	parser( t_data *data);
 
 //src/lexer
 int lexer(char *line, t_data *data);
 
+//parser
 int	parser(t_data *data);
+void	add_redir_to_pars(t_pars *first_pars, t_redir *first_redir);
+t_redir	*init_redir_node(t_data *data, t_lexer *file_node, int token, int i);
+int	new_node_pars(t_data *data, t_lexer *start, int arg, int redir);
+char	**create_cmd(t_data *data, t_lexer *start, int arg);
+int free_all(t_data *data, char *str, int esc);
 
 //src/utils
-int		free_all(t_data *data, char *str, int esc);
+int		free_lex(t_data *data);
 char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 size_t	ft_strlen(const char *str);
 int		is_white_space(char c);

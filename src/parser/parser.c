@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:19 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/04 19:25:50 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:21:00 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	print_cmd(char **cmd)
 {
-	int	i = 0;
-	
+	int	i;
+
+	i = 0;
 	printf("CMD : \n");
 	while (cmd[i])
 	{
@@ -27,26 +28,24 @@ void	print_cmd(char **cmd)
 
 void	print_redir(t_redir *redir)
 {
-	t_redir	*temp = redir;
+	t_redir	*temp;
 
+	temp = redir;
 	printf("REDIR : \n");
-	if (!temp)
-		return ;
-	while (temp->next)
+	while (temp)
 	{
 		printf("%d      ", temp->token);
 		printf("%s\n", temp->file);
 		temp = temp->next;
 	}
-	printf("%d      ", temp->token);
-	printf("%s\n", temp->file);
 }
 
 void	print_pars(t_pars *first)
 {
-	t_pars	*temp = first;
-	
-	while (temp->next)
+	t_pars	*temp;
+
+	temp = first;
+	while (temp)
 	{
 		printf("---------------------------------\n");
 		print_cmd(temp->cmd);
@@ -55,45 +54,6 @@ void	print_pars(t_pars *first)
 		printf("---------------------------------\n");
 		temp = temp->next;
 	}
-	printf("---------------------------------\n");
-	print_cmd(temp->cmd);
-	printf("nb redir : %d\n", temp->nb_redir);
-	print_redir(temp->redir);
-	printf("---------------------------------\n");
-}
-
-void	add_redir_to_pars(t_pars *first_pars, t_redir *first_redir)
-{
-	t_pars	*current;
-
-	current = first_pars;
-	while (current->next)
-		current = current->next;
-	current->redir = first_redir;
-}
-
-t_redir	*init_redir_node(t_data *data, t_lexer *file_node, int token, int i)
-{
-	t_redir		*new;
-	t_pars		*pars_node;
-	t_redir		*temp;
-
-	new = malloc(sizeof(t_redir));
-	if (!new)
-		return (NULL);
-	new->token = token;
-	new->file = ft_strdup(file_node->token_str);
-	new->next = NULL;
-	if (i == 0)
-		return (new);
-	pars_node = data->first_pars;
-	while (pars_node->next)
-		pars_node = pars_node->next;
-	temp = pars_node->redir;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = new;
-	return (new);
 }
 
 void	create_redir_lst(t_data *data, t_lexer *start, int redir)
@@ -102,7 +62,7 @@ void	create_redir_lst(t_data *data, t_lexer *start, int redir)
 	t_redir	*new;
 	int		token;
 	int		i;
-	
+
 	i = 0;
 	current = start;
 	while (i < redir)
@@ -120,7 +80,7 @@ void	create_redir_lst(t_data *data, t_lexer *start, int redir)
 	}
 }
 
-char **create_cmd(t_lexer *start, int arg)
+char	**create_cmd(t_data *data, t_lexer *start, int arg)
 {
 	t_lexer	*temp;
 	char	**cmd;
@@ -128,8 +88,7 @@ char **create_cmd(t_lexer *start, int arg)
 
 	cmd = malloc(sizeof(char **) * (arg + 1));
 	if (!cmd)
-		//freeexit
-		return (NULL);
+		free_all(data, ERR_MAL, 1);
 	i = 0;
 	temp = start;
 	while (i < arg)
@@ -147,69 +106,46 @@ char **create_cmd(t_lexer *start, int arg)
 	return (cmd);
 }
 
-int new_node_pars(t_data *data, t_lexer *start, int arg, int redir)
+t_lexer	*count_redir(t_lexer *current, int *arg, int *redir)
 {
-    t_pars		*new;
-	t_pars		*temp;
-
-	new = malloc(sizeof(t_pars));
-	if (!new)
-		return (-1);
-	new->cmd = create_cmd(start, arg);
-	new->redir = NULL;
-    new->nb_redir = redir;
-	new->next = NULL;
-	if (data->first_pars == NULL)
+	while (current)
 	{
-		new->prev = NULL;
-		data->first_pars = new;
-		return (0);
+		if (current->token == 1)
+		{
+			current = current->next;
+			break ;
+		}
+		else if (current->token)
+		{
+			(*redir)++;
+			current = current->next;
+		}
+		else
+			(*arg)++;
+		current = current->next;
 	}
-	temp = data->first_pars;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = new;
-	new->prev = temp;
-	return (0);
+	return (current);
 }
 
 int	parser(t_data *data)
 {
-	t_lexer *current;
-    t_lexer *start;
-    int     arg;
-    int     redir;
+	t_lexer	*current;
+	t_lexer	*start;
+	int		arg;
+	int		redir;
 
-    current = data->first;
-    if (current->token == 1)
-    {
-        // free et return bon truc
-        return (-1);
-    }
-    while (current)
-    {
-        arg = 0;
-        redir = 0;
-        start = current;
-        while (current)
-        {
-            if (current->token == 1)
-            {
-                current = current->next;
-                break;
-            }
-            else if (current->token)
-			{
-                redir++;
-				current = current->next;
-			}
-			else
-            	arg++;
-            current = current->next;
-        }
-        new_node_pars(data, start, arg, redir);
+	current = data->first;
+	if (current->token == 1)
+		free_all(data, ERR_MAL, 0);
+	while (current)
+	{
+		arg = 0;
+		redir = 0;
+		start = current;
+		current = count_redir(current, &arg, &redir);
+		new_node_pars(data, start, arg, redir);
 		create_redir_lst(data, start, redir);
-    }
+	}
 	print_pars(data->first_pars);
 	return (0);
 }
