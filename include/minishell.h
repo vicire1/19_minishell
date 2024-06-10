@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:08:00 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:14:03 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ typedef struct s_env
 typedef struct s_data
 {
 	t_expander	*expa;
-	t_lexer	*first;
+	t_lexer	*first_lex;
 	t_env	*first_env;
+	t_pars	*first_pars;
 	int		pos;
 }t_data;
 

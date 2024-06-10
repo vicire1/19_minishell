@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:09:29 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:15:59 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_struct(t_data *data)
 {
 	t_lexer	*temp;
 
-	temp = data->first;
+	temp = data->first_lex;
 	while (temp->next)
 	{
 		printf("----------------------\n");
@@ -39,7 +39,7 @@ void	print_struct(t_data *data)
 	printf("----------------------\n");
 }
 
-int	new_node_lex(char *str, t_token token, t_data *data)
+int	new_node_lex(char *str, t_token token, t_data *data, int *pos)
 {
 	t_lexer		*new;
 	t_lexer		*temp;
@@ -54,13 +54,13 @@ int	new_node_lex(char *str, t_token token, t_data *data)
 	new->token = token;
 	new->pos = ++(*pos);
 	new->next = NULL;
-	if (data->first == NULL)
+	if (data->first_lex == NULL)
 	{
 		new->prev = NULL;
-		data->first = new;
+		data->first_lex = new;
 		return (0);
 	}
-	temp = data->first;
+	temp = data->first_lex;
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
@@ -73,7 +73,7 @@ int	check_double_token(t_data *data)
 	t_lexer *current;
 	t_lexer *temp;
 
-	current = data->first;
+	current = data->first_lex;
 	while (current->next)
 	{
 		temp = current->next;
@@ -89,15 +89,15 @@ int	check_double_token(t_data *data)
 int	tokenize(char *str, int i, t_data *data, int *pos)
 {
 	if (str[i] == '|')
-		return (new_node_lex(ft_substr(str, i, 1, data), 1, data), 1);
+		return (new_node_lex(ft_substr(str, i, 1, data), 1, data, pos), 1);
 	else if (str[i] == '<' && str[i + 1] == '<')
-		return (new_node_lex(ft_substr(str, i, 2, data), 5, data), 2);
+		return (new_node_lex(ft_substr(str, i, 2, data), 5, data, pos), 2);
 	else if (str[i] == '>' && str[i + 1] == '>')
-		return (new_node_lex(ft_substr(str, i, 2, data), 3, data), 2);
+		return (new_node_lex(ft_substr(str, i, 2, data), 3, data, pos), 2);
 	else if (str[i] == '<')
-		return (new_node_lex(ft_substr(str, i, 1, data), 4, data), 1);
+		return (new_node_lex(ft_substr(str, i, 1, data), 4, data, pos), 1);
 	else if (str[i] == '>')
-		return (new_node_lex(ft_substr(str, i, 1, data), 2, data), 1);
+		return (new_node_lex(ft_substr(str, i, 1, data), 2, data, pos), 1);
 	else
 		return (0);
 }
@@ -122,7 +122,7 @@ int	save_cmds(char *str, t_data *data, int *pos)
 		i++;
 	}
 	if (i != 0)
-		new_node_lex(ft_substr(str, 0, i, data), 0, data);
+		new_node_lex(ft_substr(str, 0, i, data), 0, data, pos);
 	return (i);
 }
 

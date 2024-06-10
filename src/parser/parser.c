@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:19 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:09:49 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:18:32 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minishell.h"
 
 void	print_cmd(char **cmd)
 {
@@ -96,7 +97,7 @@ char	**create_cmd(t_data *data, t_lexer *start, int arg)
 			temp = temp->next;
 		else
 		{
-			cmd[i] = ft_strdup(temp->token_str);
+			cmd[i] = ft_strdup(temp->token_str, data);
 			i++;
 		}
 		temp = temp->next;
@@ -133,7 +134,7 @@ int	parser(t_data *data)
 	int		arg;
 	int		redir;
 
-	current = data->first;
+	current = data->first_lex;
 	if (current->token == 1)
 		free_all(data, ERR_MAL, 0);
 	while (current)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_libft.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:58:39 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:10:30 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:17:22 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,20 +196,20 @@ char	*ft_strjoin(char const *s1, char const *s2, t_data *data)
 }
 
 
-char	*ft_strdup(const char *s)
-{
-	char	*ret;
-	int		i;
+// char	*ft_strdup(const char *s)
+// {
+// 	char	*ret;
+// 	int		i;
 
-	i = 0;
-	ret = malloc((ft_strlen(s) + 1) * sizeof(char));
-	if (!ret)
-		return (0);
-	while (s[i] != 0)
-	{
-		ret[i] = s[i];
-		i++;
-	}
-	ret[i] = 0;
-	return (ret);
-}
+// 	i = 0;
+// 	ret = malloc((ft_strlen(s) + 1) * sizeof(char));
+// 	if (!ret)
+// 		return (0);
+// 	while (s[i] != 0)
+// 	{
+// 		ret[i] = s[i];
+// 		i++;
+// 	}
+// 	ret[i] = 0;
+// 	return (ret);
+// }

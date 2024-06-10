@@ -77,8 +77,8 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 			if (check_quotes(exp, j, 0))
 				replace_env(data, exp, j, data->expa);
 		}
-		else if (exp->token_str[j] == '$' && del_doll_quotes_verif
-			(exp->token_str, j))
+		else if (exp->token_str[j] == '$' && del_doll_quotes_verif //reparer ca et faire la meme verif que dans le check_quotes je crois
+			(exp->token_str, j)) 
 		{
 			if (check_quotes(exp, j, 0))
 				delete_doll(data, exp, j);
@@ -92,7 +92,7 @@ int	expander(t_data *data)
 {
 	t_lexer	*exp;
 
-	exp = data->first;
+	exp = data->first_lex;
 	data->expa = malloc(sizeof(t_expander));
 	while (exp->next)
 	{
@@ -104,7 +104,7 @@ int	expander(t_data *data)
 	if (check_v_env(exp->token_str))
 		valid_quotes_env(data, exp);
 	delete_quotes(data, exp);
-	print_expand(data);
+	// print_expand(data);
 	free(data->expa);
 	return (0);
 }

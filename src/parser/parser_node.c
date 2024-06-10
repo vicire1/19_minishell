@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:03:22 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 16:19:28 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:18:40 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_redir	*init_redir_node(t_data *data, t_lexer *file_node, int token, int i)
 	if (!new)
 		free_all(data, ERR_MAL, 1);
 	new->token = token;
-	new->file = ft_strdup(file_node->token_str);
+	new->file = ft_strdup(file_node->token_str, data);
 	if (!new->file)
 		free_all(data, ERR_MAL, 1);
 	new->next = NULL;
