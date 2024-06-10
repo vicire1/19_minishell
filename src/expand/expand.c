@@ -1,26 +1,5 @@
 #include "../../include/minishell.h"
 
-void	print_expand(t_data *data)
-{
-	t_lexer	*temp;
-
-	temp = data->first;
-	while (temp->next)
-	{
-		printf("----------------------\n");
-		printf("***EXPANDER***\n");
-		printf("Pos : %i\n", temp->pos);
-		printf("string : %s\n", temp->token_str);
-		printf("----------------------\n");
-		temp = temp->next;
-	}
-	printf("----------------------\n");
-	printf("***EXPANDER***\n");
-	printf("Pos : %i\n", temp->pos);
-	printf("string : %s\n", temp->token_str);
-	printf("----------------------\n");
-}
-
 char	*in_env(t_data *data, t_env *env, char *str)
 {
 	int		i;
