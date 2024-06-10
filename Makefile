@@ -11,6 +11,8 @@ SRC_MANDATORY	= 	src/main.c \
 					src/utils/utils_expander.c \
 					src/utils/utils_free.c \
 					src/parser/parser.c \
+					src/parser/parser_node.c \
+					src/parser/free_node_pars.c
 
 OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}
 

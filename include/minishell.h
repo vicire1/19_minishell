@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 16:20:40 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:08:00 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,22 @@ typedef struct s_expander
 }			t_expander;
 
 
+typedef struct s_redir
+{
+	t_token	token;
+	char	*file;
+	void	*next;
+}				t_redir;
+
+typedef struct	s_pars
+{
+	char	**cmd;
+	int		nb_redir;
+	t_redir	*redir;
+	void	*next;
+	void	*prev;
+}				t_pars;
+
 typedef struct s_lexer
 {
 	int		pos;
@@ -97,8 +113,16 @@ int	parser( t_data *data);
 //src/lexer
 int lexer(char *line, t_data *data);
 
+//parser
+int	parser(t_data *data);
+void	add_redir_to_pars(t_pars *first_pars, t_redir *first_redir);
+t_redir	*init_redir_node(t_data *data, t_lexer *file_node, int token, int i);
+int	new_node_pars(t_data *data, t_lexer *start, int arg, int redir);
+char	**create_cmd(t_data *data, t_lexer *start, int arg);
+int free_all(t_data *data, char *str, int esc);
+
 //src/utils
-int		free_all(t_data *data, char *str, int esc);
+int		free_lex(t_data *data);
 char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 char	*ft_substr_bis(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *str);

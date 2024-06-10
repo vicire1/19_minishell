@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 16:59:56 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:09:29 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	new_node_lex(char *str, t_token token, t_data *data)
 	}
 	new->token_str = str;
 	new->token = token;
-	new->pos = ++data->pos;
+	new->pos = ++(*pos);
 	new->next = NULL;
 	if (data->first == NULL)
 	{
@@ -81,10 +81,12 @@ int	check_double_token(t_data *data)
 			return (1);
 		current = temp;
 	}
+	if (current->token)
+		return (1);
 	return (0);
 }
 
-int	tokenize(char *str, int i, t_data *data)
+int	tokenize(char *str, int i, t_data *data, int *pos)
 {
 	if (str[i] == '|')
 		return (new_node_lex(ft_substr(str, i, 1, data), 1, data), 1);
@@ -100,7 +102,7 @@ int	tokenize(char *str, int i, t_data *data)
 		return (0);
 }
 
-int	save_cmds(char *str, t_data *data)
+int	save_cmds(char *str, t_data *data, int *pos)
 {
 	int		i;
 	char	c;
@@ -128,20 +130,22 @@ int	lexer(char *line, t_data *data)
 {
 	int	i;
 	int quotes;
+	int	pos;
 
 	i = 0;
+	pos = -1;
 	while (line[i])
 	{
 		while (is_white_space(line[i]))
 			i++;
-		i += tokenize(line, i, data);
-		quotes = save_cmds(&line[i], data);
+		i += tokenize(line, i, data, &pos);
+		quotes = save_cmds(&line[i], data, &pos);
 		if (quotes < 0)
 			return (1);
 		i += quotes;
 	}
 	if (check_double_token(data))
 		return (1);
-	print_struct(data);
+	// print_struct(data);
 	return (0);
 }
