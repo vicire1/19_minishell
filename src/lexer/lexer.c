@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/24 17:36:38 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:59:56 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	new_node_lex(char *str, t_token token, t_data *data)
 	if (!new)
 	{
 		free(str);	
-        free_all(data, ERR_MAL, 1);
+		free_all(data, ERR_MAL, 1);
 	}
 	new->token_str = str;
 	new->token = token;

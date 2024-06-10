@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:19 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/05/13 18:41:03 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:01:07 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
