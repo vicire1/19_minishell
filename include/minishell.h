@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 13:05:51 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:41:44 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ char	**create_cmd(t_data *data, t_lexer *start, int arg);
 int free_all(t_data *data, char *str, int esc);
 
 //src/utils
-int		free_lex(t_data *data);
 char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 char	*ft_substr_bis(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *str);
@@ -142,8 +141,9 @@ int	env_cmp(char *str, char *str_env);
 
 //src/utils/utils_free
 void	free_env(t_data *data);
-void	free_exp(t_data *data);
 void	free_two(void *first, void *sec);
+void    free_pars(t_data *data);
+int		free_lex(t_data *data);
 
 //src/utils/utils_env
 void	print_env(t_data *data);

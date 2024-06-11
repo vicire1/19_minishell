@@ -3,41 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 13:22:41 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:16:19 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	print_struct(t_data *data)
-{
-	t_lexer	*temp;
+// void	print_struct(t_data *data)
+// {
+// 	t_lexer	*temp;
 
-	temp = data->first_lex;
-	while (temp->next)
-	{
-		printf("----------------------\n");
-		printf("Pos : %i\n", temp->pos);
-		printf("string : %s\n", temp->token_str);
-		printf("token : %i\n", temp->token);
-		printf("adr : %p\n", temp);
-		printf("prev adr : %p\n", temp->prev);
-		printf("next adr : %p\n", temp->next);
-		printf("----------------------\n");
-		temp = temp->next;
-	}
-	printf("----------------------\n");
-	printf("Pos : %i\n", temp->pos);
-	printf("string : %s\n", temp->token_str);
-	printf("token : %i\n", temp->token);
-	printf("adr : %p\n", temp);
-	printf("prev adr : %p\n", temp->prev);
-	printf("next adr : %p\n", temp->next);
-	printf("----------------------\n");
-}
+// 	temp = data->first_lex;
+// 	while (temp)
+// 	{
+// 		printf("----------------------\n");
+// 		printf("Pos : %i\n", temp->pos);
+// 		printf("string : %s\n", temp->token_str);
+// 		printf("token : %i\n", temp->token);
+// 		printf("adr : %p\n", temp);
+// 		printf("prev adr : %p\n", temp->prev);
+// 		printf("next adr : %p\n", temp->next);
+// 		printf("----------------------\n");
+// 		temp = temp->next;
+// 	}
+// }
 
 int	new_node_lex(char *str, t_token token, t_data *data, int *pos)
 {

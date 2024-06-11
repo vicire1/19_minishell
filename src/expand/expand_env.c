@@ -40,11 +40,12 @@ void	replace_env(t_data *data, t_lexer *exp, int j, t_expander *expa)
 				ft_strlen(expa->tmp), data);
 	free(exp->token_str);
 	free(expa->tmp);
+	expa->tmp = NULL;
 	expa->tmp = ft_strjoin(expa->first_part, expa->sec_part, data);
 	if (expa->tmp)
 		exp->token_str = ft_strjoin(expa->tmp, expa->third_part, data);
 	else
 		exp->token_str = ft_strjoin(expa->first_part, expa->third_part, data);
-	free_replace_env(expa);
+//	free_replace_env(expa);
 	return ;
 }

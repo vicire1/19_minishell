@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_node_pars.c                                   :+:      :+:    :+:   */
+/*   free_lex_pars.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 14:38:20 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 14:05:43 by lbirloue         ###   ########.fr       */
+/*   Created: 2024/05/07 15:59:08 by lbirloue          #+#    #+#             */
+/*   Updated: 2024/06/11 14:37:06 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int free_lex(t_data *data)
+{
+    t_lexer *current;
+    t_lexer *temp;
+
+    current = data->first_lex;
+    while (current)
+    {
+        free(current->token_str);
+        temp = current;
+        current = current->next;
+        free(temp);
+    }
+    return (0);
+}
 
 void    free_cmd_arr(char **cmd)
 {
@@ -42,31 +58,18 @@ void    free_redir_lst(t_redir *redir)
     }
 }
 
-int free_all(t_data *data, char *str, int esc)
+void    free_pars(t_data *data)
 {
     t_pars *current;
     t_pars *temp;
 
-    if (str)
-        ft_printf_fd(2, "%s\n", str);
-    free_lex(data);
-    //free_exp(data);
     current = data->first_pars;
-    if (current)
+    while (current)
     {
-        while (current)
-        {
-            free_cmd_arr(current->cmd);
-            free_redir_lst(current->redir);
-            temp = current;
-            current = current->next;
-            free(temp);
-        }
+        free_cmd_arr(current->cmd);
+        free_redir_lst(current->redir);
+        temp = current;
+        current = current->next;
+        free(temp);
     }
-    if (esc)
-    {
-        free_env(data);
-        exit (esc);
-    }
-    return (0);
 }
