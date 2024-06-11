@@ -2,6 +2,7 @@
 
 void	replace_env_init(t_data *data, t_lexer *exp, int j, t_expander *expa)
 {
+	expa->tmp_val = NULL;
 	expa->val_len = 0;
 	expa->n_len = size_env_doll(exp->token_str + j + 1);
 	if (in_env(data, data->first_env, exp->token_str + j + 1, expa))

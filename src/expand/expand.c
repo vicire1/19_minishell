@@ -94,10 +94,13 @@ int	del_doll_quotes_verif(char *str, int j)
 int	valid_quotes_env(t_data *data, t_lexer *exp)
 {
 	int	j;
+	int	len_av;
+	int	len_ap;
 
 	j = 0;
 	while (exp->token_str[j])
 	{
+		len_av = ft_strlen(exp->token_str);
 		if (exp->token_str[j] == '$' && ft_isalnum(exp->token_str[j + 1]))
 		{
 			if (check_quotes(exp, j, 0))
@@ -108,7 +111,9 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 			if (del_doll_quotes_verif(exp->token_str, j) && exp->token_str[j + 1] != '$')
 				delete_doll(data, exp, j);
 		}
-		j++;
+		len_ap = ft_strlen(exp->token_str);
+		if (len_av == len_ap)
+			j++;
 	}
 	return (0);
 }
