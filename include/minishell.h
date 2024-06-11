@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:46:34 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:29:18 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_data
 
 
 //src/expand
-char	*in_env(t_data *data, t_env *env, char *str);
+int		in_env(t_data *data, t_env *env, char *str, t_expander *expa);
 int		expander(t_data *data);
 
 //src/expand_quotes

@@ -3,14 +3,28 @@
 void	replace_env_init(t_data *data, t_lexer *exp, int j, t_expander *expa)
 {
 	expa->val_len = 0;
-	expa->tmp_val = in_env(data, data->first_env, exp->token_str + j + 1);
 	expa->n_len = size_env_doll(exp->token_str + j + 1);
-	if (expa->tmp_val)
+	if (in_env(data, data->first_env, exp->token_str + j + 1, expa))
 	{
 		expa->val_len = size_env_value(expa->tmp_val);
 		expa->n_len = size_env_name(expa->tmp_val);
 	}
 	expa->tmp = ft_strdup(exp->token_str, data);
+}
+
+void	free_replace_env(t_expander *expa)
+{
+	if (expa->tmp)
+		free(expa->tmp);
+	if (expa->first_part)
+		free(expa->first_part);
+	if (expa->sec_part)
+		free(expa->sec_part);
+	if (expa->third_part)
+		free(expa->third_part);
+	if (expa->tmp_val)
+		free(expa->tmp_val);
+	return ;
 }
 
 void	replace_env(t_data *data, t_lexer *exp, int j, t_expander *expa)
@@ -24,17 +38,13 @@ void	replace_env(t_data *data, t_lexer *exp, int j, t_expander *expa)
 	else
 		expa->third_part = ft_substr(expa->tmp, j + expa->n_len + 1,
 				ft_strlen(expa->tmp), data);
-	free_two(exp->token_str, expa->tmp);
+	free(exp->token_str);
+	free(expa->tmp);
 	expa->tmp = ft_strjoin(expa->first_part, expa->sec_part, data);
 	if (expa->tmp)
 		exp->token_str = ft_strjoin(expa->tmp, expa->third_part, data);
 	else
 		exp->token_str = ft_strjoin(expa->first_part, expa->third_part, data);
-	// free_two(expa->first_part, expa->third_part); //aautre solution
-	// printf("AV %s\n", expa->first_part);
-	// free(expa->first_part);
-	// printf("AP\n");
-	// expa->first_part = NULL;
-	free(expa->tmp);
-	expa->tmp = NULL;
+	free_replace_env(expa);
+	return ;
 }

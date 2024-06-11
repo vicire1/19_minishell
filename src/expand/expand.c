@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-char	*in_env(t_data *data, t_env *env, char *str)
+int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 {
 	int		i;
 	char	*tempo;
@@ -19,12 +19,14 @@ char	*in_env(t_data *data, t_env *env, char *str)
 		if (env_cmp(tempo, env->env_str))
 		{
 			free(tempo);
-			return (env->env_str);
+			expa->tmp_val = ft_strdup(env->env_str, data);
+			// return (env->env_str);
+			return (1);
 		}
 		env = env->next;
 	}
 	free(tempo);
-	return (NULL);
+	return (0);
 }
 
 void	delete_doll(t_data *data, t_lexer *exp, int j)
