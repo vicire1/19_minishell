@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:38:20 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 13:05:07 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:05:43 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ int free_all(t_data *data, char *str, int esc)
         }
     }
     if (esc)
+    {
+        free_env(data);
         exit (esc);
+    }
     return (0);
 }

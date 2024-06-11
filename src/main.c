@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 13:41:06 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:05:29 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,4 @@ int	main(int ac, char **av, char **envp)
 		free(line);
 		free_all(&data, NULL, 0);
 	}
-		// free_env(&data); a ajouter avant d'exit car besoin constamment
 }
