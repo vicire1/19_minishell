@@ -40,13 +40,16 @@ void	delete_doll(t_data *data, t_lexer *exp, int j)
 	post_str = ft_substr_bis(exp->token_str, j + 1, post_len);
 	if (!post_str)
 	{
-		free(prev_str);
+		if (prev_str)
+			free(prev_str);
 		free_all(data, ERR_MAL, 1);
 	}
 	free(exp->token_str);
 	exp->token_str = ft_strjoin_bis(prev_str, post_str);
-	free(prev_str);
-	free(post_str);
+	if (prev_str)
+		free(prev_str);
+	if (post_str)
+		free(post_str);
 	if (!exp->token_str)
 		free_all(data, ERR_MAL, 1);
 	return ;
@@ -54,15 +57,37 @@ void	delete_doll(t_data *data, t_lexer *exp, int j)
 
 int	del_doll_quotes_verif(char *str, int j)
 {
-	if (j == 0 && (str[j + 1] == '\"' || str[j + 1] == '\''))
-		return (1);
-	if (str[j + 1] == '\'' && str[j - 1] == '\'')
+	int i;
+
+	i = 0;
+
+	while (str[i])
+	{
+		if (str[i] == '\"')
+		{
+			i++;
+			while(str[i] != '\"')
+			{
+				if (i == j)
+					return (0);
+				i++;
+			}
+		}
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] != '\'')
+			{
+				if (i == j)
+					return (0);
+				i++;
+			}
+		}
+		i++;
+	}
+	if (j == i - 1)
 		return (0);
-	if (str[j + 1] == '\"' && str[j - 1] == '\"')
-		return (0);
-	if (str[j + 1] == '\'' || str[j + 1] == '\"')
-		return (1);
-	return (0);
+	return (1);
 }
 
 int	valid_quotes_env(t_data *data, t_lexer *exp)
@@ -77,10 +102,9 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 			if (check_quotes(exp, j, 0))
 				replace_env(data, exp, j, data->expa);
 		}
-		else if (exp->token_str[j] == '$' && del_doll_quotes_verif //reparer ca et faire la meme verif que dans le check_quotes je crois
-			(exp->token_str, j)) 
+		else if (exp->token_str[j] == '$') 
 		{
-			if (check_quotes(exp, j, 0))
+			if (del_doll_quotes_verif(exp->token_str, j))
 				delete_doll(data, exp, j);
 		}
 		j++;
