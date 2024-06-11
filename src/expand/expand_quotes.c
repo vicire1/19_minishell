@@ -66,7 +66,7 @@ int	check_quotes_single(t_lexer *exp, int j, int i)
 int	check_quotes(t_lexer *exp, int j, int i)
 {
 	int	ret;
-
+// printf("%d=>%c%c\n", j, exp->token_str[j], exp->token_str[j+1]);
 	while (exp->token_str[i])
 	{
 		if (exp->token_str[i] == '\"')
@@ -84,7 +84,8 @@ int	check_quotes(t_lexer *exp, int j, int i)
 			ret = check_quotes_single(exp, j, i);
 			if (!ret)
 				return (0);
-			i += ret;
+			i = ret;
+
 		}
 		i++;
 	}
