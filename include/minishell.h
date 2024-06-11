@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:14:03 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:46:34 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,6 @@ int	check_quotes(t_lexer *exp, int j, int i);
 
 //src/expand_env
 void	replace_env(t_data *data, t_lexer *exp, int j, t_expander *expa);
-
-
-//src/parser
-int	parser( t_data *data);
 
 //src/lexer
 int lexer(char *line, t_data *data);

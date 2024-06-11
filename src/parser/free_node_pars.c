@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_node_pars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:38:20 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:20:43 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:36:20 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int free_all(t_data *data, char *str, int esc)
     if (str)
         ft_printf_fd(2, "%s\n", str);
     free_lex(data);
-    free_exp(data);
+    //free_exp(data);
     current = data->first_pars;
     if (current)
     {

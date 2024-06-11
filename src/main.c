@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:14:12 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:32:22 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ int	main(int ac, char **av, char **envp)
 		line = readline("minishell: ");
 		if (lexer(line, &data))
 			printf("%s\n", ERR_SYN);
-		expander(&data);
-		parser(&data);
+		else
+		{
+			expander(&data);
+			parser(&data);
+		}
 		add_history(line);
 		free(line);
 		free_all(&data, NULL, 0);

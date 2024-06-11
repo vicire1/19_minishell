@@ -105,6 +105,7 @@ int	expander(t_data *data)
 		valid_quotes_env(data, exp);
 	delete_quotes(data, exp);
 	// print_expand(data);
-	free(data->expa);
+	// free(data->expa);
+	free_exp(data);
 	return (0);
 }
