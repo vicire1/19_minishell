@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:32:22 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:41:06 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	init_env(t_data	*data, char **envp)
 	int	i;
 
 	i = 0;
+	data->first_env = NULL;
 	while(envp[i])
 	{
 		new_node_env(envp[i], data);
@@ -45,8 +46,12 @@ int	main(int ac, char **av, char **envp)
 	{
 		init_data(&data);
 		line = readline("minishell: ");
+
+		printf("%s\n", line);
+
 		if (lexer(line, &data))
 			printf("%s\n", ERR_SYN);
+
 		else
 		{
 			expander(&data);
@@ -56,4 +61,5 @@ int	main(int ac, char **av, char **envp)
 		free(line);
 		free_all(&data, NULL, 0);
 	}
+		// free_env(&data); a ajouter avant d'exit car besoin constamment
 }

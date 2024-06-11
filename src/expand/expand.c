@@ -20,7 +20,6 @@ int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 		{
 			free(tempo);
 			expa->tmp_val = ft_strdup(env->env_str, data);
-			// return (env->env_str);
 			return (1);
 		}
 		env = env->next;
@@ -106,7 +105,7 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 		}
 		else if (exp->token_str[j] == '$') 
 		{
-			if (del_doll_quotes_verif(exp->token_str, j))
+			if (del_doll_quotes_verif(exp->token_str, j) && exp->token_str[j + 1] != '$')
 				delete_doll(data, exp, j);
 		}
 		j++;
@@ -122,6 +121,7 @@ int	expander(t_data *data)
 	data->expa = malloc(sizeof(t_expander));
 	while (exp->next)
 	{
+
 		if (check_v_env(exp->token_str))
 			valid_quotes_env(data, exp);
 		delete_quotes(data, exp);
@@ -132,6 +132,7 @@ int	expander(t_data *data)
 	delete_quotes(data, exp);
 	// print_expand(data);
 	// free(data->expa);
-	free_exp(data);
+	// free_exp(data);
+	free(data->expa);
 	return (0);
 }

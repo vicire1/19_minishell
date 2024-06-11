@@ -1,5 +1,26 @@
 #include "../../include/minishell.h"
 
+void	free_env(t_data *data)
+{
+    t_env *current;
+    t_env *temp;
+
+    current = data->first_env;
+    if (data->first_env)
+    {
+        while (current->next)
+        {
+            free(current->env_str);
+            temp = current;
+            current = current->next;
+            free(temp);
+        }
+        free(current->env_str);
+        free(current);
+    }
+    return ;
+}
+
 void	free_exp(t_data *data)
 {
 	// if (data->expa->first_part) // pb avec le free_two !!!

@@ -27,7 +27,7 @@ int	new_node_env(char *str, t_data *data)
 	if (!new)
 		free_all(data, ERR_MAL, 1);
 	new->next = NULL;
-	new->env_str = str;
+	new->env_str = ft_strdup(str, data);
 	if (data->first_env == NULL)
 	{
 		new->prev = NULL;

@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 11:29:18 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:05:51 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void	free_two(void *first, void *sec);
 int	env_cmp(char *str, char *str_env);
 
 //src/utils/utils_free
+void	free_env(t_data *data);
 void	free_exp(t_data *data);
 void	free_two(void *first, void *sec);
 
