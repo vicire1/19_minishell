@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:03:22 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 14:15:35 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:24:44 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	new_node_pars(t_data *data, t_lexer *start, int arg, int redir)
 
 	new = malloc(sizeof(t_pars));
 	if (!new)
-		free_all(data, ERR_MAL, 1);	
+		free_all(data, ERR_MAL, 1);
 	new->cmd = create_cmd(data, start, arg);
 	new->redir = NULL;
 	new->nb_redir = redir;
