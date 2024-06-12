@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 14:41:44 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/12 09:49:43 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int		expander(t_data *data);
 
 //src/expand_quotes
 int	delete_quotes(t_data *data, t_lexer *exp);
+int	check_quotes_single(t_lexer *exp, int j, int i);
+int	check_quotes_db(char *str, int j, int i);
 int	check_quotes(t_lexer *exp, int j, int i);
 
 //src/expand_env
@@ -154,7 +156,7 @@ int		new_node_env(char *str, t_data *data);
 
 /*
 
-test"$USER"'$USER'$USER"test"$non
-testlbirloue$USERlbirlouetest
+test"$USER"'$USER'$USER"test"$non$
+testlbirloue$USERlbirlouetest$
 
 */

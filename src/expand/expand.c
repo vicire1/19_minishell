@@ -56,33 +56,27 @@ void	delete_doll(t_data *data, t_lexer *exp, int j)
 	return ;
 }
 
-int	del_doll_quotes_verif(char *str, int j)
+int	del_doll_quotes_verif(t_lexer *exp, char *str, int j)
 {
-	int i;
+	int	i;
+	int	ret;
 
 	i = 0;
-
 	while (str[i])
 	{
 		if (str[i] == '\"')
 		{
-			i++;
-			while(str[i] != '\"')
-			{
-				if (i == j)
-					return (0);
-				i++;
-			}
+			ret = check_quotes_db(exp->token_str, j, i);
+			if (!ret)
+				return (0);
+			i = ret;
 		}
-		if (str[i] == '\'')
+		else if (str[i] == '\'')
 		{
-			i++;
-			while (str[i] != '\'')
-			{
-				if (i == j)
-					return (0);
-				i++;
-			}
+			ret = check_quotes_single(exp, j, i);
+			if (!ret)
+				return (0);
+			i = ret;
 		}
 		i++;
 	}
@@ -106,9 +100,10 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 			if (check_quotes(exp, j, 0))
 				replace_env(data, exp, j, data->expa);
 		}
-		else if (exp->token_str[j] == '$') 
+		else if (exp->token_str[j] == '$')
 		{
-			if (del_doll_quotes_verif(exp->token_str, j) && exp->token_str[j + 1] != '$')
+			if (del_doll_quotes_verif(exp, exp->token_str, j)
+				&& exp->token_str[j + 1] != '$')
 				delete_doll(data, exp, j);
 		}
 		len_ap = ft_strlen(exp->token_str);
@@ -126,7 +121,6 @@ int	expander(t_data *data)
 	data->expa = malloc(sizeof(t_expander));
 	while (exp->next)
 	{
-
 		if (check_v_env(exp->token_str))
 			valid_quotes_env(data, exp);
 		delete_quotes(data, exp);
@@ -135,9 +129,6 @@ int	expander(t_data *data)
 	if (check_v_env(exp->token_str))
 		valid_quotes_env(data, exp);
 	delete_quotes(data, exp);
-	// print_expand(data);
-	// free(data->expa);
-	// free_exp(data);
 	free(data->expa);
 	return (0);
 }

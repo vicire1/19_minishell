@@ -1,6 +1,5 @@
 #include "../../include/minishell.h"
 
-
 void	print_env(t_data *data)
 {
 	t_env	*temp;
