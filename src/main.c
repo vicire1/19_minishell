@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/12 12:40:46 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:33:40 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	main(int ac, char **av, char **envp)
 			i = 0;
 			while (temp->cmd[i])
 			{
-				check_if_builtin(&data, temp->cmd[i]);
+				int	which = check_if_builtin(temp->cmd[i]);
+				dispatch_builtins(&data, temp->cmd, 0, which);
 				i++;
 			}
 			temp = temp->next;

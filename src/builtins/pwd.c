@@ -3,13 +3,13 @@
 //return quoi ? char *?
 
 //utiliser getcwd
-char	*cmd_pwd(t_data *data)
+void	cmd_pwd(t_data *data, int fd)
 {
 	(void)data;
-	char *test;
+	char	*pwd;
 
-	test = getcwd(NULL, 0);
-	printf("%s\n", test);
-	free(test);
-	return (NULL);
+	pwd = getcwd(NULL, 0);
+	ft_printf_fd(fd, "%s\n", pwd);
+	free(pwd);
+	return ;
 }

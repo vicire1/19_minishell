@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/12 12:59:39 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:34:37 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,16 +153,18 @@ void	print_env(t_data *data);
 void	init_export(t_data *data);
 int		new_node_env(char *str,int status, t_data *data);
 
+
 //BUILTINS
 //sec/buitins/pwd.c
-char	*cmd_pwd(t_data *data);
+void	cmd_pwd(t_data *data, int fd);
 
 //sec/buitins/env.c
-char	*cmd_env(t_data *data);
+void	cmd_env(t_data *data, int fd);
 
 
 //sec/buitins/buitlin.c
-char	*check_if_builtin(t_data *data, char *str);
+int		check_if_builtin(char *str);
+void	dispatch_builtins(t_data *data, char **str, int fd, int which);
 
 
 #endif

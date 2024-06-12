@@ -1,25 +1,17 @@
 #include "../../include/minishell.h"
 
-char	*cmd_env(t_data *data)
+void	cmd_env(t_data *data, int fd)
 {
 	t_env *tempo;
-	char *ret;
-	char *tmp;
 
 	tempo = data->first_env;
 
-	printf("VIEMT\n");
-	tmp = ft_strdup(tempo->env_str, data);
-	tempo= tempo->next;
+
 	while (tempo)
 	{
-		ret = ft_strjoin(tmp, tempo->env_str, data);
-		free(tmp);
-		tmp = ft_strdup(tempo->env_str, data);
-		// ret = ft_strjoin(ret, "\n", data);
-
+		if (tempo->env_status)
+			ft_printf_fd(fd, "%s\n", tempo->env_str);
 		tempo = tempo->next;
 	}
-	printf("%s\n", ret);
-	return (ret);
+	return ;
 }
