@@ -17,7 +17,24 @@ void	print_env(t_data *data)
 	printf("----------------------\n");
 }
 
-int	new_node_env(char *str, t_data *data)
+void	init_export(t_data *data)
+{
+	t_env	*temp;
+
+	temp = data->first_env;
+	while(temp)
+	{
+		if (ft_strncmp("OLDPWD", temp->env_str, 6) == 0)
+		{
+			return ;
+		}
+		temp = temp->next;
+	}
+	new_node_env("OLDPWD", 0, data);
+
+}
+
+int	new_node_env(char *str, int status, t_data *data)
 {
 	t_env		*new;
 	t_env		*temp;
@@ -27,6 +44,7 @@ int	new_node_env(char *str, t_data *data)
 		free_all(data, ERR_MAL, 1);
 	new->next = NULL;
 	new->env_str = ft_strdup(str, data);
+	new->env_status= status;
 	if (data->first_env == NULL)
 	{
 		new->prev = NULL;

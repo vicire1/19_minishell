@@ -9,6 +9,9 @@ SRC_MANDATORY	= 	src/main.c \
 					src/expand/utils_expander.c \
 					src/parser/parser.c \
 					src/parser/parser_node.c \
+					src/builtins/pwd.c \
+					src/builtins/env.c \
+					src/builtins/builtin.c \
 					src/utils/utils_libft.c \
 					src/utils/utils_free.c \
 					src/utils/free_lex_pars.c \

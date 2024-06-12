@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/12 09:49:43 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:59:39 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_lexer
 typedef struct s_env
 {
 	char	*env_str;
+	int		env_status; //1=> dans env et export/ 0=> dans export mais pas env
 	void	*next;
 	void	*prev;
 }			t_env;
@@ -149,7 +150,20 @@ int		free_lex(t_data *data);
 
 //src/utils/utils_env
 void	print_env(t_data *data);
-int		new_node_env(char *str, t_data *data);
+void	init_export(t_data *data);
+int		new_node_env(char *str,int status, t_data *data);
+
+//BUILTINS
+//sec/buitins/pwd.c
+char	*cmd_pwd(t_data *data);
+
+//sec/buitins/env.c
+char	*cmd_env(t_data *data);
+
+
+//sec/buitins/buitlin.c
+char	*check_if_builtin(t_data *data, char *str);
+
 
 #endif
 
