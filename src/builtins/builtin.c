@@ -21,7 +21,7 @@ void	dispatch_builtins(t_data *data, char **str, int fd, int which)
 	if (which == 1)
 		cmd_pwd(data, fd);
 	else if (which == 2)
-		cmd_env(data, fd);
+		cmd_env(data, str, fd);
 
 
 	return ;
