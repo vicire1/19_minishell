@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:19 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:18:32 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:33:32 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_cmd(char **cmd)
 	printf("CMD : \n");
 	while (cmd[i])
 	{
-		printf("%s ", cmd[i]);
+		printf("[%s] ", cmd[i]);
 		i++;
 	}
 	printf("\n");

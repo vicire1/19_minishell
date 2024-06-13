@@ -9,11 +9,11 @@ void	print_env(t_data *data)
 	while (temp->next)
 	{
 		printf("string : %s\n", temp->env_str);
-		printf("\033[1;31madr : %p | prev adr : %p | next adr : %p\n\033[0m", temp, temp->prev, temp->next);
+		// printf("\033[1;31madr : %p | prev adr : %p | next adr : %p\n\033[0m", temp, temp->prev, temp->next);
 		temp = temp->next;
 	}
 	printf("string : %s\n", temp->env_str);
-	printf("\033[1;31madr : %p | prev adr : %p | next adr : %p\n\033[0m", temp, temp->prev, temp->next);
+	// printf("\033[1;31madr : %p | prev adr : %p | next adr : %p\n\033[0m", temp, temp->prev, temp->next);
 	printf("----------------------\n");
 }
 
@@ -34,6 +34,32 @@ void	init_export(t_data *data)
 
 }
 
+char	*get_name_env(char *str, t_data *data)
+{
+	int	size;
+
+	size = 0;
+	while (str[size] && str[size] != '=')
+		size++;
+	if (str[size + 1])
+		size++;
+	if (str[size] == '=')
+		size++;
+	return (ft_substr(str, 0, size, data));
+}
+
+char *get_value_env(char *str, t_data *data)
+{
+	int size;
+
+	size = 0;
+	while (str[size] && str[size] != '=')
+		size++;
+	if ((str[size] != '=' && str[size + 1]) || (str[size] == '=' && !str[size + 1]))
+		return (NULL);
+	return(ft_substr(str, size + 1, ft_strlen(str), data));
+}
+
 int	new_node_env(char *str, int status, t_data *data)
 {
 	t_env		*new;
@@ -44,7 +70,10 @@ int	new_node_env(char *str, int status, t_data *data)
 		free_all(data, ERR_MAL, 1);
 	new->next = NULL;
 	new->env_str = ft_strdup(str, data);
-	new->env_status= status;
+	new->env_status = status;
+	new->name = get_name_env(str, data);
+	new->value = get_value_env(str, data);
+	printf("NAME | VALUE = [%s][%s]\n", new->name, new->value);
 	if (data->first_env == NULL)
 	{
 		new->prev = NULL;

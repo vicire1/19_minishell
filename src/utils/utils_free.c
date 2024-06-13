@@ -9,6 +9,8 @@ void	free_env(t_data *data)
     while (current)
     {
         free(current->env_str);
+        free(current->name);
+        free(current->value);
         temp = current;
         current = current->next;
         free(temp);

@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/13 10:08:36 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:07:52 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_lexer
 typedef struct s_env
 {
 	char	*env_str;
+	char	*name;
+	char	*value;
 	int		env_status; //1=> dans env et export/ 0=> dans export mais pas env
 	void	*next;
 	void	*prev;
@@ -160,6 +162,10 @@ void	cmd_pwd(t_data *data, int fd);
 
 //sec/buitins/env.c
 void	cmd_env(t_data *data, char **str, int fd);
+
+//sec/buitins/export.c
+void	cmd_export(t_data *data, char **str, int fd);
+
 
 
 //sec/buitins/buitlin.c
