@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/13 14:07:52 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:35:25 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,8 @@ void	cmd_env(t_data *data, char **str, int fd);
 //sec/buitins/export.c
 void	cmd_export(t_data *data, char **str, int fd);
 
-
+//sec/buitins/cd.c
+void	cmd_cd(t_data *data, char **str, int fd);
 
 //sec/buitins/buitlin.c
 int		check_if_builtin(char *str);
