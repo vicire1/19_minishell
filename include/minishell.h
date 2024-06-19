@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/19 11:30:01 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:39:52 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_lexer
 
 typedef struct s_env
 {
-	char	*env_str;
 	char	*name;
 	char	*value;
 	int		env_status; //1=> dans env et export/ 0=> dans export mais pas env

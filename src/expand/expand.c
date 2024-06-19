@@ -3,6 +3,7 @@
 int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 {
 	int		i;
+	printf("IN_ENV\n");
 	char	*tempo;
 
 	i = 0;
@@ -16,10 +17,10 @@ int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 	}
 	while (env->next)
 	{
-		if (env_cmp(tempo, env->env_str))
+		if (env_cmp(tempo, env->name))
 		{
 			free(tempo);
-			expa->tmp_val = ft_strdup(env->env_str, data);
+			expa->tmp_val = ft_strjoin(env->name, env->value, data);
 			return (1);
 		}
 		env = env->next;

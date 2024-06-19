@@ -76,6 +76,7 @@ void	cmd_export_print(t_data *data, int fd)
 		env_array[i++] = temp;
 		temp = temp->next;
 	}
+	printf("OK\n");
 	sort_tab(env_array, count);
 	print_export(data, count, env_array, fd);
 	free(env_array);

@@ -42,6 +42,7 @@ int	env_cmp(char *str, char *str_env)
 	int	i;
 
 	i = 0;
+	printf("ENV_CMP = %s %s\n", str, str_env);
 	while (str[i] && str_env[i])
 	{
 		if (str[i] != str_env[i])

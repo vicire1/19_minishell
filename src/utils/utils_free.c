@@ -8,7 +8,6 @@ void	free_env(t_data *data)
     current = data->first_env;
     while (current)
     {
-        free(current->env_str);
         free(current->name);
         free(current->value);
         temp = current;

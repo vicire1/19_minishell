@@ -6,14 +6,12 @@ void	print_env(t_data *data)
 
 	temp = data->first_env;
 	printf("----------------------\n");
-	while (temp->next)
+	while (temp)
 	{
-		printf("string : %s\n", temp->env_str);
+		printf("string : %s%s\n", temp->name, temp->value);
 		// printf("\033[1;31madr : %p | prev adr : %p | next adr : %p\n\033[0m", temp, temp->prev, temp->next);
 		temp = temp->next;
 	}
-	printf("string : %s\n", temp->env_str);
-	// printf("\033[1;31madr : %p | prev adr : %p | next adr : %p\n\033[0m", temp, temp->prev, temp->next);
 	printf("----------------------\n");
 }
 
@@ -24,7 +22,7 @@ void	init_export(t_data *data)
 	temp = data->first_env;
 	while(temp)
 	{
-		if (ft_strncmp("OLDPWD", temp->env_str, 6) == 0)
+		if (ft_strncmp("OLDPWD", temp->name, 6) == 0)
 		{
 			return ;
 		}
@@ -69,7 +67,6 @@ int	new_node_env(char *str, int status, t_data *data)
 	if (!new)
 		free_all(data, ERR_MAL, 1);
 	new->next = NULL;
-	new->env_str = ft_strdup(str, data);
 	new->env_status = status;
 	new->name = get_name_env(str, data);
 	new->value = get_value_env(str, data);
