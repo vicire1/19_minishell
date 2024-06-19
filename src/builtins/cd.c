@@ -6,6 +6,66 @@
 // ajt un char*str HOME DE BASE au cas ou (a recup avec getenv("HOME"))
 
 // le ~ a gerer dans expand ????????
+
+void	cmd_cd_home_oldpwd(t_data *data, char *home, char *pwd_before)
+{
+	t_env	*tempo;
+	char	*str_tmp;
+
+	tempo = data->first_env;
+	if (!home)
+		printf("????\n");
+	while(tempo)
+	{
+		if (ft_strncmp("OLDPWD", tempo->name, 6) == 0)
+		{
+			printf("ui [%s]\n", tempo->name);
+			free(tempo->value);
+			tempo->value = ft_strdup(pwd_before, data);
+			if (tempo->env_status == 0)
+			{
+				str_tmp = ft_strdup(tempo->name, data);
+				free(tempo->name);
+				tempo->name = ft_strjoin(str_tmp, "=", data);
+			}
+			tempo->env_status = 1;
+			printf("C CHANGÉ\n");
+			return ;
+		}
+		tempo = tempo->next;
+	}
+}
+
+void	cmd_cd_home_change_pwd(t_data *data, char *home)
+{
+	t_env	*tempo;
+	char	*pwd_before;
+
+	tempo = data->first_env;
+	pwd_before = NULL;
+	if (!home)
+	{
+		printf("MH PB\n");
+		return ;
+	}
+	while(tempo)
+	{
+		if (ft_strncmp("PWD", tempo->name, 3) == 0)
+		{
+	printf("ui [%s]\n", tempo->name);
+			pwd_before = ft_strdup(tempo->value, data);
+			free(tempo->value);
+			printf("ICI\n");
+			tempo->value = ft_strdup(home, data);
+			printf("C CHANGÉ\n");
+			cmd_cd_home_oldpwd(data, home, pwd_before);
+			return ;
+		}
+		tempo = tempo->next;
+	}
+	printf("nn\n");
+}
+
 char	*cmd_cd_home_get_home(t_data *data)
 {
 	t_env *tempo;
@@ -24,22 +84,26 @@ void	cmd_cd_home(t_data *data)
 {
 //chercher le HOME DANS ENV;
 	char	*home_path;
+	int		check_chdir;
 
 	home_path = cmd_cd_home_get_home(data);
-	int		check_chdir;
+	// (void)data;
+	// home_path = "tessst";
 	if (!home_path)
 	{
 		printf("cd: HOME not set\n");
 		return ;
 	}
 	check_chdir = chdir(home_path);
-	printf("new pwd = %s\n", getenv("HOME"));
-	if (check_chdir == -1) //erreur
+	printf("ret chdir = %d | new pwd = %s\n", check_chdir, getenv("HOME"));
+	if (check_chdir == -1)
 	{
-		//creer le home_path de la ou je suis
-		//chdir vers le home path;
+		printf("cd: %s: No such file or directory\n", home_path);
+		free(home_path);
+		return ;
 	}
 	//changer le pwd et le oldpwd dans env;
+	cmd_cd_home_change_pwd(data, getenv("HOME"));
 	free(home_path);
 	return ;
 }

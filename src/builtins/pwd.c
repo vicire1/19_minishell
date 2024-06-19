@@ -17,9 +17,9 @@ void	cmd_pwd(t_data *data, int fd)
 	{
 		while (tempo)
 		{
-			if (ft_strncmp(tempo->env_str, "PWD=", 4) == 0)
+			if (ft_strncmp(tempo->name, "PWD=", 4) == 0)
 			{
-				ft_printf_fd(fd, "%s\n", tempo->env_str + 4);
+				ft_printf_fd(fd, "%s\n", tempo->value);
 				break ;
 			}
 			tempo = tempo->next;

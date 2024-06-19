@@ -14,7 +14,7 @@ void	cmd_env(t_data *data, char **str, int fd)
 	while (tempo)
 	{
 		if (tempo->env_status)
-			ft_printf_fd(fd, "%s\n", tempo->env_str);
+			ft_printf_fd(fd, "%s%s\n", tempo->name, tempo->value);
 		tempo = tempo->next;
 	}
 	return ;

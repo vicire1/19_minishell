@@ -16,8 +16,6 @@ int	check_if_builtin(char *str)
 	return (0);
 }
 
-
-
 void	dispatch_builtins(t_data *data, char **str, int fd, int which)
 {
 	(void)str;
