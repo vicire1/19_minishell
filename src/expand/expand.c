@@ -3,7 +3,6 @@
 int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 {
 	int		i;
-	printf("IN_ENV\n");
 	char	*tempo;
 
 	i = 0;
