@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/19 14:49:18 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:56:21 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,10 @@ int free_all(t_data *data, char *str, int esc);
 char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 char	*ft_substr_bis(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *str);
-int	ft_isalnum(int c);
+int		ft_isalnum(int c);
+int		ft_isdigit(int c);
 int		is_white_space(char c);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s, t_data *data);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strjoin(char const *s1, char const *s2, t_data *data);
@@ -168,6 +169,9 @@ void	cmd_export(t_data *data, char **str, int fd);
 
 //sec/buitins/cd.c
 void	cmd_cd(t_data *data, char **str, int fd);
+
+//sec/buitins/unset.c
+void	cmd_unset(t_data *data, char **str, int fd);
 
 //sec/buitins/buitlin.c
 int		check_if_builtin(char *str);

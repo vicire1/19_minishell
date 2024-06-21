@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:58:39 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/10 17:17:22 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:42:14 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,13 @@ int	ft_isalnum(int c)
 {
 	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')
 		|| (c >= 'a' && c <= 'z'))
+		return (1);
+	return (0);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }

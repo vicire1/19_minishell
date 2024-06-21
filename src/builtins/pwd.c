@@ -1,7 +1,5 @@
 #include "../../include/minishell.h"
 
-//return quoi ? char *?
-
 //utiliser getcwd
 void	cmd_pwd(t_data *data, int fd)
 {

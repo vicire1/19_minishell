@@ -13,6 +13,8 @@ int	check_if_builtin(char *str)
 		return (3);
 	else if (len_str == 2 && ft_strncmp("cd", str, 2) == 0)
 		return (4);
+	else if (len_str == 5 && ft_strncmp("unset", str, 5) == 0)
+		return (5);
 	return (0);
 }
 
@@ -27,5 +29,7 @@ void	dispatch_builtins(t_data *data, char **str, int fd, int which)
 		cmd_export(data, str, fd);
 	else if (which == 4)
 		cmd_cd(data, str, fd);
+	else if (which == 5)
+		cmd_unset(data, str, fd);
 	return ;
 }
