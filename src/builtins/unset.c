@@ -39,7 +39,7 @@ int		cmd_unset_check_in_env(t_data *data, char *str)
 	return (0);
 }
 
-void	cmd_unset_do_it(t_data *data, char *str)
+void cmd_unset_do_it(t_data *data, char *str)
 {
 	t_env	*tempo;
 	int		size_str;
@@ -47,18 +47,33 @@ void	cmd_unset_do_it(t_data *data, char *str)
 
 	tempo = data->first_env;
 	size_str = ft_strlen(str);
-	while(tempo)
+	while (tempo)
 	{
 		size_name = ft_strlen(tempo->name);
-		if (((size_name - 1) == size_str) && ft_strncmp(tempo->name, str, size_str) == 0)
+		if (((size_name - 1) == size_str)
+			&& ft_strncmp(tempo->name, str, size_str) == 0)
 		{
-			printf("FAUT DELETE LA NODE\n");
+			if (tempo->prev == NULL) 
+			{
+				data->first_env = (t_env *)tempo->next;
+				if (tempo->next != NULL) 
+					((t_env *)tempo->next)->prev = NULL;
+			}
+			else
+			{
+				((t_env *)tempo->prev)->next = tempo->next;
+				if (tempo->next != NULL)
+					((t_env *)tempo->next)->prev = tempo->prev;
+			}
+			free(tempo->name);
+			free(tempo->value);
+			free(tempo);
 			return ;
 		}
-		tempo = tempo->next;
+		tempo = (t_env *)tempo->next;
 	}
-	return ;
 }
+
 
 void	cmd_unset(t_data *data, char **str, int fd)
 {
