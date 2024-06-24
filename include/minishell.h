@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/21 12:56:21 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:33:15 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ int		free_lex(t_data *data);
 //src/utils/utils_env
 void	print_env(t_data *data);
 void	init_export(t_data *data);
+char	*get_name_env(char *str, t_data *data);
+char 	*get_value_env(char *str, t_data *data);
 int		new_node_env(char *str,int status, t_data *data);
 
 
@@ -171,6 +173,7 @@ void	cmd_export(t_data *data, char **str, int fd);
 void	cmd_cd(t_data *data, char **str, int fd);
 
 //sec/buitins/unset.c
+int		cmd_unset_check_invalid(char *str);
 void	cmd_unset(t_data *data, char **str, int fd);
 
 //sec/buitins/buitlin.c

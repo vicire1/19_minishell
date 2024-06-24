@@ -82,6 +82,49 @@ void	cmd_export_print(t_data *data, int fd)
 	free(env_array);
 }
 
+int	cmd_export_check_invalid(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (!ft_isalnum(str[0]) && str[0] != '_')
+		return (1);
+	while (str[i] && str[i] != '=')
+		i++;
+	while (j < i)
+	{
+		if (!ft_isalnum(str[j]))
+		{
+			if (str[j] != '_')
+				return (1);
+		}
+		j++;
+	}
+	return (0);
+}
+
+void	cmd_export_for_env(t_data *data, char **str)
+{
+	int	i;
+
+(void)data;
+	i = 1;
+	while (str[i])
+	{
+		if (cmd_export_check_invalid(str[i]))
+			printf("export : \'%s\': not a valid identifier\n", str[i]);
+		/*
+		else
+			cmd_export_do_it(data, str[i]) // dedans, dabord suppri la node si il faut, puis add une node avec les bonnes infos
+		*/
+		printf("[%s]\n", str[i]);
+		i++;
+	}
+}
+
+
 void	cmd_export(t_data *data, char **str, int fd)
 {
 	(void)data;
@@ -91,5 +134,6 @@ void	cmd_export(t_data *data, char **str, int fd)
 	else
 	{
 		printf("EXPORT AUTRE CAS\n");
+		cmd_export_for_env(data, str);
 	}
 }
