@@ -70,7 +70,7 @@ int	new_node_env(char *str, int status, t_data *data)
 	new->env_status = status;
 	new->name = get_name_env(str, data);
 	new->value = get_value_env(str, data);
-	printf("NAME | VALUE = [%s][%s]\n", new->name, new->value);
+	// printf("NAME | VALUE = [%s][%s]\n", new->name, new->value);
 	if (data->first_env == NULL)
 	{
 		new->prev = NULL;
