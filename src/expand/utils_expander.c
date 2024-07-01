@@ -15,6 +15,9 @@ int	size_env_name(char *env_line)
 	int	i;
 
 	i = 0;
+	printf("env_line = %s\n", env_line);
+	// if (!env_line)
+	// 	return (0);
 	while (env_line[i] != '=')
 		i++;
 	return (i + 1);
@@ -27,8 +30,12 @@ int	size_env_value(char *env_line)
 
 	i = 0;
 	j = 0;
+	if (!env_line)
+		return (0);
 	while (env_line[i] && env_line[i] != '=')
+	{
 		i++;
+	}
 	while (env_line[i])
 	{
 		j++;

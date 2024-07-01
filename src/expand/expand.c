@@ -20,6 +20,8 @@ int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 		{
 			free(tempo);
 			expa->tmp_val = ft_strjoin(env->name, env->value, data);
+			if (!expa->tmp_val)
+				expa->tmp_val = ft_strdup(env->name, data);
 			return (1);
 		}
 		env = env->next;

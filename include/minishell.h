@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/27 13:30:03 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:40:32 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void	init_export(t_data *data);
 char	*get_name_env(char *str, t_data *data);
 char 	*get_value_env(char *str, t_data *data);
 int		new_node_env(char *str,int status, t_data *data);
+int	new_node_env_w_data(char *val, char *name, int status, t_data *data);
 
 
 //BUILTINS

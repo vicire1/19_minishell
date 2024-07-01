@@ -135,7 +135,7 @@ void	cmd_unset(t_data *data, char **str, int fd)
 	{
 		if (cmd_unset_check_in_env(data, str[i]))
 		{
-			printf("FAUT UNSET 1->%s\n", str[i]);
+			// printf("FAUT UNSET 1->%s\n", str[i]);
 			cmd_unset_do_it(data, str[i]);
 			if (cmd_unset_check_in_env(data, str[i]))
 			{
@@ -148,11 +148,11 @@ void	cmd_unset(t_data *data, char **str, int fd)
 			printf("unset : \'%s\': not a valid identifier\n", str[i]);
 		else if (cmd_unset_sec_chek_in_env(data, str[i]))
 		{
-			printf("FAUT UNSET (sec chek) ->%s\n", str[i]);
+			// printf("FAUT UNSET (sec chek) ->%s\n", str[i]);
 			cmd_unset_do_it_sec(data, str[i]);
 		}
-		else
-			printf("FAUT PAS UNSET ->%s\n", str[i]);
+		// else
+		// 	printf("FAUT PAS UNSET ->%s\n", str[i]);
 		i++;
 	}
 	return ;

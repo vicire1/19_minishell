@@ -76,7 +76,7 @@ void	cmd_export_print(t_data *data, int fd)
 		env_array[i++] = temp;
 		temp = temp->next;
 	}
-	printf("OK\n");
+	// printf("OK\n");
 	sort_tab(env_array, count);
 	print_export(data, count, env_array, fd);
 	free(env_array);
@@ -99,7 +99,7 @@ int	cmd_export_check_invalid(char *str)
 		{
 			if (str[j] != '_')
 			{
-				if (str[j] == '+')
+				if (str[j] == '+' && str[j+1] == '=')
 					return (0);
 				return (1);
 			}
@@ -166,7 +166,8 @@ void	cmd_export_egal_no_val(t_data *data, char *str)
 		}
 		tempo = tempo->next;
 	}
-	new_node_env(str, 1, data);
+	printf("ICI\n");
+	new_node_env_w_data(NULL, str, 1, data);
 }
 
 void	cmd_export_no_egal(t_data *data, char *str)
@@ -202,22 +203,18 @@ void	cmd_export_egal_val(t_data *data, char *str)
 	char *name = cmd_export_get_name(data, str);
 
 	tempo = data->first_env;
-	printf("name [[%s]]\n", name);
-	printf("ICI\n\n");
+	// printf("name [[%s]]\n", name);
+	// printf("ICI\n\n");
 	while (tempo)
 	{
 		// printf("while tempo %s\n", tempo->name);
 		if (tempo->env_status == 0 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
 		{
-			// printf("NAME SANS =\n");
-			// printf("STR = %s | NAME = %s]\n", str, tempo->name);
 			cmd_unset_do_it_sec(data, name);
 			break ;
 		}
-		if (tempo->env_status == 1 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
+		else if (tempo->env_status == 1 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
 		{
-			// printf("\n\nOK ICI\n\n");
-			// printf("[STR = %s | NAME = %s]\n", str, tempo->name);
 			cmd_unset_do_it(data, name);
 			break ;
 		}
@@ -227,48 +224,102 @@ void	cmd_export_egal_val(t_data *data, char *str)
 	new_node_env(str, 1, data);
 }
 
+void	cmd_export_plus_egal(t_data *data, char *str)
+{
+	t_env	*tempo;
+	char *tmp_name = cmd_export_get_name(data, str);
+	char *tmp_val;
+	char *last_val = NULL;
+	char *name = ft_substr(tmp_name, 0, ft_strlen(tmp_name) -1 , data);
+	char *new_name;
+	free(tmp_name);
+
+	tempo = data->first_env;
+	printf("name [[%s]]\n", name);
+	while(tempo)
+	{
+		if (tempo->env_status == 0 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
+		{
+			free(tempo->name);
+			tempo->name = ft_strjoin(name, "=", data);
+			printf("TEMPO->NAME [%s]\n", tempo->name);
+			free(name);
+			free(tmp_name);
+			tempo->value = get_value_env(str, data);
+			tempo->env_status = 1;
+			return ;
+		}
+		else if (tempo->env_status == 1 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
+		{
+			tmp_val = get_value_env(str, data);
+			if (tempo->value)
+				last_val = ft_strdup(tempo->value, data);
+			if (tempo->value)
+			{
+				printf("TEMPO VAL = %s\n", tempo->value);
+				free(tempo->value);
+				tempo->value = ft_strjoin(last_val, tmp_val, data);
+			}
+			else
+				tempo->value = ft_strdup(tmp_val, data);
+			printf("TEMPO->value = %s\n", tempo->value);
+			free(tmp_val);
+			free(last_val);
+			return ;
+		}
+		tempo = tempo->next;
+	}
+	new_name = ft_strjoin(name, "=", data);
+	// free(name);
+	// free(tmp_name);
+	char *val = ft_substr(str, (int)ft_strlen(new_name) + 1, (int)ft_strlen(str), data);
+
+	printf("================\n\nNEW NAME [%s]\n VAL[%s]\n\n==============\n", new_name, val);
+
+	new_node_env_w_data(val, new_name, 1, data);
+	// free(val);
+	// free(new_name);
+	return ;
+}
+
 void	cmd_export_for_env(t_data *data, char **str)
 {
 	int	i;
 
-(void)data;
 	i = 1;
 	while (str[i])
 	{
 		if (cmd_export_check_invalid(str[i]))								// cas invalid
 			printf("export : \'%s\': not a valid identifier\n", str[i]);
 		else if (cmd_export_check_plus_egal(str[i]))						// cas +=
+		{
 			printf("export cas +=\n");
+			cmd_export_plus_egal(data, str[i]);
+		}
 		else if (cmd_export_check_egal_no_val(str[i]))						// cas = sans val
 		{
-			// printf("export cas = sans value\n");
+			printf("CAS EGAL NO VAL \n");
 			cmd_export_egal_no_val(data, str[i]);
 		}
 		else if (cmd_export_check_no_egal(str[i]))							// cas sans =
 		{
-			// printf("export cas sans =\n");
+			printf("CAS NO EGAL \n");
 			cmd_export_no_egal(data, str[i]);
 		}
 		else
 		{
-			// printf("export cas avec = et avec value\n");
+			printf("CAS EGAL VAL \n");
 			cmd_export_egal_val(data, str[i]);
 		}
-		// cas ( export sansegal || export avec=egal || export avec+=egal || export avec= mais r apres)
-		// printf("[%s]\n", str[i]);
+		printf("STR[i] [%s]\n", str[i]);
 		i++;
 	}
 }
 
-
 void	cmd_export(t_data *data, char **str, int fd)
 {
-	(void)data;
-	(void)str;
 	if (!str[1])
 		cmd_export_print(data, fd);
 	else
-	{
 		cmd_export_for_env(data, str);
-	}
 }
