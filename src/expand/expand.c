@@ -14,7 +14,7 @@ int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 		free(tempo);
 		return (0);
 	}
-	while (env->next)
+	while (env)
 	{
 		if (env_cmp(tempo, env->name))
 		{
