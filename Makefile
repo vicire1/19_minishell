@@ -14,6 +14,7 @@ SRC_MANDATORY	= 	src/main.c \
 					src/builtins/export.c \
 					src/builtins/cd.c \
 					src/builtins/unset.c \
+					src/builtins/echo.c \
 					src/builtins/builtin.c \
 					src/utils/utils_libft.c \
 					src/utils/utils_free.c \
