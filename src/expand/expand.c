@@ -97,10 +97,13 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 	while (exp->token_str[j])
 	{
 		len_av = ft_strlen(exp->token_str);
-		if (exp->token_str[j] == '$' && ft_isalnum(exp->token_str[j + 1]))
+		if (exp->token_str[j] == '$' && (ft_isalnum(exp->token_str[j + 1]) || exp->token_str[j + 1] == 95)) // le tiret ???????????
 		{
 			if (check_quotes(exp, j, 0))
+			{
+			printf("entre ici\n");
 				replace_env(data, exp, j, data->expa);
+			}
 		}
 		else if (exp->token_str[j] == '$')
 		{

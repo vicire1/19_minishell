@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/03 14:03:22 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:01:13 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ char	*ft_strdup(const char *s, t_data *data);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strjoin(char const *s1, char const *s2, t_data *data);
 char	*ft_strjoin_bis(char const *s1, char const *s2);
+char	*ft_itoa(int n, t_data *data);
 
 
 //src/utils/utils_expand
