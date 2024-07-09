@@ -7,6 +7,7 @@ void	replace_env_init(t_data *data, t_lexer *exp, int j, t_expander *expa)
 	expa->n_len = size_env_doll(exp->token_str + j + 1);
 	if (in_env(data, data->first_env, exp->token_str + j + 1, expa))
 	{
+		printf("ENTTTREEEEE LA\n");
 		expa->val_len = size_env_value(expa->tmp_val);
 		expa->n_len = size_env_name(expa->tmp_val);
 	}
@@ -33,6 +34,7 @@ void	replace_env(t_data *data, t_lexer *exp, int j, t_expander *expa)
 	replace_env_init(data, exp, j, expa);
 	expa->first_part = ft_substr(expa->tmp, 0, j, data);
 	expa->sec_part = ft_substr(expa->tmp_val, expa->n_len, expa->val_len, data);
+	// printf("SEEEEC PART %s\n", expa->tmp_val);
 	if (expa->sec_part)
 		expa->third_part = ft_substr(expa->tmp, j + expa->n_len,
 				ft_strlen(expa->tmp), data);
@@ -43,6 +45,7 @@ void	replace_env(t_data *data, t_lexer *exp, int j, t_expander *expa)
 	free(expa->tmp);
 	expa->tmp = NULL;
 	expa->tmp = ft_strjoin(expa->first_part, expa->sec_part, data);
+	// printf("TMP %s \n", expa->tmp);
 	if (expa->tmp)
 		exp->token_str = ft_strjoin(expa->tmp, expa->third_part, data);
 	else

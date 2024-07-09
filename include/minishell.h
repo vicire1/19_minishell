@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/08 17:01:13 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:18:47 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 
 # define ERR_MAL "Memory alloction failed."
 # define ERR_SYN "Syntax error."
+
+int	exit_s;
 
 // LEXER STRUCT
 

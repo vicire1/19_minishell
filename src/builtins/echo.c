@@ -67,14 +67,17 @@ void	cmd_echo(t_data *data, char **str, int fd)
 	if (!str[1])
 	{
 		ft_printf_fd(fd, "\n");
+		exit_s = 0;
 		return ;
 	}
 	else if (cmd_echo_check_n(str, 1))
 	{
 		cmd_echo_n_do_it(str, fd);
+		exit_s = 0;
 		return ;
 	}
 	else
 		cmd_echo_do_it(str, fd);
+	exit_s = 0;
 	return ;
 }

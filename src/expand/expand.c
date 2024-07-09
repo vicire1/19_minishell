@@ -6,7 +6,7 @@ int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 	char	*tempo;
 
 	i = 0;
-	while (ft_isalnum(str[i]))
+	while (ft_isalnum(str[i]) || str[i] == '_')
 		i++;
 	tempo = ft_substr(str, 0, i, data);
 	if (!tempo)
@@ -97,11 +97,10 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 	while (exp->token_str[j])
 	{
 		len_av = ft_strlen(exp->token_str);
-		if (exp->token_str[j] == '$' && (ft_isalnum(exp->token_str[j + 1]) || exp->token_str[j + 1] == 95)) // le tiret ???????????
+		if (exp->token_str[j] == '$' && (ft_isalnum(exp->token_str[j + 1]) || exp->token_str[j + 1] == 95))
 		{
 			if (check_quotes(exp, j, 0))
 			{
-			printf("entre ici\n");
 				replace_env(data, exp, j, data->expa);
 			}
 		}
