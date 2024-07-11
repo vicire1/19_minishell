@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/10 12:52:15 by lbirloue         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/12 15:08:15 by vdecleir         ###   ########.fr       */
+>>>>>>> 7ba8298e67429cfb6f5684cc2f4db9ef18d64a6f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +57,6 @@ int	main(int ac, char **av, char **envp)
 
 		if (lexer(line, &data))
 			printf("%s\n", ERR_SYN);
-
 		else
 		{
 			expander(&data);

@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 14:16:19 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:26:28 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ int	check_double_token(t_data *data)
 	while (current->next)
 	{
 		temp = current->next;
-		if (current->token && temp->token)
+		if (current->token == 1 && temp->token != 1)
+			;
+		else if (current->token && temp->token)
 			return (1);
 		current = temp;
 	}

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:19 by vdecleir          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/13 13:33:32 by lbirloue         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/12 15:09:04 by vdecleir         ###   ########.fr       */
+>>>>>>> 7ba8298e67429cfb6f5684cc2f4db9ef18d64a6f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +140,10 @@ int	parser(t_data *data)
 
 	current = data->first_lex;
 	if (current->token == 1)
-		free_all(data, ERR_MAL, 0);
+	{
+		printf("%s\n", ERR_SYN);
+		return (1);
+	}
 	while (current)
 	{
 		arg = 0;
