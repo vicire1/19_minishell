@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/11 17:17:48 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:22:36 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,6 @@ int	main(int ac, char **av, char **envp)
 				expander(&data);
 				parser(&data);
 			}
-			add_history(line);
-			free(line);
-			free_all(&data, NULL, 0);
-		}
-		
-		/*TEST BUILTINS*/
 			t_pars	*temp;
 
 			temp = data.first_pars;
@@ -79,13 +73,10 @@ int	main(int ac, char **av, char **envp)
 			}
 			temp = temp->next;
 			}
-		
-
-		/*FIN TEST BUITINS*/
-
-		add_history(line);
-		free(line);
-		free_all(&data, NULL, 0);
+			add_history(line);
+			free(line);
+			free_all(&data, NULL, 0);
+		}
 	}
 }
 
