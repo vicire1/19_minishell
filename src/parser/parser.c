@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:19 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/11 17:15:11 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:19:29 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,14 @@ int	parser(t_data *data)
 	t_lexer	*start;
 	int		arg;
 	int		redir;
+	int		nb_node;
 
+	nb_node = 0;
 	current = data->first_lex;
 	if (current->token == 1)
 	{
-		printf("%s\n", ERR_SYN);
-		return (1);
+		ft_printf_fd(2, "syntax error near unexpected token `|'\n", 0);
+		return (1);	
 	}
 	while (current)
 	{
@@ -148,7 +150,9 @@ int	parser(t_data *data)
 		current = count_redir(current, &arg, &redir);
 		new_node_pars(data, start, arg, redir);
 		create_redir_lst(data, start, redir);
+		nb_node++;
 	}
-	print_pars(data->first_pars);
+	data->nb_cmd_node = nb_node;
+	// print_pars(data->first_pars);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/09 15:18:47 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:19:08 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@
 
 # define ERR_MAL "Memory alloction failed."
 # define ERR_SYN "Syntax error."
+# define ERR_PIP "Pipe failed."
+# define ERR_FORK "Fork failed."
 
 int	exit_s;
+
 
 // LEXER STRUCT
 
@@ -45,7 +48,14 @@ typedef enum s_token
 	LESS_LESS,
 }			t_token;
 
-typedef struct s_expander
+// typedef struct	s_exec
+// {
+// 	int pipe_fd[2];
+// 	int fd_in;
+// 	int	fd_out;
+// }				t_exec;
+
+typedef struct	s_expander
 {
 	int		val_len;
 	int		n_len;
@@ -54,14 +64,14 @@ typedef struct s_expander
 	char	*first_part;
 	char	*sec_part;
 	char	*third_part;
-}			t_expander;
+}				t_expander;
 
 
-typedef struct s_redir
+typedef struct	s_redir
 {
-	t_token	token;
-	char	*file;
-	void	*next;
+	t_token		token;
+	char		*file;
+	void		*next;
 }				t_redir;
 
 typedef struct	s_pars
@@ -82,23 +92,25 @@ typedef struct s_lexer
 	void	*prev;
 }			t_lexer;
 
-typedef struct s_env
+typedef struct	s_env
 {
 	char	*name;
 	char	*value;
 	int		env_status; //1=> dans env et export/ 0=> dans export mais pas env
 	void	*next;
 	void	*prev;
-}			t_env;
+}				t_env;
 
-typedef struct s_data
+typedef struct 	s_data
 {
 	t_expander	*expa;
-	t_lexer	*first_lex;
-	t_env	*first_env;
-	t_pars	*first_pars;
-	int		pos;
-}t_data;
+	t_lexer		*first_lex;
+	t_env		*first_env;
+	t_pars		*first_pars;
+	int			pos;
+	int			nb_cmd_node;
+	int			pid;
+}				t_data;
 
 
 //src/expand
