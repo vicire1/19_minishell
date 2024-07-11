@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 15:26:28 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:00:15 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_double_token(t_data *data)
 		current = temp;
 	}
 	if (current->token)
-		return (1);
+		return (1);	
 	return (0);
 }
 

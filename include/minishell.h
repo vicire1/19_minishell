@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/11 14:41:44 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:26:31 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 
 # define ERR_MAL "Memory alloction failed."
 # define ERR_SYN "Syntax error."
+# define ERR_PIP "Pipe failed."
+# define ERR_FORK "Fork failed."
 
 // LEXER STRUCT
 
@@ -42,7 +44,14 @@ typedef enum s_token
 	LESS_LESS,
 }			t_token;
 
-typedef struct s_expander
+// typedef struct	s_exec
+// {
+// 	int pipe_fd[2];
+// 	int fd_in;
+// 	int	fd_out;
+// }				t_exec;
+
+typedef struct	s_expander
 {
 	int		val_len;
 	int		n_len;
@@ -51,14 +60,14 @@ typedef struct s_expander
 	char	*first_part;
 	char	*sec_part;
 	char	*third_part;
-}			t_expander;
+}				t_expander;
 
 
-typedef struct s_redir
+typedef struct	s_redir
 {
-	t_token	token;
-	char	*file;
-	void	*next;
+	t_token		token;
+	char		*file;
+	void		*next;
 }				t_redir;
 
 typedef struct	s_pars
@@ -79,21 +88,23 @@ typedef struct s_lexer
 	void	*prev;
 }			t_lexer;
 
-typedef struct s_env
+typedef struct	s_env
 {
 	char	*env_str;
 	void	*next;
 	void	*prev;
-}			t_env;
+}				t_env;
 
-typedef struct s_data
+typedef struct 	s_data
 {
 	t_expander	*expa;
-	t_lexer	*first_lex;
-	t_env	*first_env;
-	t_pars	*first_pars;
-	int		pos;
-}t_data;
+	t_lexer		*first_lex;
+	t_env		*first_env;
+	t_pars		*first_pars;
+	int			pos;
+	int			nb_cmd_node;
+	int			pid;
+}				t_data;
 
 
 //src/expand
