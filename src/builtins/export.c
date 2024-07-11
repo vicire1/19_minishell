@@ -38,7 +38,7 @@ int	lst_env_size(t_data *data)
 
 void	print_export(t_data *data, int count, t_env **env_array, int fd)
 {
-	t_env *tempo;
+	t_env	*tempo;
 	int		i;
 
 	tempo = data->first_env;
@@ -76,7 +76,6 @@ void	cmd_export_print(t_data *data, int fd)
 		env_array[i++] = temp;
 		temp = temp->next;
 	}
-	// printf("OK\n");
 	sort_tab(env_array, count);
 	print_export(data, count, env_array, fd);
 	free(env_array);
@@ -166,7 +165,6 @@ void	cmd_export_egal_no_val(t_data *data, char *str)
 		}
 		tempo = tempo->next;
 	}
-	printf("ICI\n");
 	new_node_env_w_data(NULL, str, 1, data);
 }
 
@@ -178,10 +176,7 @@ void	cmd_export_no_egal(t_data *data, char *str)
 	while (tempo)
 	{
 		if (ft_strncmp(str, tempo->name, ft_strlen(str)) == 0)
-		{
-			printf("----\n[STR = %s | NAME = %s]\n", str, tempo->name);
 			return ;
-		}
 		tempo = tempo->next;
 	}
 	new_node_env(str, 0, data);
@@ -203,11 +198,8 @@ void	cmd_export_egal_val(t_data *data, char *str)
 	char *name = cmd_export_get_name(data, str);
 
 	tempo = data->first_env;
-	// printf("name [[%s]]\n", name);
-	// printf("ICI\n\n");
 	while (tempo)
 	{
-		// printf("while tempo %s\n", tempo->name);
 		if (tempo->env_status == 0 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
 		{
 			cmd_unset_do_it_sec(data, name);
@@ -227,22 +219,20 @@ void	cmd_export_egal_val(t_data *data, char *str)
 void	cmd_export_plus_egal(t_data *data, char *str)
 {
 	t_env	*tempo;
-	char *tmp_name = cmd_export_get_name(data, str);
-	char *tmp_val;
-	char *last_val = NULL;
-	char *name = ft_substr(tmp_name, 0, ft_strlen(tmp_name) -1 , data);
-	char *new_name;
+	char	*tmp_name = cmd_export_get_name(data, str);
+	char	*tmp_val;
+	char	*last_val = NULL;
+	char	*name = ft_substr(tmp_name, 0, ft_strlen(tmp_name) -1 , data);
+	char	*new_name;
 	free(tmp_name);
 
 	tempo = data->first_env;
-	printf("name [[%s]]\n", name);
 	while(tempo)
 	{
 		if (tempo->env_status == 0 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
 		{
 			free(tempo->name);
 			tempo->name = ft_strjoin(name, "=", data);
-			printf("TEMPO->NAME [%s]\n", tempo->name);
 			free(name);
 			free(tmp_name);
 			tempo->value = get_value_env(str, data);
@@ -256,13 +246,11 @@ void	cmd_export_plus_egal(t_data *data, char *str)
 				last_val = ft_strdup(tempo->value, data);
 			if (tempo->value)
 			{
-				printf("TEMPO VAL = %s\n", tempo->value);
 				free(tempo->value);
 				tempo->value = ft_strjoin(last_val, tmp_val, data);
 			}
 			else
 				tempo->value = ft_strdup(tmp_val, data);
-			printf("TEMPO->value = %s\n", tempo->value);
 			free(tmp_val);
 			free(last_val);
 			return ;
@@ -270,15 +258,10 @@ void	cmd_export_plus_egal(t_data *data, char *str)
 		tempo = tempo->next;
 	}
 	new_name = ft_strjoin(name, "=", data);
-	// free(name);
-	// free(tmp_name);
 	char *val = ft_substr(str, (int)ft_strlen(new_name) + 1, (int)ft_strlen(str), data);
-
-	printf("================\n\nNEW NAME [%s]\n VAL[%s]\n\n==============\n", new_name, val);
-
 	new_node_env_w_data(val, new_name, 1, data);
-	// free(val);
-	// free(new_name);
+	free(val);
+	free(new_name);
 	return ;
 }
 

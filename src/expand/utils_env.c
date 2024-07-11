@@ -23,9 +23,7 @@ void	init_oldpwd(t_data *data)
 	while (temp)
 	{
 		if (ft_strncmp("OLDPWD", temp->name, 6) == 0)
-		{
 			return ;
-		}
 		temp = temp->next;
 	}
 	new_node_env("OLDPWD", 0, data);
@@ -41,9 +39,7 @@ void	init_pwd(t_data *data)
 	while (temp)
 	{
 		if (ft_strncmp("PWD", temp->name, 3) == 0)
-		{
 			return ;
-		}
 		temp = temp->next;
 	}
 	pwd = getcwd(NULL, 0);
@@ -117,8 +113,6 @@ int	new_node_env(char *str, int status, t_data *data)
 	new->env_status = status;
 	new->name = get_name_env(str, data);
 	new->value = get_value_env(str, data);
-	printf("NEW NODE => NAME = %s VAL = %s\n", new->name, new->value);
-	// printf("NAME | VALUE = [%s][%s]\n", new->name, new->value);
 	if (data->first_env == NULL)
 	{
 		new->prev = NULL;
@@ -135,8 +129,8 @@ int	new_node_env(char *str, int status, t_data *data)
 
 int	new_node_env_w_data(char *val, char *name, int status, t_data *data)
 {
-	t_env		*new;
-	t_env		*temp;
+	t_env	*new;
+	t_env	*temp;
 
 	new = malloc(sizeof(t_env));
 	if (!new)
@@ -144,10 +138,9 @@ int	new_node_env_w_data(char *val, char *name, int status, t_data *data)
 	new->next = NULL;
 	new->env_status = status;
 	new->name = ft_strdup(name, data);
+	new->value = NULL;
 	if (val)
 		new->value = ft_strdup(val, data);
-	printf("NEW NODE => NAME = %s VAL = %s\n", new->name, new->value);
-	// printf("NAME | VALUE = [%s][%s]\n", new->name, new->value);
 	if (data->first_env == NULL)
 	{
 		new->prev = NULL;

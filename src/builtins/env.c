@@ -1,16 +1,27 @@
 #include "../../include/minishell.h"
 
-void	cmd_env(t_data *data, char **str, int fd)
+int	cmd_env_check_arg(char *str)
 {
-	t_env *tempo;
-
-	tempo = data->first_env;
-
-	if (str[1])
+	if (!str)
+		return (0);
+	if (str[1] == '-')
 	{
 		printf("No option allowed for env\n");
-		return ;
+		exit_s = 1;	
+		return (1);
 	}
+	printf("No argument allowed for env\n");
+	exit_s = 1;
+	return (1);
+}
+
+void	cmd_env(t_data *data, char **str, int fd)
+{
+	t_env	*tempo;
+
+	tempo = data->first_env;
+	if (cmd_env_check_arg(str[1]))
+		return ;
 	while (tempo)
 	{
 		if (tempo->env_status)
@@ -22,5 +33,6 @@ void	cmd_env(t_data *data, char **str, int fd)
 		}
 		tempo = tempo->next;
 	}
+	exit_s = 0;
 	return ;
 }

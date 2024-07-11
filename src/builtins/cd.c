@@ -154,7 +154,6 @@ void	cmd_cd_home_change_oldpwd(t_data *data)
 	char	*str_tempo;
 
 	new_oldpwd = cmd_cd_home_get_new_oldpwd(data);
-	printf("AP %s\n", new_oldpwd);
 	tempo = data->first_env;
 	while (tempo)
 	{
@@ -163,7 +162,6 @@ void	cmd_cd_home_change_oldpwd(t_data *data)
 			free(tempo->value);
 
 			tempo->value = ft_strdup(new_oldpwd, data);
-			printf("KCAV\n");
 			if (tempo->env_status == 0)
 			{
 				str_tempo = ft_strdup(tempo->name, data);
@@ -176,7 +174,6 @@ void	cmd_cd_home_change_oldpwd(t_data *data)
 		}
 		tempo = tempo->next;
 	}
-	printf("IHI\n");
 	return ;
 }
 
@@ -220,16 +217,13 @@ int	cmd_cd_path_file_or_dir_err(t_data *data, char *str)
 	struct stat statbuf;
 
 (void)data;
-printf("AV STAT\n");
 	if (stat(str, &statbuf) == 0)
 	{
-		printf("IN STAT\n");
 		if (S_ISREG(statbuf.st_mode))
 		{
 			printf("cd: %s: Not a directory\n", str);
 			return (-1);
 		}
-
 	}
 	else
 	{
@@ -241,20 +235,15 @@ printf("AV STAT\n");
 
 void	cmd_cd_path(t_data *data, char *str)
 {
-	printf("ICI\n");
 	if (cmd_cd_path_file_or_dir_err(data, str) == -1)
 	{
 		if (ft_strlen(str) == 2 && ft_strncmp("..", str, 2) == 0)
 			cmd_cd_home(data);
 		return ;
 	}
-	printf("ICI2\n");
 	cmd_cd_home_change_oldpwd(data);
-	printf("AVVCHDIR\n");
 	chdir(str);
-	printf("APCHDIR\n");
 	cmd_cd_change_pwd(data, getcwd(NULL, 0));
-	printf("APICI\n");
 	return ;
 }
 
@@ -266,17 +255,11 @@ void	cmd_cd(t_data *data, char **str, int fd)
 
 	len_str2 = ft_strlen(str[1]);
 	if (!str[1])
-	{
-		printf("CD : NO ARG\n");
 		cmd_cd_home(data);
-	}
 	else if (len_str2 == 1 && ft_strncmp("-", str[1], 1) == 0)
 		printf("RETOUR AU OLDPWD\n");
 	else if (len_str2 == 2 && ft_strncmp("--", str[1], 2) == 0)
-	{
-		printf("CD : NO ARG\n");
 		cmd_cd_home(data);
-	}
 	else if (len_str2 == 1 && ft_strncmp(".", str[1], 1) == 0)
 		cmd_cd_home_change_oldpwd(data);
 	else
@@ -286,3 +269,9 @@ void	cmd_cd(t_data *data, char **str, int fd)
 	}
 	return ;
 }
+
+
+/*
+	a faire :	si le PWD est unset, en refaire un nouveau !
+				si le OLDPWD est unset, en refaire un nouveau (att pas la premiere fois mais la 2eme idk ?) ! 
+*/

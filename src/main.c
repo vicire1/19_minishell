@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/06/13 13:33:58 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:52:15 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	init_data(t_data *data)
 {
 	data->first_lex = NULL;
 	data->first_pars = NULL;
+	data->expa = NULL;
 	return (0);
 }
 
