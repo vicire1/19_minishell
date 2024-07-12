@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int		cmd_unset_check_invalid(char *str)
+int	cmd_unset_check_invalid(char *str)
 {
 	int	i;
 
@@ -19,16 +19,17 @@ int		cmd_unset_check_invalid(char *str)
 	return (0);
 }
 
-int		cmd_unset_check_in_env(t_data *data, char *str)
+int	cmd_unset_check_in_env(t_data *data, char *str)
 {
 	t_env	*tempo;
 	int		size_str;
 
 	tempo = data->first_env;
 	size_str = ft_strlen(str);
-	while(tempo)
+	while (tempo)
 	{
-		if (tempo->env_status && (ft_strncmp(str, tempo->name,ft_strlen(str)) == 0))
+		if (tempo->env_status
+			&& (ft_strncmp(str, tempo->name, ft_strlen(str)) == 0))
 			return (1);
 		tempo = tempo->next;
 	}
@@ -49,10 +50,10 @@ void	cmd_unset_do_it(t_data *data, char *str)
 		if (((size_name - 1) == size_str)
 			&& ft_strncmp(tempo->name, str, size_str) == 0)
 		{
-			if (tempo->prev == NULL) 
+			if (tempo->prev == NULL)
 			{
 				data->first_env = (t_env *)tempo->next;
-				if (tempo->next != NULL) 
+				if (tempo->next != NULL)
 					((t_env *)tempo->next)->prev = NULL;
 			}
 			else
@@ -72,21 +73,21 @@ void	cmd_unset_do_it(t_data *data, char *str)
 
 int	cmd_unset_sec_chek_in_env(t_data *data, char *str)
 {
-	t_env *tempo;
+	t_env	*tempo;
 
 	tempo = data->first_env;
-
 	while (tempo)
 	{
-		if ((tempo->env_status == 0 && (ft_strncmp(str, tempo->name,ft_strlen(str)) == 0)) && ft_strlen(tempo->name) == ft_strlen(str))
+		if ((tempo->env_status == 0
+				&& (ft_strncmp(str, tempo->name, ft_strlen(str)) == 0))
+			&& ft_strlen(tempo->name) == ft_strlen(str))
 			return (1);
 		tempo = tempo->next;
 	}
 	return (0);
 }
 
-
-void cmd_unset_do_it_sec(t_data *data, char *str)
+void	cmd_unset_do_it_sec(t_data *data, char *str)
 {
 	t_env	*tempo;
 	int		size_str;
@@ -97,12 +98,13 @@ void cmd_unset_do_it_sec(t_data *data, char *str)
 	while (tempo)
 	{
 		size_name = ft_strlen(tempo->name);
-		if (tempo->env_status == 0 && (ft_strncmp(str, tempo->name,ft_strlen(str)) == 0))
+		if (tempo->env_status == 0
+			&& (ft_strncmp(str, tempo->name, ft_strlen(str)) == 0))
 		{
-			if (tempo->prev == NULL) 
+			if (tempo->prev == NULL)
 			{
 				data->first_env = (t_env *)tempo->next;
-				if (tempo->next != NULL) 
+				if (tempo->next != NULL)
 					((t_env *)tempo->next)->prev = NULL;
 			}
 			else
@@ -120,10 +122,18 @@ void cmd_unset_do_it_sec(t_data *data, char *str)
 	}
 }
 
+/**
+ * @brief handle the "unset" cmd
+ * 
+ * @param data struct data
+ * @param str [0] => unset [.;.;.]=> arg
+ * @param fd file descriptor (unused)
+ */
 void	cmd_unset(t_data *data, char **str, int fd)
 {
-	int	i;
-	char *tmp;
+	int		i;
+	char	*tmp;
+
 	(void)fd;
 	if (!str[1])
 		return ;
@@ -135,7 +145,7 @@ void	cmd_unset(t_data *data, char **str, int fd)
 			cmd_unset_do_it(data, str[i]);
 			if (cmd_unset_check_in_env(data, str[i]))
 			{
-				tmp = ft_substr(str[i], 0, ft_strlen(str[i]) -1, data);
+				tmp = ft_substr(str[i], 0, ft_strlen(str[i]) - 1, data);
 				cmd_unset_do_it(data, tmp);
 				free(tmp);
 			}

@@ -1,5 +1,11 @@
 #include "../../include/minishell.h"
 
+/**
+ * @brief check if str is a builtin
+ * 
+ * @param str string to compare
+ * @return int which builtin is it or if it s not
+ */
 int	check_if_builtin(char *str)
 {
 	int	len_str;
@@ -20,6 +26,14 @@ int	check_if_builtin(char *str)
 	return (0);
 }
 
+/**
+ * @brief dispatch builtins
+ * 
+ * @param data struct data
+ * @param str char** 
+ * @param fd file descriptor
+ * @param which which builtin is it
+ */
 void	dispatch_builtins(t_data *data, char **str, int fd, int which)
 {
 	(void)str;

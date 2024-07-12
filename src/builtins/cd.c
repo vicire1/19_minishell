@@ -1,122 +1,16 @@
 #include "../../include/minishell.h"
 
-//avant de bouger, mettre le pwd actuel a la place du oldpwd dans env, ouis deplacer, et recup le pwd 
-// et le mettre dans env
-
-// ajt un char*str HOME DE BASE au cas ou (a recup avec getenv("HOME"))
-
-// le ~ a gerer dans expand ????????
-
-// void	cmd_cd_home_oldpwd(t_data *data, char *home, char *pwd_before)
-// {
-// 	t_env	*tempo;
-// 	char	*str_tmp;
-
-// 	tempo = data->first_env;
-// 	if (!home)
-// 		printf("????\n");
-// 	while(tempo)
-// 	{
-// 		if (ft_strncmp("OLDPWD", tempo->name, 6) == 0)
-// 		{
-// 			printf("ui [%s]\n", tempo->name);
-// 			free(tempo->value);
-// 			tempo->value = ft_strdup(pwd_before, data);
-// 			if (tempo->env_status == 0)
-// 			{
-// 				str_tmp = ft_strdup(tempo->name, data);
-// 				free(tempo->name);
-// 				tempo->name = ft_strjoin(str_tmp, "=", data);
-// 			}
-// 			tempo->env_status = 1;
-// 			printf("C CHANGÉ\n");
-// 			return ;
-// 		}
-// 		tempo = tempo->next;
-// 	}
-// }
-
-// void	cmd_cd_home_change_pwd(t_data *data, char *home)
-// {
-// 	t_env	*tempo;
-// 	char	*pwd_before;
-
-// 	tempo = data->first_env;
-// 	pwd_before = NULL;
-// 	if (!home)
-// 	{
-// 		printf("MH PB\n");
-// 		return ;
-// 	}
-// 	while(tempo)
-// 	{
-// 		if (ft_strncmp("PWD", tempo->name, 3) == 0)
-// 		{
-// 	printf("ui [%s]\n", tempo->name);
-// 			pwd_before = ft_strdup(tempo->value, data);
-// 			free(tempo->value);
-// 			printf("ICI\n");
-// 			tempo->value = ft_strdup(home, data);
-// 			printf("C CHANGÉ\n");
-// 			cmd_cd_home_oldpwd(data, home, pwd_before);
-// 			return ;
-// 		}
-// 		tempo = tempo->next;
-// 	}
-// 	printf("nn\n");
-// }
-
-// char	*cmd_cd_home_get_home(t_data *data)
-// {
-// 	t_env *tempo;
-
-// 	tempo = data->first_env;
-// 	while (tempo)
-// 	{
-// 		if (ft_strncmp("HOME", tempo->name, 4) && ft_strlen(tempo->name) == 4)
-// 			return (ft_strdup(tempo->value, data));
-// 		tempo = tempo->next;
-// 	}
-// 	return (NULL);
-// }
-
-// void	cmd_cd_home(t_data *data)
-// {
-// //chercher le HOME DANS ENV;
-// 	char	*home_path;
-// 	int		check_chdir;
-
-// 	home_path = cmd_cd_home_get_home(data);
-// 	// (void)data;
-// 	// home_path = "tessst";
-// 	if (!home_path)
-// 	{
-// 		printf("cd: HOME not set\n");
-// 		return ;
-// 	}
-// 	check_chdir = chdir(home_path);
-// 	printf("ret chdir = %d | new pwd = %s\n", check_chdir, getenv("HOME"));
-// 	if (check_chdir == -1)
-// 	{
-// 		// printf("cd: %s: No such file or directory\n", home_path);
-// 		printf("BEN NON, ALLER AU HOME")
-// 		free(home_path);
-// 		return ;
-// 	}
-// 	//changer le pwd et le oldpwd dans env;
-// 	cmd_cd_home_change_pwd(data, getenv("HOME"));
-// 	free(home_path);
-// 	return ;
-// }
-
 void	cmd_cd_change_pwd(t_data *data, char *new_pwd)
 {
-	t_env *tempo;
+	t_env	*tempo;
 
 	tempo = data->first_env;
+	if (!new_pwd)
+		free_all(data, ERR_GETCWD, 1);
 	while (tempo)
 	{
-		if (ft_strncmp("PWD=", tempo->name, 4) == 0 && ft_strlen(tempo->name) == 4)
+		if (ft_strncmp("PWD=", tempo->name, 4) == 0
+			&& ft_strlen(tempo->name) == 4)
 		{
 			free(tempo->value);
 			tempo->value = ft_strdup(new_pwd, data);
@@ -135,10 +29,11 @@ char	*cmd_cd_home_get_new_oldpwd(t_data *data)
 	new_oldpwd = NULL;
 	while (tempo)
 	{
-		if (ft_strncmp("PWD=", tempo->name, 4) == 0 && ft_strlen(tempo->name) == 4)
+		if (ft_strncmp("PWD=", tempo->name, 4) == 0
+			&& ft_strlen(tempo->name) == 4)
 		{
 			new_oldpwd = ft_strdup(tempo->value, data);
-			break;
+			break ;
 		}
 		tempo = tempo->next;
 	}
@@ -157,10 +52,10 @@ void	cmd_cd_home_change_oldpwd(t_data *data)
 	tempo = data->first_env;
 	while (tempo)
 	{
-		if (ft_strncmp("OLDPWD", tempo->name, 6) == 0 && ((ft_strlen(tempo->name) == 6) || (ft_strlen(tempo->name) == 7)))
+		if (ft_strncmp("OLDPWD", tempo->name, 6) == 0
+			&& ((ft_strlen(tempo->name) == 6) || (ft_strlen(tempo->name) == 7)))
 		{
 			free(tempo->value);
-
 			tempo->value = ft_strdup(new_oldpwd, data);
 			if (tempo->env_status == 0)
 			{
@@ -177,15 +72,15 @@ void	cmd_cd_home_change_oldpwd(t_data *data)
 	return ;
 }
 
-
 char	*cmd_cd_home_get_home(t_data *data)
 {
-	t_env *tempo;
+	t_env	*tempo;
 
 	tempo = data->first_env;
 	while (tempo)
 	{
-		if (ft_strncmp("HOME=", tempo->name, 5) == 0 && ft_strlen(tempo->name) == 5)
+		if (ft_strncmp("HOME=", tempo->name, 5) == 0
+			&& ft_strlen(tempo->name) == 5)
 			return (ft_strdup(tempo->value, data));
 		tempo = tempo->next;
 	}
@@ -212,30 +107,47 @@ void	cmd_cd_home(t_data *data)
 	cmd_cd_change_pwd(data, home_path);
 }
 
+/**
+ * @brief check if the dir is correct
+ * 
+ * @param data struct data
+ * @param str absolute path
+ * @return int return 1 if incorrect or 0 if it is
+ */
 int	cmd_cd_path_file_or_dir_err(t_data *data, char *str)
 {
-	struct stat statbuf;
-
-(void)data;
-	if (stat(str, &statbuf) == 0)
+	(void)data;
+	printf("%s\n", str);
+	if (access(str, F_OK) == -1)
 	{
-		if (S_ISREG(statbuf.st_mode))
-		{
-			printf("cd: %s: Not a directory\n", str);
-			return (-1);
-		}
+		printf("cd: %s:  No such file or directory\n", str);
+		return (1);
 	}
-	else
+	if (access(str, X_OK) == -1)
 	{
-		printf("cd: %s: No such file or directory\n", str);
-		return (-1);
+		printf("cd: %s: Permission denied\n", str);
+		return (1);
 	}
-	return 0;
+	return (0);
 }
+/*
+a cause de chmod 000
+midif la fctn au dessus, utiliser avec access, pour F_OK (si mauvais No such file or dir), puis X_OK (si mauvais Permission denied)
+*/
 
+
+
+
+
+/**
+ * @brief Hendle the 'cd' command with path
+ * 
+ * @param data struct data
+ * @param str arg
+ */
 void	cmd_cd_path(t_data *data, char *str)
 {
-	if (cmd_cd_path_file_or_dir_err(data, str) == -1)
+	if (cmd_cd_path_file_or_dir_err(data, str))
 	{
 		if (ft_strlen(str) == 2 && ft_strncmp("..", str, 2) == 0)
 			cmd_cd_home(data);
@@ -247,12 +159,18 @@ void	cmd_cd_path(t_data *data, char *str)
 	return ;
 }
 
+/**
+ * @brief Handles the 'cd' command to change the current directory.
+ * 
+ * @param data struct data
+ * @param str [0] => cd [.;.;.]=> arg
+ * @param fd file descriptor (unused)
+ */
 void	cmd_cd(t_data *data, char **str, int fd)
 {
 	int	len_str2;
-	(void)fd;
-	(void)data;
 
+	(void)fd;
 	len_str2 = ft_strlen(str[1]);
 	if (!str[1])
 		cmd_cd_home(data);
@@ -263,13 +181,9 @@ void	cmd_cd(t_data *data, char **str, int fd)
 	else if (len_str2 == 1 && ft_strncmp(".", str[1], 1) == 0)
 		cmd_cd_home_change_oldpwd(data);
 	else
-	{
-		printf("CHECK LE PATH ET Y ALLER\n");
 		cmd_cd_path(data, str[1]);
-	}
 	return ;
 }
-
 
 /*
 	a faire :	si le PWD est unset, en refaire un nouveau !
