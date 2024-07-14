@@ -28,7 +28,7 @@ int		cmd_unset_check_in_env(t_data *data, char *str)
 	size_str = ft_strlen(str);
 	while(tempo)
 	{
-		if (tempo->env_status && (ft_strncmp(str, tempo->name,ft_strlen(str)) == 0))
+		if (tempo->env_status && (ft_strncmp(str, tempo->name,size_str) == 0))
 			return (1);
 		tempo = tempo->next;
 	}
@@ -90,14 +90,12 @@ void cmd_unset_do_it_sec(t_data *data, char *str)
 {
 	t_env	*tempo;
 	int		size_str;
-	int		size_name;
 
 	tempo = data->first_env;
 	size_str = ft_strlen(str);
 	while (tempo)
 	{
-		size_name = ft_strlen(tempo->name);
-		if (tempo->env_status == 0 && (ft_strncmp(str, tempo->name,ft_strlen(str)) == 0))
+		if (tempo->env_status == 0 && (ft_strncmp(str, tempo->name,size_str) == 0))
 		{
 			if (tempo->prev == NULL) 
 			{

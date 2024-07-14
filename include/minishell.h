@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/11 17:19:08 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/11 22:32:51 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ typedef struct 	s_data
 	int			pos;
 	int			nb_cmd_node;
 	int			pid;
+	char		**env_arr;
+	char		**poss_path;
 }				t_data;
 
 
@@ -137,6 +139,11 @@ int	new_node_pars(t_data *data, t_lexer *start, int arg, int redir);
 char	**create_cmd(t_data *data, t_lexer *start, int arg);
 int free_all(t_data *data, char *str, int esc);
 
+//exec
+char    **env_in_array(t_data *data);
+int    open_redir(t_redir *redir);
+int executor(t_data *data);
+
 //src/utils
 char	*ft_substr(char const *s, unsigned int start, size_t len, t_data *data);
 char	*ft_substr_bis(char const *s, unsigned int start, size_t len);
@@ -150,6 +157,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strjoin(char const *s1, char const *s2, t_data *data);
 char	*ft_strjoin_bis(char const *s1, char const *s2);
 char	*ft_itoa(int n, t_data *data);
+char	**ft_split(char const *s, char c, t_data *data);
 
 
 //src/utils/utils_expand
@@ -200,7 +208,6 @@ void    cmd_echo(t_data *data, char **str, int fd);
 //sec/buitins/buitlin.c
 int		check_if_builtin(char *str);
 void	dispatch_builtins(t_data *data, char **str, int fd, int which);
-
 
 #endif
 

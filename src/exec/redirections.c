@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:54:25 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/11 15:53:05 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:40:36 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int     outfile_redir(char *outfile)
     if (fd < 0)
     {
         ft_printf_fd(2, "%s: Error.\n", outfile);
-        return (1);
+        exit (1);
     }
     dup2(fd, STDOUT_FILENO);
     close(fd);
@@ -35,7 +35,7 @@ int     outfile_append_redir(char *outfile)
     if (fd < 0)
     {
         ft_printf_fd(2, "%s: Error.\n", outfile);
-        return (1);
+        exit(1);
     }
     dup2(fd, STDOUT_FILENO);
     close(fd);
@@ -50,7 +50,7 @@ int     infile_redir(char *infile)
     if (fd < 0)
     {
         ft_printf_fd(2, "%s: No such file or directory\n", infile);
-        return(1);
+        exit(1);
     }
     dup2(fd, STDIN_FILENO);
     close(fd);
@@ -65,20 +65,11 @@ int    open_redir(t_redir *redir)
     while(current)
     {
         if (current->token == 2)
-        {
-            if (outfile_redir(current->file))
-                return (1);
-        }
+            outfile_redir(current->file);
         if (current->token == 3)
-        {
-            if (outfile_append_redir(current->file))
-                return (1);
-        }
+            outfile_append_redir(current->file);
         if (current->token == 4)
-        {
-            if (infile_redir(current->file))
-                return (1);
-        }
+            infile_redir(current->file);
         current = current->next;
     }
     return (0);
