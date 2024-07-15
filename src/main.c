@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 16:00:40 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:22:03 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (lexer(line, &data))
 				printf("%s\n", ERR_SYN);
-			else
+			else if (data.first_lex)
 			{
 				expander(&data);
 				parser(&data);
