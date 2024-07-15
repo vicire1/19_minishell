@@ -20,6 +20,9 @@ SRC_MANDATORY	= 	src/main.c \
 					src/utils/utils_libft.c \
 					src/utils/utils_free.c \
 					src/utils/free_lex_pars.c \
+					src/exec/get_env.c \
+					src/exec/redirections.c \
+					src/exec/exec.c \
 
 OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}
 

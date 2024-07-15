@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/10 13:00:15 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:54:53 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,20 @@ int	check_double_token(t_data *data)
 	t_lexer *temp;
 
 	current = data->first_lex;
-	while (current->next)
+	if (current)
 	{
-		temp = current->next;
-		if (current->token == 1 && temp->token != 1)
-			;
-		else if (current->token && temp->token)
-			return (1);
-		current = temp;
+		while (current->next)
+		{
+			temp = current->next;
+			if (current->token == 1 && temp->token != 1)
+				;
+			else if (current->token && temp->token)
+				return (1);
+			current = temp;
+		}
+		if (current->token)
+			return (1);	
 	}
-	if (current->token)
-		return (1);	
 	return (0);
 }
 

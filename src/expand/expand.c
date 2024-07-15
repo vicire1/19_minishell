@@ -53,12 +53,10 @@ int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 
 void	delete_doll(t_data *data, t_lexer *exp, int j)
 {
-	int		prev_len;
 	int		post_len;
 	char	*prev_str;
 	char	*post_str;
 
-	prev_len = j;
 	post_len = ft_strlen(exp->token_str);
 	prev_str = ft_substr(exp->token_str, 0, j, data);
 	post_str = ft_substr_bis(exp->token_str, j + 1, post_len);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/11 17:24:40 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:00:40 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	init_data(t_data *data)
 	data->first_lex = NULL;
 	data->first_pars = NULL;
 	data->expa = NULL;
+	data->env_arr = NULL;
+	data->poss_path = NULL;
 	return (0);
 }
 
@@ -32,7 +34,7 @@ int	init_env(t_data	*data, char **envp)
 		i++;
 	}
 	init_export(data);
-	print_env(data);
+	// print_env(data);
 	return(0);
 }
 
