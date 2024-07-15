@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/14 14:42:58 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:45:16 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_child_exec(t_data *data, int pfd[2], int i, int prev_fd)
 	while (i-- > 0)
 		current = current->next;
 	open_redir(current->redir);
+	
 	abs_path = find_abs_path(data, current->cmd[0]);
 	if (!abs_path)
 	{
