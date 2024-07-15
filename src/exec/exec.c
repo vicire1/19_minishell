@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 18:19:16 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:11:09 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,37 @@ void	ft_child_exec(t_data *data, int pfd[2], int i, int prev_fd)
 	execve(abs_path, current->cmd, data->env_arr);
 }
 
+void	one_cmd_env(t_data *data, int bltn)
+{
+	int	saved_stdout;
+	int	saved_stdin;
+	
+	saved_stdout = dup(STDOUT_FILENO);
+	saved_stdin = dup(STDIN_FILENO);
+	open_redir(data->first_pars->redir);
+	dispatch_builtins(data, data->first_pars->cmd, bltn);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdout);
+	dup2(saved_stdin, STDIN_FILENO);
+	close(saved_stdin);
+}
+
 int	executor(t_data *data)
 {
 	int	pfd[2];
 	int	i;
 	int	prev_fd;
+	int	bltn;
 
 	i = -1;
 	prev_fd = -1;
-	if (data->nb_cmd_node == 1 && ())
+	bltn = check_if_builtin(data->first_pars->cmd[0]);
+	if (data->nb_cmd_node == 1 && (bltn == 3 || bltn == 4 || bltn == 5
+			|| bltn == 7))
+	{
+		one_cmd_env(data, bltn);
+		return (0);
+	}
 	while (++i < data->nb_cmd_node)
 	{
 		env_in_array(data);
@@ -93,7 +115,7 @@ int	executor(t_data *data)
 		prev_fd = pfd[0];
 		close(pfd[1]);
 	}
-	while (wait(NULL) > 0)
+	while (wait(&exit_s) > 0)
 		;
 	return (0);
 }

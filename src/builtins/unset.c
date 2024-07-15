@@ -22,10 +22,8 @@ int	cmd_unset_check_invalid(char *str)
 int	cmd_unset_check_in_env(t_data *data, char *str)
 {
 	t_env	*tempo;
-	int		size_str;
 
 	tempo = data->first_env;
-	size_str = ft_strlen(str);
 	while (tempo)
 	{
 		if (tempo->env_status

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 17:34:18 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:37:27 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ void	cmd_exit(t_data *data, char **str);
 
 //src/buitins/buitlin.c
 int		check_if_builtin(char *str);
-void	dispatch_builtins(t_data *data, char **str, int which);
+int		dispatch_builtins(t_data *data, char **str, int which);
 
 #endif
 

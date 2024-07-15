@@ -2,7 +2,7 @@
 
 /**
  * @brief check if str is a builtin
- * 
+ *
  * @param str string to compare
  * @return int which builtin is it or if it s not
  */
@@ -30,15 +30,15 @@ int	check_if_builtin(char *str)
 
 /**
  * @brief dispatch builtins
- * 
+ *
  * @param data struct data
- * @param str char** 
+ * @param str char**
  * @param which which builtin is it
  */
-void	dispatch_builtins(t_data *data, char **str, int which)
+int	dispatch_builtins(t_data *data, char **str, int which)
 {
 	if (which == 0)
-		return ;
+		return (0);
 	if (which == 1)
 		cmd_pwd(data);
 	else if (which == 2)
@@ -53,5 +53,9 @@ void	dispatch_builtins(t_data *data, char **str, int which)
 		cmd_echo(str);
 	else if (which == 7)
 		cmd_exit(data, str);
-	exit(exit_s);
+	if (data->nb_cmd_node == 1 && (which == 3 || which == 4 || which == 5
+			|| which == 7))
+		return (exit_s);
+	else
+		exit(exit_s);
 }

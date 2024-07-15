@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:54:25 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/12 15:40:36 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:10:36 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int     infile_redir(char *infile)
     fd = open(infile, O_RDONLY);
     if (fd < 0)
     {
+        
         ft_printf_fd(2, "%s: No such file or directory\n", infile);
         exit(1);
     }

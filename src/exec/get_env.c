@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:41:17 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/11 21:55:52 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:57:27 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char    **env_in_array(t_data *data)
 
     current = data->first_env;
     env_len = ft_lstlen(current);
-    i = -1;
+    i = 0;
     if (env_len == 0)
         return (NULL);
     data->env_arr = malloc(sizeof(char *) * (env_len + 1));
@@ -80,7 +80,10 @@ char    **env_in_array(t_data *data)
     while (current)
     {
         if (current->value)
-            data->env_arr[++i] = ft_strjoin(current->name, current->value, data);
+        {
+            data->env_arr[i] = ft_strjoin(current->name, current->value, data);
+            i++;
+        }
         current = current->next;
     }
     data->env_arr[i] = NULL;
