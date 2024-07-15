@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/12 17:49:41 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/15 11:57:00 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,28 +177,31 @@ int	new_node_env_w_data(char *val, char *name, int status, t_data *data);
 
 
 //BUILTINS
-//sec/buitins/pwd.c
+//src/buitins/pwd.c
 void	cmd_pwd(t_data *data, int fd);
 
-//sec/buitins/env.c
+//src/buitins/env.c
 void	cmd_env(t_data *data, char **str, int fd);
 
-//sec/buitins/export.c
+//src/buitins/export.c
 void	cmd_export(t_data *data, char **str, int fd);
 
-//sec/buitins/cd.c
+//src/buitins/cd.c
 void	cmd_cd(t_data *data, char **str, int fd);
 
-//sec/buitins/unset.c
+//src/buitins/unset.c
 int		cmd_unset_check_invalid(char *str);
 void	cmd_unset_do_it(t_data *data, char *str);
 void	cmd_unset_do_it_sec(t_data *data, char *str);
 void	cmd_unset(t_data *data, char **str, int fd);
 
-//sec/buitins/echo.c
-void    cmd_echo(t_data *data, char **str, int fd);
+//src/buitins/echo.c
+void	cmd_echo(t_data *data, char **str, int fd);
 
-//sec/buitins/buitlin.c
+//src/buitins/exit.c
+void	cmd_exit(t_data *data, char **str);
+
+//src/buitins/buitlin.c
 int		check_if_builtin(char *str);
 void	dispatch_builtins(t_data *data, char **str, int fd, int which);
 

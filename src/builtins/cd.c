@@ -95,11 +95,18 @@ void	cmd_cd_home(t_data *data)
 	if (!home_path)
 	{
 		printf("cd: HOME not set\n");
+		exit_s = 1;
 		return ;
 	}
 	if (access(home_path, F_OK) == -1)
 	{
 		printf("cd: %s: No such file or directory\n", home_path);
+		return ;
+	}
+	if (access(home_path, X_OK) == -1)
+	{
+		printf("cd: %s: Permission denied\n", home_path);
+		exit_s = 1;
 		return ;
 	}
 	cmd_cd_home_change_oldpwd(data);
@@ -121,11 +128,13 @@ int	cmd_cd_path_file_or_dir_err(t_data *data, char *str)
 	if (access(str, F_OK) == -1)
 	{
 		printf("cd: %s:  No such file or directory\n", str);
+		exit_s = 1;
 		return (1);
 	}
 	if (access(str, X_OK) == -1)
 	{
 		printf("cd: %s: Permission denied\n", str);
+		exit_s = 1;
 		return (1);
 	}
 	return (0);
@@ -151,6 +160,33 @@ void	cmd_cd_path(t_data *data, char *str)
 	return ;
 }
 
+void	cmd_cd_dash(t_data *data)
+{
+	char	*OLDPWD;
+	t_env	*tmp;
+
+	OLDPWD = NULL;
+	tmp = data->first_env;
+	while (tmp)
+	{
+		if (ft_strncmp("OLDPWD=", tmp->name, 7) == 0
+			&& ft_strlen(tmp->name) == 7)
+		{
+			OLDPWD = ft_strdup(tmp->value, data);
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	if (!cmd_cd_path_file_or_dir_err(data, OLDPWD))
+	{
+		cmd_cd_home_change_oldpwd(data);
+		chdir(OLDPWD);
+		cmd_cd_change_pwd(data, getcwd(NULL, 0));
+		free(OLDPWD);
+		exit_s = 0;
+	}
+}
+
 /**
  * @brief Handles the 'cd' command to change the current directory.
  * 
@@ -167,7 +203,7 @@ void	cmd_cd(t_data *data, char **str, int fd)
 	if (!str[1])
 		cmd_cd_home(data);
 	else if (len_str2 == 1 && ft_strncmp("-", str[1], 1) == 0)
-		printf("RETOUR AU OLDPWD\n");
+		cmd_cd_dash(data);
 	else if (len_str2 == 2 && ft_strncmp("--", str[1], 2) == 0)
 		cmd_cd_home(data);
 	else if (len_str2 == 1 && ft_strncmp(".", str[1], 1) == 0)
