@@ -86,9 +86,8 @@ void	cmd_echo_do_it(char **str, int fd)
  * @param str [0] => echo [.;.;.]=> arg or option
  * @param fd file descriptor
  */
-void	cmd_echo(t_data *data, char **str)
+void	cmd_echo(char **str)
 {
-	(void)data;
 	if (!str[1])
 	{
 		ft_printf_fd(1, "\n");

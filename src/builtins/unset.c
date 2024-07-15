@@ -147,7 +147,8 @@ void	cmd_unset(t_data *data, char **str)
 			}
 		}
 		else if (cmd_unset_check_invalid(str[i]))
-			ft_printf_fd(2, "minishell: unset : `%s\': not a valid identifier\n", str[i]);
+			ft_printf_fd(2,
+				"minishell: unset : `%s\': not a valid identifier\n", str[i]);
 		else if (cmd_unset_sec_chek_in_env(data, str[i]))
 			cmd_unset_do_it_sec(data, str[i]);
 		i++;

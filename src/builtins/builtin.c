@@ -50,7 +50,7 @@ void	dispatch_builtins(t_data *data, char **str, int which)
 	else if (which == 5)
 		cmd_unset(data, str);
 	else if (which == 6)
-		cmd_echo(data, str);
+		cmd_echo(str);
 	else if (which == 7)
 		cmd_exit(data, str);
 	exit(exit_s);
