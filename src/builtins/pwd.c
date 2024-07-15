@@ -1,12 +1,16 @@
 #include "../../include/minishell.h"
 
-//utiliser getcwd
+/**
+ * @brief handle the "pwd" command
+ * 
+ * @param data struct data (unused)
+ * @param fd file descritpor
+ */
 void	cmd_pwd(t_data *data, int fd)
 {
 	char	*pwd;
 	t_env	*tempo;
 
-	(void)data;
 	tempo = data->first_env;
 	pwd = getcwd(NULL, 0);
 	if (pwd)

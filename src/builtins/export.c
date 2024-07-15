@@ -88,6 +88,8 @@ int	cmd_export_check_invalid(char *str)
 
 	i = 0;
 	j = 0;
+	if (ft_isdigit(str[0]))
+		return (1);
 	if (!ft_isalnum(str[0]) && str[0] != '_')
 		return (1);
 	while (str[i] && str[i] != '=')
@@ -98,7 +100,7 @@ int	cmd_export_check_invalid(char *str)
 		{
 			if (str[j] != '_')
 			{
-				if (str[j] == '+' && str[j+1] == '=')
+				if (str[j] == '+' && str[j + 1] == '=')
 					return (0);
 				return (1);
 			}
@@ -108,7 +110,7 @@ int	cmd_export_check_invalid(char *str)
 	return (0);
 }
 
-int		cmd_export_check_plus_egal(char *str)
+int	cmd_export_check_plus_egal(char *str)
 {
 	int	i;
 
@@ -182,7 +184,7 @@ void	cmd_export_no_egal(t_data *data, char *str)
 	new_node_env(str, 0, data);
 }
 
-char *cmd_export_get_name(t_data *data, char *str)
+char	*cmd_export_get_name(t_data *data, char *str)
 {
 	int	size;
 
@@ -195,17 +197,20 @@ char *cmd_export_get_name(t_data *data, char *str)
 void	cmd_export_egal_val(t_data *data, char *str)
 {
 	t_env	*tempo;
-	char *name = cmd_export_get_name(data, str);
+	char	*name;
 
+	name = cmd_export_get_name(data, str);
 	tempo = data->first_env;
 	while (tempo)
 	{
-		if (tempo->env_status == 0 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
+		if (tempo->env_status == 0
+			&& (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
 		{
 			cmd_unset_do_it_sec(data, name);
 			break ;
 		}
-		else if (tempo->env_status == 1 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
+		else if (tempo->env_status == 1
+			&& (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
 		{
 			cmd_unset_do_it(data, name);
 			break ;
@@ -219,17 +224,22 @@ void	cmd_export_egal_val(t_data *data, char *str)
 void	cmd_export_plus_egal(t_data *data, char *str)
 {
 	t_env	*tempo;
-	char	*tmp_name = cmd_export_get_name(data, str);
+	char	*tmp_name;
 	char	*tmp_val;
-	char	*last_val = NULL;
-	char	*name = ft_substr(tmp_name, 0, ft_strlen(tmp_name) -1 , data);
+	char	*last_val;
+	char	*name;
 	char	*new_name;
-	free(tmp_name);
+	char	*val;
 
+	tmp_name = cmd_export_get_name(data, str);
+	last_val = NULL;
+	name = ft_substr(tmp_name, 0, ft_strlen(tmp_name) -1, data);
+	free(tmp_name);
 	tempo = data->first_env;
-	while(tempo)
+	while (tempo)
 	{
-		if (tempo->env_status == 0 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
+		if (tempo->env_status == 0
+			&& (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
 		{
 			free(tempo->name);
 			tempo->name = ft_strjoin(name, "=", data);
@@ -239,7 +249,8 @@ void	cmd_export_plus_egal(t_data *data, char *str)
 			tempo->env_status = 1;
 			return ;
 		}
-		else if (tempo->env_status == 1 && (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
+		else if (tempo->env_status == 1
+			&& (ft_strncmp(name, tempo->name, ft_strlen(name)) == 0))
 		{
 			tmp_val = get_value_env(str, data);
 			if (tempo->value)
@@ -258,7 +269,7 @@ void	cmd_export_plus_egal(t_data *data, char *str)
 		tempo = tempo->next;
 	}
 	new_name = ft_strjoin(name, "=", data);
-	char *val = ft_substr(str, (int)ft_strlen(new_name) + 1, (int)ft_strlen(str), data);
+	val = ft_substr(str, (unsigned int)ft_strlen(new_name) + 1, ft_strlen(str), data);
 	new_node_env_w_data(val, new_name, 1, data);
 	free(val);
 	free(new_name);
@@ -272,29 +283,18 @@ void	cmd_export_for_env(t_data *data, char **str)
 	i = 1;
 	while (str[i])
 	{
-		if (cmd_export_check_invalid(str[i]))								// cas invalid
-			printf("export : \'%s\': not a valid identifier\n", str[i]);
-		else if (cmd_export_check_plus_egal(str[i]))						// cas +=
-		{
-			printf("export cas +=\n");
+		if (cmd_export_check_invalid(str[i]))
+			ft_printf_fd(2, "minishell: export : `%s\': not a valid identifier\n", str[i]);
+		else if (cmd_export_check_plus_egal(str[i]))
 			cmd_export_plus_egal(data, str[i]);
-		}
-		else if (cmd_export_check_egal_no_val(str[i]))						// cas = sans val
+		else if (cmd_export_check_egal_no_val(str[i]))
 		{
-			printf("CAS EGAL NO VAL \n");
 			cmd_export_egal_no_val(data, str[i]);
 		}
-		else if (cmd_export_check_no_egal(str[i]))							// cas sans =
-		{
-			printf("CAS NO EGAL \n");
+		else if (cmd_export_check_no_egal(str[i]))
 			cmd_export_no_egal(data, str[i]);
-		}
 		else
-		{
-			printf("CAS EGAL VAL \n");
 			cmd_export_egal_val(data, str[i]);
-		}
-		printf("STR[i] [%s]\n", str[i]);
 		i++;
 	}
 }

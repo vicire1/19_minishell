@@ -1,5 +1,11 @@
 #include "../../include/minishell.h"
 
+/**
+ * @brief check if there is an option or an arg
+ * 
+ * @param str str to check
+ * @return int 0 if there isn't or 1 if there is
+ */
 int	cmd_env_check_arg(char *str)
 {
 	if (!str)
@@ -7,7 +13,7 @@ int	cmd_env_check_arg(char *str)
 	if (str[1] == '-')
 	{
 		printf("No option allowed for env\n");
-		exit_s = 1;	
+		exit_s = 1;
 		return (1);
 	}
 	printf("No argument allowed for env\n");
@@ -15,6 +21,13 @@ int	cmd_env_check_arg(char *str)
 	return (1);
 }
 
+/**
+ * @brief handle the "env" command
+ * 
+ * @param data struct data
+ * @param str cmd, option or arg
+ * @param fd file descriptor
+ */
 void	cmd_env(t_data *data, char **str, int fd)
 {
 	t_env	*tempo;

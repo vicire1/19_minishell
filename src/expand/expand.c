@@ -1,5 +1,26 @@
 #include "../../include/minishell.h"
 
+int	in_env_sec(t_data *data, t_expander *expa, char *str)
+{
+	char	*tempo;
+	char	*tempo2;
+
+	(void)data;
+	(void)expa;
+	expa->exit_check = 0;
+	if (str[0] == '?')
+	{
+		tempo = ft_itoa(exit_s, data);
+		tempo2 = ft_strjoin("i", "=", data);
+		expa->tmp_val = ft_strjoin(tempo2, tempo, data);
+		free(tempo);
+		free(tempo2);
+		expa->exit_check = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 {
 	int		i;
@@ -27,7 +48,7 @@ int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
 		env = env->next;
 	}
 	free(tempo);
-	return (0);
+	return (in_env_sec(data, expa, str));
 }
 
 void	delete_doll(t_data *data, t_lexer *exp, int j)
@@ -97,7 +118,7 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 	while (exp->token_str[j])
 	{
 		len_av = ft_strlen(exp->token_str);
-		if (exp->token_str[j] == '$' && (ft_isalnum(exp->token_str[j + 1]) || exp->token_str[j + 1] == 95))
+		if (exp->token_str[j] == '$' && (ft_isalnum(exp->token_str[j + 1]) || exp->token_str[j + 1] == 95 || exp->token_str[j + 1] == '?'))
 		{
 			if (check_quotes(exp, j, 0))
 			{
