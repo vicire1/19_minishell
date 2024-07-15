@@ -144,16 +144,13 @@ int	expander(t_data *data)
 
 	exp = data->first_lex;
 	data->expa = malloc(sizeof(t_expander));
-	while (exp->next)
+	while (exp)
 	{
 		if (check_v_env(exp->token_str))
 			valid_quotes_env(data, exp);
 		delete_quotes(data, exp);
 		exp = exp->next;
 	}
-	if (check_v_env(exp->token_str))
-		valid_quotes_env(data, exp);
-	delete_quotes(data, exp);
 	free(data->expa);
 	return (0);
 }
