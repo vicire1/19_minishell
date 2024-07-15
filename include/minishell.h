@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 11:57:00 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:25:46 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef enum s_token
 
 typedef struct	s_expander
 {
+	int		exit_check;
 	int		val_len;
 	int		n_len;
 	char	*tmp_val;
