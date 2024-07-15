@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 15:45:16 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:01:15 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	executor(t_data *data)
 
 	i = -1;
 	prev_fd = -1;
+	if (data->nb_cmd_node == 1 && ())
 	while (++i < data->nb_cmd_node)
 	{
 		if (pipe(pfd) == -1)
