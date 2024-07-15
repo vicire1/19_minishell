@@ -299,10 +299,10 @@ void	cmd_export_for_env(t_data *data, char **str)
 	}
 }
 
-void	cmd_export(t_data *data, char **str, int fd)
+void	cmd_export(t_data *data, char **str)
 {
 	if (!str[1])
-		cmd_export_print(data, fd);
+		cmd_export_print(data, 1);
 	else
 		cmd_export_for_env(data, str);
 }

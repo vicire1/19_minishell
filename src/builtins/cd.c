@@ -194,13 +194,11 @@ void	cmd_cd_dash(t_data *data)
  * 
  * @param data struct data
  * @param str [0] => cd [.;.;.]=> arg
- * @param fd file descriptor (unused)
  */
-void	cmd_cd(t_data *data, char **str, int fd)
+void	cmd_cd(t_data *data, char **str)
 {
 	int	len_str2;
 
-	(void)fd;
 	len_str2 = ft_strlen(str[1]);
 	if (!str[1])
 		cmd_cd_home(data);
@@ -214,7 +212,8 @@ void	cmd_cd(t_data *data, char **str, int fd)
 		cmd_cd_path(data, str[1]);
 	if (cmd_unset_check_in_env(data, "PWD"))
 	{
-		printf("PWD IN ENV\n");
+		
+		printf("PWD IN ENV    %s   \n", getcwd(NULL, 0));
 		
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 15:45:16 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:42:50 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	ft_child_exec(t_data *data, int pfd[2], int i, int prev_fd)
 
 	current = data->first_pars;
 	close(pfd[0]);
-	env_in_array(data);
 	if (i != 0)
 	{
 		dup2(prev_fd, STDIN_FILENO);
@@ -61,7 +60,7 @@ void	ft_child_exec(t_data *data, int pfd[2], int i, int prev_fd)
 	while (i-- > 0)
 		current = current->next;
 	open_redir(current->redir);
-	
+	dispatch_builtins(data, current->cmd, check_if_builtin(current->cmd[0]));
 	abs_path = find_abs_path(data, current->cmd[0]);
 	if (!abs_path)
 	{
@@ -81,6 +80,7 @@ int	executor(t_data *data)
 	prev_fd = -1;
 	while (++i < data->nb_cmd_node)
 	{
+		env_in_array(data);
 		if (pipe(pfd) == -1)
 			free_all(data, ERR_PIP, 1);
 		data->pid = fork();

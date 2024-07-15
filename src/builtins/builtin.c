@@ -33,25 +33,25 @@ int	check_if_builtin(char *str)
  * 
  * @param data struct data
  * @param str char** 
- * @param fd file descriptor
  * @param which which builtin is it
  */
-void	dispatch_builtins(t_data *data, char **str, int fd, int which)
+void	dispatch_builtins(t_data *data, char **str, int which)
 {
-	(void)str;
+	if (which == 0)
+		return ;
 	if (which == 1)
-		cmd_pwd(data, fd);
+		cmd_pwd(data);
 	else if (which == 2)
-		cmd_env(data, str, fd);
+		cmd_env(data, str);
 	else if (which == 3)
-		cmd_export(data, str, fd);
+		cmd_export(data, str);
 	else if (which == 4)
-		cmd_cd(data, str, fd);
+		cmd_cd(data, str);
 	else if (which == 5)
 		cmd_unset(data, str);
 	else if (which == 6)
-		cmd_echo(data, str, fd);
+		cmd_echo(data, str);
 	else if (which == 7)
 		cmd_exit(data, str);
-	return ;
+	exit(exit_s);
 }

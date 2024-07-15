@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 16:00:21 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:35:49 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,16 +187,16 @@ int	new_node_env_w_data(char *val, char *name, int status, t_data *data);
 
 //BUILTINS
 //src/buitins/pwd.c
-void	cmd_pwd(t_data *data, int fd);
+void	cmd_pwd(t_data *data);
 
 //src/buitins/env.c
-void	cmd_env(t_data *data, char **str, int fd);
+void	cmd_env(t_data *data, char **str);
 
 //src/buitins/export.c
-void	cmd_export(t_data *data, char **str, int fd);
+void	cmd_export(t_data *data, char **str);
 
 //src/buitins/cd.c
-void	cmd_cd(t_data *data, char **str, int fd);
+void	cmd_cd(t_data *data, char **str);
 
 //src/buitins/unset.c
 int		cmd_unset_check_invalid(char *str);
@@ -206,14 +206,14 @@ int		cmd_unset_check_in_env(t_data *data, char *str);
 void	cmd_unset(t_data *data, char **str);
 
 //src/buitins/echo.c
-void	cmd_echo(t_data *data, char **str, int fd);
+void	cmd_echo(t_data *data, char **str);
 
 //src/buitins/exit.c
 void	cmd_exit(t_data *data, char **str);
 
 //src/buitins/buitlin.c
 int		check_if_builtin(char *str);
-void	dispatch_builtins(t_data *data, char **str, int fd, int which);
+void	dispatch_builtins(t_data *data, char **str, int which);
 
 #endif
 
