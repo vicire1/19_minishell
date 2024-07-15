@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int prepare_string_for_comparison(const char *str, int *sign)
+int	prepare_string_for_comparison(const char *str, int *sign)
 {
 	int	i;
 
@@ -20,11 +20,12 @@ int prepare_string_for_comparison(const char *str, int *sign)
 	return (i);
 }
 
-int compare_with_long_limits(const char *str, int i, int j, int sign)
+int	compare_with_long_limits(const char *str, int i, int j, int sign)
 {
-	const char *cmp_str;
-	int len = strlen(str + i);
+	const char	*cmp_str;
+	int			len;
 
+	len = ft_strlen(str + i);
 	if (len > 19)
 		return (1);
 	else if (len < 19)
@@ -53,7 +54,7 @@ int	cmd_exit_check_long_overflow(const char *str)
 	return (compare_with_long_limits(str, i, 0, sign));
 }
 
-int		cmd_exit_check_num(char *str)
+int	cmd_exit_check_num(char *str)
 {
 	int	i;
 
@@ -112,11 +113,11 @@ void	cmd_exit_do_it(long exit)
 
 void	cmd_exit(t_data *data, char **str)
 {
-	int	exit;
-
 	(void)data;
 	if (!str[1])
-		exit = 0;
+	{
+		exit(0);
+	}
 	else if (str[1])
 	{
 		if (cmd_exit_check_num(str[1]))
@@ -132,5 +133,6 @@ void	cmd_exit(t_data *data, char **str)
 		return ;
 	}
 	cmd_exit_do_it(cmd_exit_convert(str[1]));
+	exit_s = 0;
 	return ;
 }

@@ -5,8 +5,6 @@ int	in_env_sec(t_data *data, t_expander *expa, char *str)
 	char	*tempo;
 	char	*tempo2;
 
-	(void)data;
-	(void)expa;
 	expa->exit_check = 0;
 	if (str[0] == '?')
 	{

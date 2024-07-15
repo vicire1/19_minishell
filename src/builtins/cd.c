@@ -46,10 +46,9 @@ char	*cmd_cd_home_get_new_oldpwd(t_data *data)
 	return (new_oldpwd);
 }
 
-void	cmd_cd_home_change_oldpwd(t_data *data)
+void	cmd_cd_home_change_oldpwd(t_data *data, char *new_oldpwd)
 {
 	t_env	*tempo;
-	char	*new_oldpwd;
 	char	*str_tempo;
 
 	new_oldpwd = cmd_cd_home_get_new_oldpwd(data);
@@ -104,7 +103,8 @@ void	cmd_cd_home(t_data *data)
 	}
 	if (access(home_path, F_OK) == -1)
 	{
-		ft_printf_fd(2, "minishell: cd: %s: No such file or directory\n", home_path);
+		ft_printf_fd(2, "minishell: cd: %s: No such file or directory\n",
+			home_path);
 		return ;
 	}
 	if (access(home_path, X_OK) == -1)
@@ -113,7 +113,7 @@ void	cmd_cd_home(t_data *data)
 		exit_s = 1;
 		return ;
 	}
-	cmd_cd_home_change_oldpwd(data);
+	cmd_cd_home_change_oldpwd(data, NULL);
 	chdir(home_path);
 	cmd_cd_change_pwd(data, home_path);
 }
@@ -156,7 +156,7 @@ void	cmd_cd_path(t_data *data, char *str)
 			cmd_cd_home(data);
 		return ;
 	}
-	cmd_cd_home_change_oldpwd(data);
+	cmd_cd_home_change_oldpwd(data, NULL);
 	chdir(str);
 	cmd_cd_change_pwd(data, getcwd(NULL, 0));
 	return ;
@@ -164,27 +164,27 @@ void	cmd_cd_path(t_data *data, char *str)
 
 void	cmd_cd_dash(t_data *data)
 {
-	char	*OLDPWD;
+	char	*oldpwd_tmp;
 	t_env	*tmp;
 
-	OLDPWD = NULL;
+	oldpwd_tmp = NULL;
 	tmp = data->first_env;
 	while (tmp)
 	{
 		if (ft_strncmp("OLDPWD=", tmp->name, 7) == 0
 			&& ft_strlen(tmp->name) == 7)
 		{
-			OLDPWD = ft_strdup(tmp->value, data);
+			oldpwd_tmp = ft_strdup(tmp->value, data);
 			break ;
 		}
 		tmp = tmp->next;
 	}
-	if (!cmd_cd_path_file_or_dir_err(OLDPWD))
+	if (!cmd_cd_path_file_or_dir_err(oldpwd_tmp))
 	{
-		cmd_cd_home_change_oldpwd(data);
-		chdir(OLDPWD);
+		cmd_cd_home_change_oldpwd(data, NULL);
+		chdir(oldpwd_tmp);
 		cmd_cd_change_pwd(data, getcwd(NULL, 0));
-		free(OLDPWD);
+		free(oldpwd_tmp);
 		exit_s = 0;
 	}
 }
@@ -194,13 +194,11 @@ void	cmd_cd_dash(t_data *data)
  * 
  * @param data struct data
  * @param str [0] => cd [.;.;.]=> arg
- * @param fd file descriptor (unused)
  */
-void	cmd_cd(t_data *data, char **str, int fd)
+void	cmd_cd(t_data *data, char **str)
 {
 	int	len_str2;
 
-	(void)fd;
 	len_str2 = ft_strlen(str[1]);
 	if (!str[1])
 		cmd_cd_home(data);
@@ -209,16 +207,15 @@ void	cmd_cd(t_data *data, char **str, int fd)
 	else if (len_str2 == 2 && ft_strncmp("--", str[1], 2) == 0)
 		cmd_cd_home(data);
 	else if (len_str2 == 1 && ft_strncmp(".", str[1], 1) == 0)
-		cmd_cd_home_change_oldpwd(data);
+		cmd_cd_home_change_oldpwd(data, NULL);
 	else
 		cmd_cd_path(data, str[1]);
-	if (cmd_unset_check_in_env(data, "PWD"))
-	{
-		printf("PWD IN ENV\n");
-		
-	}
-	else
-		printf("PWD NOT IN ENV\n");
+	// if (cmd_unset_check_in_env(data, "PWD"))
+	// {
+	// 	printf("PWD IN ENV    %s   \n", getcwd(NULL, 0));
+	// }
+	// else
+	// 	printf("PWD NOT IN ENV\n");
 	return ;
 }
 

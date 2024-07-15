@@ -79,6 +79,7 @@ void	cmd_export_print(t_data *data, int fd)
 	sort_tab(env_array, count);
 	print_export(data, count, env_array, fd);
 	free(env_array);
+	exit_s = 0;
 }
 
 int	cmd_export_check_invalid(char *str)
@@ -269,22 +270,24 @@ void	cmd_export_plus_egal(t_data *data, char *str)
 		tempo = tempo->next;
 	}
 	new_name = ft_strjoin(name, "=", data);
-	val = ft_substr(str, (unsigned int)ft_strlen(new_name) + 1, ft_strlen(str), data);
+	val = ft_substr(str, (unsigned int)ft_strlen(new_name) + 1,
+			ft_strlen(str), data);
 	new_node_env_w_data(val, new_name, 1, data);
 	free(val);
 	free(new_name);
 	return ;
 }
 
-void	cmd_export_for_env(t_data *data, char **str)
+void	cmd_export_for_env(t_data *data, char **str, int i)
 {
-	int	i;
-
-	i = 1;
 	while (str[i])
 	{
 		if (cmd_export_check_invalid(str[i]))
-			ft_printf_fd(2, "minishell: export : `%s\': not a valid identifier\n", str[i]);
+		{
+			ft_printf_fd(2,
+				"minishell: export : `%s\': not a valid identifier\n", str[i]);
+			exit_s = 1;
+		}
 		else if (cmd_export_check_plus_egal(str[i]))
 			cmd_export_plus_egal(data, str[i]);
 		else if (cmd_export_check_egal_no_val(str[i]))
@@ -295,14 +298,18 @@ void	cmd_export_for_env(t_data *data, char **str)
 			cmd_export_no_egal(data, str[i]);
 		else
 			cmd_export_egal_val(data, str[i]);
+		if (exit_s == 1)
+			exit_s = 0;
+		else
+			exit_s = 0;
 		i++;
 	}
 }
 
-void	cmd_export(t_data *data, char **str, int fd)
+void	cmd_export(t_data *data, char **str)
 {
 	if (!str[1])
-		cmd_export_print(data, fd);
+		cmd_export_print(data, 1);
 	else
-		cmd_export_for_env(data, str);
+		cmd_export_for_env(data, str, 1);
 }

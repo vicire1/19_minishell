@@ -28,7 +28,7 @@ int	cmd_env_check_arg(char *str)
  * @param str cmd, option or arg
  * @param fd file descriptor
  */
-void	cmd_env(t_data *data, char **str, int fd)
+void	cmd_env(t_data *data, char **str)
 {
 	t_env	*tempo;
 
@@ -40,9 +40,9 @@ void	cmd_env(t_data *data, char **str, int fd)
 		if (tempo->env_status)
 		{
 			if (tempo->name && tempo->value)
-				ft_printf_fd(fd, "%s%s\n", tempo->name, tempo->value);
+				ft_printf_fd(1, "%s%s\n", tempo->name, tempo->value);
 			else
-				ft_printf_fd(fd, "%s\n", tempo->name);
+				ft_printf_fd(1, "%s\n", tempo->name);
 		}
 		tempo = tempo->next;
 	}

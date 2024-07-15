@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 16:22:03 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:33:10 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,6 @@ int	main(int ac, char **av, char **envp)
 			{
 				expander(&data);
 				parser(&data);
-			}
-			t_pars	*temp;
-
-			temp = data.first_pars;
-			while (temp)
-			{
-			int	i;
-
-			i = 0;
-			while (temp->cmd[i])
-			{
-				int	which = check_if_builtin(temp->cmd[i]);
-				dispatch_builtins(&data, temp->cmd, 0, which);
-				i++;
-			}
-			temp = temp->next;
 			}
 			add_history(line);
 			free(line);
