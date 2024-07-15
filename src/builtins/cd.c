@@ -130,14 +130,6 @@ int	cmd_cd_path_file_or_dir_err(t_data *data, char *str)
 	}
 	return (0);
 }
-/*
-a cause de chmod 000
-midif la fctn au dessus, utiliser avec access, pour F_OK (si mauvais No such file or dir), puis X_OK (si mauvais Permission denied)
-*/
-
-
-
-
 
 /**
  * @brief Hendle the 'cd' command with path
