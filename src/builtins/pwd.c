@@ -11,7 +11,6 @@ void	cmd_pwd(t_data *data, int fd)
 	char	*pwd;
 	t_env	*tempo;
 
-	(void)data;
 	tempo = data->first_env;
 	pwd = getcwd(NULL, 0);
 	if (pwd)

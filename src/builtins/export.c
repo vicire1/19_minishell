@@ -88,6 +88,8 @@ int	cmd_export_check_invalid(char *str)
 
 	i = 0;
 	j = 0;
+	if (ft_isdigit(str[0]))
+		return (1);
 	if (!ft_isalnum(str[0]) && str[0] != '_')
 		return (1);
 	while (str[i] && str[i] != '=')
@@ -282,28 +284,17 @@ void	cmd_export_for_env(t_data *data, char **str)
 	while (str[i])
 	{
 		if (cmd_export_check_invalid(str[i]))
-			printf("export : \'%s\': not a valid identifier\n", str[i]);
+			ft_printf_fd(2, "minishell: export : `%s\': not a valid identifier\n", str[i]);
 		else if (cmd_export_check_plus_egal(str[i]))
-		{
-			printf("export cas +=\n");
 			cmd_export_plus_egal(data, str[i]);
-		}
 		else if (cmd_export_check_egal_no_val(str[i]))
 		{
-			printf("CAS EGAL NO VAL \n");
 			cmd_export_egal_no_val(data, str[i]);
 		}
 		else if (cmd_export_check_no_egal(str[i]))
-		{
-			printf("CAS NO EGAL \n");
 			cmd_export_no_egal(data, str[i]);
-		}
 		else
-		{
-			printf("CAS EGAL VAL \n");
 			cmd_export_egal_val(data, str[i]);
-		}
-		printf("STR[i] [%s]\n", str[i]);
 		i++;
 	}
 }

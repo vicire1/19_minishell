@@ -3,6 +3,7 @@
 void	cmd_cd_change_pwd(t_data *data, char *new_pwd)
 {
 	t_env	*tempo;
+	char	*tmp;
 
 	tempo = data->first_env;
 	if (!new_pwd)
@@ -18,6 +19,9 @@ void	cmd_cd_change_pwd(t_data *data, char *new_pwd)
 		}
 		tempo = tempo->next;
 	}
+	tmp = ft_strjoin("PWD=", new_pwd, data);
+	new_node_env(tmp, 1, data);
+	free(tmp);
 }
 
 char	*cmd_cd_home_get_new_oldpwd(t_data *data)
@@ -94,18 +98,18 @@ void	cmd_cd_home(t_data *data)
 	home_path = cmd_cd_home_get_home(data);
 	if (!home_path)
 	{
-		printf("cd: HOME not set\n");
+		ft_printf_fd(2, "minishell: cd: HOME not set\n");
 		exit_s = 1;
 		return ;
 	}
 	if (access(home_path, F_OK) == -1)
 	{
-		printf("cd: %s: No such file or directory\n", home_path);
+		ft_printf_fd(2, "minishell: cd: %s: No such file or directory\n", home_path);
 		return ;
 	}
 	if (access(home_path, X_OK) == -1)
 	{
-		printf("cd: %s: Permission denied\n", home_path);
+		ft_printf_fd(2, "minishell: cd: %s: Permission denied\n", home_path);
 		exit_s = 1;
 		return ;
 	}
@@ -121,19 +125,17 @@ void	cmd_cd_home(t_data *data)
  * @param str absolute path
  * @return int return 1 if incorrect or 0 if it is
  */
-int	cmd_cd_path_file_or_dir_err(t_data *data, char *str)
+int	cmd_cd_path_file_or_dir_err( char *str)
 {
-	(void)data;
-	printf("%s\n", str);
 	if (access(str, F_OK) == -1)
 	{
-		printf("cd: %s:  No such file or directory\n", str);
+		ft_printf_fd(2, "minishell: cd: %s:  No such file or directory\n", str);
 		exit_s = 1;
 		return (1);
 	}
 	if (access(str, X_OK) == -1)
 	{
-		printf("cd: %s: Permission denied\n", str);
+		ft_printf_fd(2, "minishell: cd: %s: Permission denied\n", str);
 		exit_s = 1;
 		return (1);
 	}
@@ -148,7 +150,7 @@ int	cmd_cd_path_file_or_dir_err(t_data *data, char *str)
  */
 void	cmd_cd_path(t_data *data, char *str)
 {
-	if (cmd_cd_path_file_or_dir_err(data, str))
+	if (cmd_cd_path_file_or_dir_err(str))
 	{
 		if (ft_strlen(str) == 2 && ft_strncmp("..", str, 2) == 0)
 			cmd_cd_home(data);
@@ -177,7 +179,7 @@ void	cmd_cd_dash(t_data *data)
 		}
 		tmp = tmp->next;
 	}
-	if (!cmd_cd_path_file_or_dir_err(data, OLDPWD))
+	if (!cmd_cd_path_file_or_dir_err(OLDPWD))
 	{
 		cmd_cd_home_change_oldpwd(data);
 		chdir(OLDPWD);
@@ -210,6 +212,13 @@ void	cmd_cd(t_data *data, char **str, int fd)
 		cmd_cd_home_change_oldpwd(data);
 	else
 		cmd_cd_path(data, str[1]);
+	if (cmd_unset_check_in_env(data, "PWD"))
+	{
+		printf("PWD IN ENV\n");
+		
+	}
+	else
+		printf("PWD NOT IN ENV\n");
 	return ;
 }
 

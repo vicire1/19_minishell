@@ -127,14 +127,12 @@ void	cmd_unset_do_it_sec(t_data *data, char *str)
  * 
  * @param data struct data
  * @param str [0] => unset [.;.;.]=> arg
- * @param fd file descriptor (unused)
  */
-void	cmd_unset(t_data *data, char **str, int fd)
+void	cmd_unset(t_data *data, char **str)
 {
 	int		i;
 	char	*tmp;
 
-	(void)fd;
 	if (!str[1])
 		return ;
 	i = 1;
@@ -151,7 +149,7 @@ void	cmd_unset(t_data *data, char **str, int fd)
 			}
 		}
 		else if (cmd_unset_check_invalid(str[i]))
-			printf("unset : \'%s\': not a valid identifier\n", str[i]);
+			ft_printf_fd(2, "minishell: unset : `%s\': not a valid identifier\n", str[i]);
 		else if (cmd_unset_sec_chek_in_env(data, str[i]))
 			cmd_unset_do_it_sec(data, str[i]);
 		i++;

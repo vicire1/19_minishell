@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 14:25:46 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:25:50 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,8 @@ void	cmd_cd(t_data *data, char **str, int fd);
 int		cmd_unset_check_invalid(char *str);
 void	cmd_unset_do_it(t_data *data, char *str);
 void	cmd_unset_do_it_sec(t_data *data, char *str);
-void	cmd_unset(t_data *data, char **str, int fd);
+int		cmd_unset_check_in_env(t_data *data, char *str);
+void	cmd_unset(t_data *data, char **str);
 
 //src/buitins/echo.c
 void	cmd_echo(t_data *data, char **str, int fd);

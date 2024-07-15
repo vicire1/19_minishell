@@ -58,7 +58,6 @@ int		cmd_exit_check_num(char *str)
 	int	i;
 
 	i = 0;
-	printf("str=>%s\n", str);
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+' || ft_isdigit(str[i]))
@@ -102,15 +101,12 @@ long	cmd_exit_convert(char *str)
 	return (sign * result);
 }
 
-void	cmd_exit_do_it(t_data *data, long exit)
+void	cmd_exit_do_it(long exit)
 {
-	(void)data;
-	printf("AV \t[%ld]\n", exit);
 	if (exit < 0 || exit > 255)
 		exit = exit % 256;
 	if (exit < 0)
 		exit = exit + 256;
-	printf("AP \t[%ld]\n", exit);
 	exit_s = (int)exit;
 }
 
@@ -135,9 +131,6 @@ void	cmd_exit(t_data *data, char **str)
 		exit_s = 1;
 		return ;
 	}
-	cmd_exit_do_it(data, cmd_exit_convert(str[1]));
+	cmd_exit_do_it(cmd_exit_convert(str[1]));
 	return ;
 }
-
-
-//non numeric > exit mais messsage numeric argument required > 255
