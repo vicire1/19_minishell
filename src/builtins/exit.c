@@ -124,6 +124,7 @@ void	cmd_exit(t_data *data, char **str)
 		{
 			ft_printf_fd(2, "exit: %s: numeric argument required\n", str[1]);
 			exit_s = 255;
+			return ;
 		}
 	}
 	if (str[2])
@@ -133,6 +134,5 @@ void	cmd_exit(t_data *data, char **str)
 		return ;
 	}
 	cmd_exit_do_it(cmd_exit_convert(str[1]));
-	exit_s = 0;
 	return ;
 }
