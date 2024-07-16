@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 18:37:27 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:24:58 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,5 +222,9 @@ int		dispatch_builtins(t_data *data, char **str, int which);
 
 test"$USER"'$USER'$USER"test"$non$
 testlbirloue$USERlbirlouetest$
+
+
+check if directory : S_ISDIR
+
 
 */
