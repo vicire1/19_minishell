@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/16 15:24:58 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:43:54 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,10 @@ void	cmd_env(t_data *data, char **str);
 void	cmd_export(t_data *data, char **str);
 
 //src/buitins/cd.c
+void	cmd_cd_change_pwd(t_data *data, char *new_pwd);
+char	*cmd_cd_home_get_new_oldpwd(t_data *data);
+int	cmd_cd_change_oldpwd(t_data *data, char *new_old, char *str_tmp, char *tmp);
+int	cmd_cd_path_file_or_dir_err( char *str);
 void	cmd_cd(t_data *data, char **str);
 
 //src/buitins/unset.c
