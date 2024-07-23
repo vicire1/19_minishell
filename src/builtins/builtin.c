@@ -48,7 +48,7 @@ int	dispatch_builtins(t_data *data, char **str, int which)
 	else if (which == 4)
 		cmd_cd(data, str);
 	else if (which == 5)
-		cmd_unset(data, str);
+		cmd_unset(data, str, 0);
 	else if (which == 6)
 		cmd_echo(str);
 	else if (which == 7)

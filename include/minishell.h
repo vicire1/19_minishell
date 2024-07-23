@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/18 15:43:54 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:54:58 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,11 @@ typedef struct 	s_data
 //src/expand
 int		in_env(t_data *data, t_env *env, char *str, t_expander *expa);
 int		expander(t_data *data);
+void	init_export(t_data *data);
 
 //src/expand_quotes
 int	delete_quotes(t_data *data, t_lexer *exp);
-int	check_quotes_single(t_lexer *exp, int j, int i);
+int	check_quotes_single(char *str, int j, int i);
 int	check_quotes_db(char *str, int j, int i);
 int	check_quotes(t_lexer *exp, int j, int i);
 
@@ -194,6 +195,17 @@ void	cmd_env(t_data *data, char **str);
 
 //src/buitins/export.c
 void	cmd_export(t_data *data, char **str);
+void	print_export(t_data *data, int count, t_env **env_array, int fd);
+int		lst_env_size(t_data *data);
+void	sort_tab(t_env **arr, int n);
+char	*cmd_export_get_name(t_data *data, char *str);
+int	cmd_export_check_invalid(char *str);
+int	cmd_export_check_no_egal(char *str);
+int	cmd_export_check_egal_no_val(char *str);
+int	cmd_export_check_plus_egal(char *str);
+int	cmd_export_plus_egal(t_data *data, char *str, char *val, char *new_name);
+void	cmd_export_print(t_data *data, int fd);
+
 
 //src/buitins/cd.c
 void	cmd_cd_change_pwd(t_data *data, char *new_pwd);
@@ -204,16 +216,18 @@ void	cmd_cd(t_data *data, char **str);
 
 //src/buitins/unset.c
 int		cmd_unset_check_invalid(char *str);
-void	cmd_unset_do_it(t_data *data, char *str);
-void	cmd_unset_do_it_sec(t_data *data, char *str);
+void	cmd_unset_do_it(t_data *data, char *str, int size_str, int size_name);
+void	cmd_unset_do_it_sec(t_data *data, char *str, int size_str);
 int		cmd_unset_check_in_env(t_data *data, char *str);
-void	cmd_unset(t_data *data, char **str);
+void	cmd_unset(t_data *data, char **str, int i);
 
 //src/buitins/echo.c
 void	cmd_echo(char **str);
 
 //src/buitins/exit.c
 void	cmd_exit(t_data *data, char **str);
+int	cmd_exit_check_num(char *str);
+long	cmd_exit_convert(char *str);
 
 //src/buitins/buitlin.c
 int		check_if_builtin(char *str);

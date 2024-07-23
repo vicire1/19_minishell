@@ -6,17 +6,24 @@ SRC_MANDATORY	= 	src/main.c \
 					src/expand/expand_env.c \
 					src/expand/expand_quotes.c \
 					src/expand/utils_env.c \
+					src/expand/env_init.c \
 					src/expand/utils_expander.c \
+					src/expand/utils_expander_sec.c \
 					src/parser/parser.c \
 					src/parser/parser_node.c \
 					src/builtins/pwd.c \
 					src/builtins/env.c \
-					src/builtins/export.c \
+					src/builtins/export/export.c \
+					src/builtins/export/export_utils.c \
+					src/builtins/export/export_check.c \
+					src/builtins/export/export_plus_egal.c \
 					src/builtins/cd.c \
 					src/builtins/cd_utils.c \
 					src/builtins/unset.c \
+					src/builtins/unset_utils.c \
 					src/builtins/echo.c \
 					src/builtins/exit.c \
+					src/builtins/exit_utils.c \
 					src/builtins/builtin.c \
 					src/utils/utils_libft.c \
 					src/utils/utils_free.c \

@@ -1,54 +1,5 @@
 #include "../../include/minishell.h"
 
-int	in_env_sec(t_data *data, t_expander *expa, char *str)
-{
-	char	*tempo;
-	char	*tempo2;
-
-	expa->exit_check = 0;
-	if (str[0] == '?')
-	{
-		tempo = ft_itoa(exit_s, data);
-		tempo2 = ft_strjoin("i", "=", data);
-		expa->tmp_val = ft_strjoin(tempo2, tempo, data);
-		free(tempo);
-		free(tempo2);
-		expa->exit_check = 1;
-		return (1);
-	}
-	return (0);
-}
-
-int	in_env(t_data *data, t_env *env, char *str, t_expander *expa)
-{
-	int		i;
-	char	*tempo;
-
-	i = 0;
-	while (ft_isalnum(str[i]) || str[i] == '_')
-		i++;
-	tempo = ft_substr(str, 0, i, data);
-	if (!tempo)
-	{
-		free(tempo);
-		return (0);
-	}
-	while (env)
-	{
-		if (env_cmp(tempo, env->name))
-		{
-			free(tempo);
-			expa->tmp_val = ft_strjoin(env->name, env->value, data);
-			if (!expa->tmp_val)
-				expa->tmp_val = ft_strdup(env->name, data);
-			return (1);
-		}
-		env = env->next;
-	}
-	free(tempo);
-	return (in_env_sec(data, expa, str));
-}
-
 void	delete_doll(t_data *data, t_lexer *exp, int j)
 {
 	int		post_len;
@@ -75,10 +26,16 @@ void	delete_doll(t_data *data, t_lexer *exp, int j)
 	return ;
 }
 
-int	del_doll_quotes_verif(t_lexer *exp, char *str, int j)
+int	del_doll_quotes_verif_check(int j, int i)
+{
+	if (j == i - 1)
+		return (0);
+	return (1);
+}
+
+int	del_doll_quotes_verif(t_lexer *exp, char *str, int j, int ret)
 {
 	int	i;
-	int	ret;
 
 	i = 0;
 	while (str[i])
@@ -92,16 +49,16 @@ int	del_doll_quotes_verif(t_lexer *exp, char *str, int j)
 		}
 		else if (str[i] == '\'')
 		{
-			ret = check_quotes_single(exp, j, i);
+			ret = check_quotes_single(exp->token_str, j, i);
 			if (!ret)
 				return (0);
 			i = ret;
 		}
+		if (i > (int)ft_strlen(str))
+			break ;
 		i++;
 	}
-	if (j == i - 1)
-		return (0);
-	return (1);
+	return (del_doll_quotes_verif_check(j, i));
 }
 
 int	valid_quotes_env(t_data *data, t_lexer *exp)
@@ -114,16 +71,15 @@ int	valid_quotes_env(t_data *data, t_lexer *exp)
 	while (exp->token_str[j])
 	{
 		len_av = ft_strlen(exp->token_str);
-		if (exp->token_str[j] == '$' && (ft_isalnum(exp->token_str[j + 1]) || exp->token_str[j + 1] == 95 || exp->token_str[j + 1] == '?'))
+		if (exp->token_str[j] == '$' && (ft_isalnum(exp->token_str[j + 1])
+				|| exp->token_str[j + 1] == 95 || exp->token_str[j + 1] == '?'))
 		{
 			if (check_quotes(exp, j, 0))
-			{
 				replace_env(data, exp, j, data->expa);
-			}
 		}
 		else if (exp->token_str[j] == '$')
 		{
-			if (del_doll_quotes_verif(exp, exp->token_str, j)
+			if (del_doll_quotes_verif(exp, exp->token_str, j, 0)
 				&& exp->token_str[j + 1] != '$')
 				delete_doll(data, exp, j);
 		}

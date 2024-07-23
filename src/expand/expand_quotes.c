@@ -54,7 +54,7 @@ int	check_quotes_db(char *str, int j, int i)
 	i++;
 	if (j == i)
 		return (0);
-	while (str[i] != '\'')
+	while (str[i] && str[i] != '\"')
 	{
 		i++;
 		if (j == i)
@@ -63,12 +63,12 @@ int	check_quotes_db(char *str, int j, int i)
 	return (i);
 }
 
-int	check_quotes_single(t_lexer *exp, int j, int i)
+int	check_quotes_single(char *str, int j, int i)
 {
 	i++;
 	if (j == i)
 		return (0);
-	while (exp->token_str[i] != '\'')
+	while (str[i] && str[i] != '\'')
 	{
 		i++;
 		if (j == i)
@@ -86,7 +86,7 @@ int	check_quotes(t_lexer *exp, int j, int i)
 		if (exp->token_str[i] == '\"')
 		{
 			i++;
-			while (exp->token_str[i] != '\"')
+			while (exp->token_str[i] && exp->token_str[i] != '\"')
 			{
 				if (i == j)
 					return (1);
@@ -95,7 +95,7 @@ int	check_quotes(t_lexer *exp, int j, int i)
 		}
 		else if (exp->token_str[i] == '\'')
 		{
-			ret = check_quotes_single(exp, j, i);
+			ret = check_quotes_single(exp->token_str, j, i);
 			if (!ret)
 				return (0);
 			i = ret;

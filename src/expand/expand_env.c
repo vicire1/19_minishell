@@ -10,7 +10,7 @@ int	check_len_exit_s(void)
 	while (cp > 10)
 	{
 		ret ++;
-		cp = cp/10;
+		cp = cp / 10;
 	}
 	return (ret);
 }
@@ -20,7 +20,6 @@ void	replace_env_init(t_data *data, t_lexer *exp, int j, t_expander *expa)
 	expa->tmp_val = NULL;
 	expa->val_len = 0;
 	expa->n_len = size_env_doll(exp->token_str + j + 1);
-
 	if (in_env(data, data->first_env, exp->token_str + j + 1, expa))
 	{
 		if (expa->exit_check == 1)
@@ -68,7 +67,6 @@ void	replace_env(t_data *data, t_lexer *exp, int j, t_expander *expa)
 	free(expa->tmp);
 	expa->tmp = NULL;
 	expa->tmp = ft_strjoin(expa->first_part, expa->sec_part, data);
-	// printf("TMP %s \n", expa->tmp);
 	if (expa->tmp)
 		exp->token_str = ft_strjoin(expa->tmp, expa->third_part, data);
 	else

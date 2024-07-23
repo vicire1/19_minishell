@@ -12,11 +12,11 @@ int	cmd_env_check_arg(char *str)
 		return (0);
 	if (str[1] == '-')
 	{
-		printf("No option allowed for env\n");
+		ft_printf_fd(2, "No option allowed for env\n");
 		exit_s = 1;
 		return (1);
 	}
-	printf("No argument allowed for env\n");
+	ft_printf_fd(2, "No argument allowed for env\n");
 	exit_s = 1;
 	return (1);
 }
