@@ -7,7 +7,7 @@ char	*get_name_env(char *str, t_data *data)
 	size = 0;
 	while (str[size] && str[size] != '=')
 		size++;
-	if (str[size + 1])
+	if ((int)ft_strlen(str) > size)
 		size++;
 	return (ft_substr(str, 0, size, data));
 }
@@ -19,6 +19,8 @@ char	*get_value_env(char *str, t_data *data)
 	size = 0;
 	while (str[size] && str[size] != '=')
 		size++;
+	if (!str[size])
+		return (NULL);
 	if ((str[size] != '=' && str[size + 1])
 		|| (str[size] == '=' && !str[size + 1]))
 		return (NULL);

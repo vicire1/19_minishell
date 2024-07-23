@@ -1,21 +1,20 @@
 #include "../../include/minishell.h"
 
-void	cmd_exit_do_it(long exit)
+void	cmd_exit_do_it(t_data *data, long exitt)
 {
-	if (exit < 0 || exit > 255)
-		exit = exit % 256;
-	if (exit < 0)
-		exit = exit + 256;
-	exit_s = (int)exit;
+	if (exitt < 0 || exitt > 255)
+		exitt = exitt % 256;
+	if (exitt < 0)
+		exitt = exitt + 256;
+	exit_s = (int)exitt;
+	free_all(data, NULL, 1);
+
 }
 
 void	cmd_exit(t_data *data, char **str)
 {
-	(void)data;
 	if (!str[1])
-	{
-		exit(0);
-	}
+		free_all(data, NULL, 1);
 	else if (str[1])
 	{
 		if (cmd_exit_check_num(str[1]))
@@ -31,6 +30,6 @@ void	cmd_exit(t_data *data, char **str)
 		exit_s = 1;
 		return ;
 	}
-	cmd_exit_do_it(cmd_exit_convert(str[1]));
+	cmd_exit_do_it(data, cmd_exit_convert(str[1]));
 	return ;
 }

@@ -15,8 +15,13 @@ void	unset_env_node(t_data *data, t_env *tempo)
 			((t_env *)tempo->next)->prev = tempo->prev;
 	}
 	free(tempo->name);
+	tempo->name = NULL;
+	if (tempo->value)
+	{
+		free(tempo->value);
+		tempo->value = NULL;
+	}
 	free(tempo);
-	free(tempo->value);
 	return ;
 }
 

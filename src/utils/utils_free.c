@@ -26,7 +26,7 @@ int free_all(t_data *data, char *str, int esc)
     if (esc)
     {
         free_env(data);
-        exit (esc);
+        exit (exit_s);
     }
     return (0);
 }
