@@ -48,7 +48,13 @@ RM				= rm -rf
 
 C_FLAGS			= -Wall -Wextra -Werror
 
-LIBS			= -lreadline
+RL_LIB			= /Users/lbirloue/.brew/opt/readline/lib
+
+RL_INC			= /Users/lbirloue/.brew/opt/readline/include
+
+# pour readline, faire brew reinstall readline et changer les 2 paths ci-dessus
+
+LIBS			= -lreadline -L$(RL_LIB) -I$(RL_INC)
 
 %.o: %.c
 	$(CC) $(C_FLAGS) -c $< -o $@ 

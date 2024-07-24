@@ -8,7 +8,6 @@ void	cmd_exit_do_it(t_data *data, long exitt)
 		exitt = exitt + 256;
 	exit_s = (int)exitt;
 	free_all(data, NULL, 1);
-
 }
 
 void	cmd_exit(t_data *data, char **str)

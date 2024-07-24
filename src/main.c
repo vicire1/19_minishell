@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 16:33:10 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:05:40 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ int	init_env(t_data	*data, char **envp)
 	return(0);
 }
 
+void	handle_sig_c(int sig)
+{
+	(void)sig;
+	ft_printf_fd(1, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	handle_sig(void)
+{
+	signal(SIGINT, &handle_sig_c);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char*	line;
@@ -46,10 +61,16 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	init_env(&data, envp);
+	handle_sig();
 	while (1)
 	{
 		init_data(&data);
 		line = readline("minishell: ");
+		if (!line)
+		{
+			exit_s = 0;
+			free_all(&data, NULL, 1);
+		}
 		if (line && line[0] != '\0')
 		{
 			if (lexer(line, &data))

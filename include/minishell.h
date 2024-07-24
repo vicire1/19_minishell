@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/23 12:54:58 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/24 09:30:59 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,13 @@ typedef struct 	s_data
 	char		**poss_path;
 }				t_data;
 
+
+
+void 				rl_clear_history (void);
+void				rl_replace_line(const char *text, int clear_undo);
+void				rl_redisplay(void);
+
+void				handle_signal(void);
 
 //src/expand
 int		in_env(t_data *data, t_env *env, char *str, t_expander *expa);
