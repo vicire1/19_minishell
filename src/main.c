@@ -6,7 +6,7 @@
 /*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/24 10:05:40 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:39:33 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	init_env(&data, envp);
-	handle_sig();
 	while (1)
 	{
+		handle_sig();
 		init_data(&data);
 		line = readline("minishell: ");
 		if (!line)
