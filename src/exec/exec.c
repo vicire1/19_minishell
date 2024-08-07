@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/07 11:27:33 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:56:23 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ char	*find_abs_path(t_data *data, char *cmd)
 	char	*temp;
 
 	abs_path = NULL;
-	if (access(cmd, X_OK) == 0)
-		abs_path = ft_strdup(cmd, data);
-	else if (data->poss_path)
+	if (data->poss_path)
 	{
 		i = 0;
 		while (data->poss_path[i])
@@ -37,6 +35,8 @@ char	*find_abs_path(t_data *data, char *cmd)
 			i++;
 		}
 	}
+	else if (access(cmd, X_OK) == 0)
+		abs_path = ft_strdup(cmd, data);
 	return (abs_path);
 }
 
@@ -114,6 +114,7 @@ void	multiple_cmd(t_data *data)
 int	executor(t_data *data)
 {
 	int	bltn;
+	int	status;
 
 	bltn = check_if_builtin(data->first_pars->cmd[0]);
 	check_heredoc(data);
@@ -125,8 +126,12 @@ int	executor(t_data *data)
 	}
 	else
 		multiple_cmd(data);
-	while (wait(&g_exit_s) > 0)
+	while (wait(&status) > 0)
 		;
+	if (WIFEXITED(status))
+		g_exit_s = WEXITSTATUS(status);
 	unlink_heredoc(data);
+	// free_cmd_arr(data->env_arr);
+	// free_cmd_arr(data->poss_path);
 	return (0);
 }

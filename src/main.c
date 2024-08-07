@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/07 14:41:34 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:42:47 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	init_env(t_data	*data, char **envp)
 void	handle_sig_c(int sig)
 {
 	(void)sig;
+	g_exit_s = 1;
 	ft_printf_fd(1, "\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -76,7 +77,7 @@ int	main(int ac, char **av, char **envp)
 	init_env(&data, envp);
 	while (1)
 	{
-	init_global();
+		init_global();
 		// printf("%d\n", g_exit_s);
 		handle_sig();
 		init_data(&data);

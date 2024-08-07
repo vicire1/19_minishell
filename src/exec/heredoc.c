@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:42:40 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/06 15:49:07 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:02:16 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	open_heredoc(t_pars *current, char *eof)
 	fd = open(current->hdoc, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	n = ft_strlen(eof);
 	line = readline("> ");
-	while (ft_strncmp(line, eof, n) != 0 || n != ft_strlen(line))
+	while (line && (ft_strncmp(line, eof, n) != 0 || n != ft_strlen(line)))
 	{
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);
