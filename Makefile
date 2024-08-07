@@ -23,6 +23,7 @@ SRC_MANDATORY	= 	src/main.c \
 					src/exec/get_env.c \
 					src/exec/redirections.c \
 					src/exec/exec.c \
+					src/exec/heredoc.c \
 
 OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}
 

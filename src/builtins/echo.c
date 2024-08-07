@@ -91,17 +91,17 @@ void	cmd_echo(char **str)
 	if (!str[1])
 	{
 		ft_printf_fd(1, "\n");
-		exit_s = 0;
+		g_exit_s = 0;
 		return ;
 	}
 	else if (cmd_echo_check_n(str, 1))
 	{
 		cmd_echo_n_do_it(str, 1);
-		exit_s = 0;
+		g_exit_s = 0;
 		return ;
 	}
 	else
 		cmd_echo_do_it(str, 1);
-	exit_s = 0;
+	g_exit_s = 0;
 	return ;
 }

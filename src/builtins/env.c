@@ -13,11 +13,11 @@ int	cmd_env_check_arg(char *str)
 	if (str[1] == '-')
 	{
 		printf("No option allowed for env\n");
-		exit_s = 1;
+		g_exit_s = 1;
 		return (1);
 	}
 	printf("No argument allowed for env\n");
-	exit_s = 1;
+	g_exit_s = 1;
 	return (1);
 }
 
@@ -46,6 +46,6 @@ void	cmd_env(t_data *data, char **str)
 		}
 		tempo = tempo->next;
 	}
-	exit_s = 0;
+	g_exit_s = 0;
 	return ;
 }

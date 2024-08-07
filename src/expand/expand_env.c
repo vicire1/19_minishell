@@ -6,7 +6,7 @@ int	check_len_exit_s(void)
 	int	ret;
 
 	ret = 1;
-	cp = exit_s;
+	cp = g_exit_s;
 	while (cp > 10)
 	{
 		ret ++;

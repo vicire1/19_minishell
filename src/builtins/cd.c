@@ -98,7 +98,7 @@ void	cmd_cd_home(t_data *data)
 	if (!home_path)
 	{
 		ft_printf_fd(2, "minishell: cd: HOME not set\n");
-		exit_s = 1;
+		g_exit_s = 1;
 		return ;
 	}
 	if (access(home_path, F_OK) == -1)
@@ -110,7 +110,7 @@ void	cmd_cd_home(t_data *data)
 	if (access(home_path, X_OK) == -1)
 	{
 		ft_printf_fd(2, "minishell: cd: %s: Permission denied\n", home_path);
-		exit_s = 1;
+		g_exit_s = 1;
 		return ;
 	}
 	cmd_cd_home_change_oldpwd(data, NULL);
@@ -130,13 +130,13 @@ int	cmd_cd_path_file_or_dir_err( char *str)
 	if (access(str, F_OK) == -1)
 	{
 		ft_printf_fd(2, "minishell: cd: %s:  No such file or directory\n", str);
-		exit_s = 1;
+		g_exit_s = 1;
 		return (1);
 	}
 	if (access(str, X_OK) == -1)
 	{
 		ft_printf_fd(2, "minishell: cd: %s: Permission denied\n", str);
-		exit_s = 1;
+		g_exit_s = 1;
 		return (1);
 	}
 	return (0);
@@ -185,7 +185,7 @@ void	cmd_cd_dash(t_data *data)
 		chdir(oldpwd_tmp);
 		cmd_cd_change_pwd(data, getcwd(NULL, 0));
 		free(oldpwd_tmp);
-		exit_s = 0;
+		g_exit_s = 0;
 	}
 }
 

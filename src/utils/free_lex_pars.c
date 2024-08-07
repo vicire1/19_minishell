@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:59:08 by lbirloue          #+#    #+#             */
-/*   Updated: 2024/06/11 14:37:06 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:35:16 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void    free_pars(t_data *data)
     {
         free_cmd_arr(current->cmd);
         free_redir_lst(current->redir);
+        free(current->hdoc);
         temp = current;
         current = current->next;
         free(temp);

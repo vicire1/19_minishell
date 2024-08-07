@@ -6,82 +6,11 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:19 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/11 22:33:23 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:51:08 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// void	print_env_array(char **env)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (env[i])
-// 	{
-// 		printf("%s\n", env[i]);
-// 		i++;
-// 	}
-// 	printf("\n");
-// }
-
-// void	print_poss_path(char **path)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	printf("\nPOSSIBLE PATHS\n");
-// 	while (path[i])
-// 	{
-// 		printf("%s\n", path[i]);
-// 		i++;
-// 	}
-// 	printf("\n");
-// }
-
-// void	print_cmd(char **cmd)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	printf("CMD : \n");
-// 	while (cmd[i])
-// 	{
-// 		printf("[%s] ", cmd[i]);
-// 		i++;
-// 	}
-// 	printf("\n");
-// }
-
-// void	print_redir(t_redir *redir)
-// {
-// 	t_redir	*temp;
-
-// 	temp = redir;
-// 	printf("REDIR : \n");
-// 	while (temp)
-// 	{
-// 		printf("%d      ", temp->token);
-// 		printf("%s\n", temp->file);
-// 		temp = temp->next;
-// 	}
-// }
-
-// void	print_pars(t_pars *first)
-// {
-// 	t_pars	*temp;
-
-// 	temp = first;
-// 	while (temp)
-// 	{
-// 		printf("---------------------------------\n");
-// 		print_cmd(temp->cmd);
-// 		printf("nb redir : %d\n", temp->nb_redir);
-// 		print_redir(temp->redir);
-// 		printf("---------------------------------\n");
-// 		temp = temp->next;
-// 	}
-// }
 
 void	create_redir_lst(t_data *data, t_lexer *start, int redir)
 {
@@ -160,14 +89,12 @@ int	parser(t_data *data)
 	t_lexer	*start;
 	int		arg;
 	int		redir;
-	int		nb_node;
 
-	nb_node = 0;
 	current = data->first_lex;
 	if (current->token == 1)
 	{
 		ft_printf_fd(2, "syntax error near unexpected token `|'\n", 0);
-		return (1);	
+		return (1);
 	}
 	while (current)
 	{
@@ -177,13 +104,8 @@ int	parser(t_data *data)
 		current = count_redir(current, &arg, &redir);
 		new_node_pars(data, start, arg, redir);
 		create_redir_lst(data, start, redir);
-		nb_node++;
+		data->nb_cmd_node++;
 	}
-	data->nb_cmd_node = nb_node;
 	executor(data);
-	// print_pars(data->first_pars);
-	// env_in_array(data);
-	// print_env_array(data->env_arr);
-	// print_poss_path(data->poss_path);
 	return (0);
 }
