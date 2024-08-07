@@ -83,10 +83,6 @@ void	cmd_export_for_env(t_data *data, char **str, int i)
 			cmd_export_no_egal(data, str[i]);
 		else
 			cmd_export_egal_val(data, str[i]);
-		if (g_exit_s == 1)
-			g_exit_s = 0;
-		else
-			g_exit_s = 0;
 		i++;
 	}
 }

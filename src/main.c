@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/07 13:27:13 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:41:34 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ void	handle_sig(void)
 	// 	ft_printf_fd(1, "\n");	
 }
 
+void	init_global(void)
+{
+	if (g_exit_s == 0)
+		g_exit_s = 0;
+	else if ((g_exit_s % 255) == 0)
+		g_exit_s = 255;
+	else if (g_exit_s > 255)
+		g_exit_s = g_exit_s % 255;
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char*	line;
@@ -66,6 +76,8 @@ int	main(int ac, char **av, char **envp)
 	init_env(&data, envp);
 	while (1)
 	{
+	init_global();
+		// printf("%d\n", g_exit_s);
 		handle_sig();
 		init_data(&data);
 		line = readline("minishell: ");
