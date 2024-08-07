@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:58:39 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/11 21:34:21 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:41:16 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,7 +351,7 @@ char	*ft_itoa(int n, t_data *data)
 	{
 		ret = malloc((char_0) * sizeof(char));
 		if (!ret)
-			return (0);
+			free_all(data, ERR_MAL, 1);
 		if (n > 0)
 			return (posint(char_nbr, n, ret));
 		if (n < 0)
@@ -360,6 +360,21 @@ char	*ft_itoa(int n, t_data *data)
 	return (0);
 }
 
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	if (fd < 0)
+		return ;
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i] != 0)
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+}
 
 // char	*ft_strdup(const char *s)
 // {

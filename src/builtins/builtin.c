@@ -55,7 +55,7 @@ int	dispatch_builtins(t_data *data, char **str, int which)
 		cmd_exit(data, str);
 	if (data->nb_cmd_node == 1 && (which == 3 || which == 4 || which == 5
 			|| which == 7))
-		return (exit_s);
+		return (g_exit_s);
 	else
-		exit(exit_s);
+		exit(g_exit_s);
 }

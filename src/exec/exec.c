@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 23:11:09 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:27:33 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,19 @@ void	ft_child_exec(t_data *data, int pfd[2], int i, int prev_fd)
 	char	*abs_path;
 
 	current = data->first_pars;
-	close(pfd[0]);
 	if (i != 0)
 	{
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
 	if (i != data->nb_cmd_node - 1)
-	{
 		dup2(pfd[1], STDOUT_FILENO);
-	}
 	close(pfd[1]);
 	while (i-- > 0)
 		current = current->next;
-	open_redir(current->redir);
+	open_redir(current);
+	if (!current->cmd[0])
+		exit(0);
 	dispatch_builtins(data, current->cmd, check_if_builtin(current->cmd[0]));
 	abs_path = find_abs_path(data, current->cmd[0]);
 	if (!abs_path)
@@ -74,10 +73,10 @@ void	one_cmd_env(t_data *data, int bltn)
 {
 	int	saved_stdout;
 	int	saved_stdin;
-	
+
 	saved_stdout = dup(STDOUT_FILENO);
 	saved_stdin = dup(STDIN_FILENO);
-	open_redir(data->first_pars->redir);
+	open_redir(data->first_pars);
 	dispatch_builtins(data, data->first_pars->cmd, bltn);
 	dup2(saved_stdout, STDOUT_FILENO);
 	close(saved_stdout);
@@ -85,22 +84,14 @@ void	one_cmd_env(t_data *data, int bltn)
 	close(saved_stdin);
 }
 
-int	executor(t_data *data)
+void	multiple_cmd(t_data *data)
 {
 	int	pfd[2];
-	int	i;
 	int	prev_fd;
-	int	bltn;
+	int	i;
 
 	i = -1;
 	prev_fd = -1;
-	bltn = check_if_builtin(data->first_pars->cmd[0]);
-	if (data->nb_cmd_node == 1 && (bltn == 3 || bltn == 4 || bltn == 5
-			|| bltn == 7))
-	{
-		one_cmd_env(data, bltn);
-		return (0);
-	}
 	while (++i < data->nb_cmd_node)
 	{
 		env_in_array(data);
@@ -110,12 +101,32 @@ int	executor(t_data *data)
 		if (data->pid == -1)
 			free_all(data, ERR_FORK, 1);
 		if (data->pid == 0)
+		{
+			close(pfd[0]);
 			ft_child_exec(data, pfd, i, prev_fd);
+		}
 		close(prev_fd);
 		prev_fd = pfd[0];
 		close(pfd[1]);
 	}
-	while (wait(&exit_s) > 0)
+}
+
+int	executor(t_data *data)
+{
+	int	bltn;
+
+	bltn = check_if_builtin(data->first_pars->cmd[0]);
+	check_heredoc(data);
+	if (data->nb_cmd_node == 1 && (bltn == 3 || bltn == 4 || bltn == 5
+			|| bltn == 7))
+	{
+		one_cmd_env(data, bltn);
+		return (0);
+	}
+	else
+		multiple_cmd(data);
+	while (wait(&g_exit_s) > 0)
 		;
+	unlink_heredoc(data);
 	return (0);
 }

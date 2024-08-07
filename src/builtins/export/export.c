@@ -71,7 +71,7 @@ void	cmd_export_for_env(t_data *data, char **str, int i)
 		{
 			ft_printf_fd(2,
 				"minishell: export : `%s\': not a valid identifier\n", str[i]);
-			exit_s = 1;
+			g_exit_s = 1;
 		}
 		else if (cmd_export_check_plus_egal(str[i]))
 			cmd_export_plus_egal(data, str[i], NULL, NULL);
@@ -83,10 +83,10 @@ void	cmd_export_for_env(t_data *data, char **str, int i)
 			cmd_export_no_egal(data, str[i]);
 		else
 			cmd_export_egal_val(data, str[i]);
-		if (exit_s == 1)
-			exit_s = 0;
+		if (g_exit_s == 1)
+			g_exit_s = 0;
 		else
-			exit_s = 0;
+			g_exit_s = 0;
 		i++;
 	}
 }

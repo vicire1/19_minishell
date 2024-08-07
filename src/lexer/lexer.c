@@ -6,40 +6,21 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:15 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/15 15:54:53 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:51:32 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// void	print_struct(t_data *data)
-// {
-// 	t_lexer	*temp;
-
-// 	temp = data->first_lex;
-// 	while (temp)
-// 	{
-// 		printf("----------------------\n");
-// 		printf("Pos : %i\n", temp->pos);
-// 		printf("string : %s\n", temp->token_str);
-// 		printf("token : %i\n", temp->token);
-// 		printf("adr : %p\n", temp);
-// 		printf("prev adr : %p\n", temp->prev);
-// 		printf("next adr : %p\n", temp->next);
-// 		printf("----------------------\n");
-// 		temp = temp->next;
-// 	}
-// }
-
 int	new_node_lex(char *str, t_token token, t_data *data, int *pos)
 {
-	t_lexer		*new;
-	t_lexer		*temp;
+	t_lexer	*new;
+	t_lexer	*temp;
 
 	new = malloc(sizeof(t_lexer));
 	if (!new)
 	{
-		free(str);	
+		free(str);
 		free_all(data, ERR_MAL, 1);
 	}
 	new->token_str = str;
@@ -62,8 +43,8 @@ int	new_node_lex(char *str, t_token token, t_data *data, int *pos)
 
 int	check_double_token(t_data *data)
 {
-	t_lexer *current;
-	t_lexer *temp;
+	t_lexer	*current;
+	t_lexer	*temp;
 
 	current = data->first_lex;
 	if (current)
@@ -78,7 +59,7 @@ int	check_double_token(t_data *data)
 			current = temp;
 		}
 		if (current->token)
-			return (1);	
+			return (1);
 	}
 	return (0);
 }
@@ -126,7 +107,7 @@ int	save_cmds(char *str, t_data *data, int *pos)
 int	lexer(char *line, t_data *data)
 {
 	int	i;
-	int quotes;
+	int	quotes;
 	int	pos;
 
 	i = 0;
@@ -143,6 +124,5 @@ int	lexer(char *line, t_data *data)
 	}
 	if (check_double_token(data))
 		return (1);
-	// print_struct(data);
 	return (0);
 }

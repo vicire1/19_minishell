@@ -31,6 +31,7 @@ SRC_MANDATORY	= 	src/main.c \
 					src/exec/get_env.c \
 					src/exec/redirections.c \
 					src/exec/exec.c \
+					src/exec/heredoc.c \
 
 OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}
 
@@ -48,9 +49,9 @@ RM				= rm -rf
 
 C_FLAGS			= -Wall -Wextra -Werror
 
-RL_LIB			= /Users/lbirloue/.brew/opt/readline/lib
+RL_LIB			= /Users/$(USER)/.brew/opt/readline/lib
 
-RL_INC			= /Users/lbirloue/.brew/opt/readline/include
+RL_INC			= /Users/$(USER)/.brew/opt/readline/include
 
 # pour readline, faire brew reinstall readline et changer les 2 paths ci-dessus
 

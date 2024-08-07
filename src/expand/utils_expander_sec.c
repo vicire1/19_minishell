@@ -8,7 +8,7 @@ int	in_env_sec(t_data *data, t_expander *expa, char *str)
 	expa->exit_check = 0;
 	if (str[0] == '?')
 	{
-		tempo = ft_itoa(exit_s, data);
+		tempo = ft_itoa(g_exit_s, data);
 		tempo2 = ft_strjoin("i", "=", data);
 		expa->tmp_val = ft_strjoin(tempo2, tempo, data);
 		free(tempo);

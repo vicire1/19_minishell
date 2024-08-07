@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/07/26 12:39:33 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:27:13 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	init_data(t_data *data)
 	data->expa = NULL;
 	data->env_arr = NULL;
 	data->poss_path = NULL;
+	data->nb_cmd_node = 0;
 	return (0);
 }
 
@@ -51,6 +52,8 @@ void	handle_sig(void)
 {
 	signal(SIGINT, &handle_sig_c);
 	signal(SIGQUIT, SIG_IGN);
+	// if (!signal(SIGQUIT, SIG_IGN))
+	// 	ft_printf_fd(1, "\n");	
 }
 
 int	main(int ac, char **av, char **envp)
@@ -68,7 +71,7 @@ int	main(int ac, char **av, char **envp)
 		line = readline("minishell: ");
 		if (!line)
 		{
-			exit_s = 0;
+			g_exit_s = 0;
 			free_all(&data, NULL, 1);
 		}
 		if (line && line[0] != '\0')

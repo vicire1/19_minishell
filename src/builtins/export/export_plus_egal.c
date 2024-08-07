@@ -82,5 +82,5 @@ void	cmd_export_print(t_data *data, int fd)
 	sort_tab(env_array, count);
 	print_export(data, count, env_array, fd);
 	free(env_array);
-	exit_s = 0;
+	g_exit_s = 0;
 }

@@ -29,6 +29,6 @@ void	cmd_pwd(t_data *data)
 	}
 	if (pwd)
 		free(pwd);
-	exit_s = 0;
+	g_exit_s = 0;
 	return ;
 }

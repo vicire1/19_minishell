@@ -89,13 +89,13 @@ int	cmd_cd_path_file_or_dir_err( char *str)
 	if (access(str, F_OK) == -1)
 	{
 		ft_printf_fd(2, "minishell: cd: %s:  No such file or directory\n", str);
-		exit_s = 1;
+		g_exit_s = 1;
 		return (1);
 	}
 	if (access(str, X_OK) == -1)
 	{
 		ft_printf_fd(2, "minishell: cd: %s: Permission denied\n", str);
-		exit_s = 1;
+		g_exit_s = 1;
 		return (1);
 	}
 	return (0);
