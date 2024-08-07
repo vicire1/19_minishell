@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/07 13:16:39 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:36:46 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,23 +111,21 @@ typedef struct s_data
 int				in_env(t_data *data, t_env *env, char *str, t_expander *expa);
 int				expander(t_data *data);
 
+void			rl_clear_history(void);
+void			rl_replace_line(const char *text, int clear_undo);
+void			rl_redisplay(void);
+void			handle_signal(void);
 
-void 				rl_clear_history (void);
-void				rl_replace_line(const char *text, int clear_undo);
-void				rl_redisplay(void);
+// src/expand
+int				in_env(t_data *data, t_env *env, char *str, t_expander *expa);
+int				expander(t_data *data);
+void			init_export(t_data *data);
 
-void				handle_signal(void);
-
-//src/expand
-int		in_env(t_data *data, t_env *env, char *str, t_expander *expa);
-int		expander(t_data *data);
-void	init_export(t_data *data);
-
-//src/expand_quotes
-int	delete_quotes(t_data *data, t_lexer *exp);
-int	check_quotes_single(char *str, int j, int i);
-int	check_quotes_db(char *str, int j, int i);
-int	check_quotes(t_lexer *exp, int j, int i);
+// src/expand_quotes
+int				delete_quotes(t_data *data, t_lexer *exp);
+int				check_quotes_single(char *str, int j, int i);
+int				check_quotes_db(char *str, int j, int i);
+int				check_quotes(t_lexer *exp, int j, int i);
 // src/expand_env
 void			replace_env(t_data *data, t_lexer *exp, int j,
 					t_expander *expa);
@@ -201,52 +199,48 @@ void			cmd_export(t_data *data, char **str);
 // src/buitins/cd.c
 void			cmd_cd(t_data *data, char **str);
 
+// src/buitins/export.c
+void			cmd_export(t_data *data, char **str);
+void			print_export(t_data *data, int count, t_env **env_array,
+					int fd);
+int				lst_env_size(t_data *data);
+void			sort_tab(t_env **arr, int n);
+char			*cmd_export_get_name(t_data *data, char *str);
+int				cmd_export_check_invalid(char *str);
+int				cmd_export_check_no_egal(char *str);
+int				cmd_export_check_egal_no_val(char *str);
+int				cmd_export_check_plus_egal(char *str);
+int				cmd_export_plus_egal(t_data *data, char *str, char *val,
+					char *new_name);
+void			cmd_export_print(t_data *data, int fd);
+
+// src/buitins/cd.c
+void			cmd_cd_change_pwd(t_data *data, char *new_pwd);
+char			*cmd_cd_home_get_new_oldpwd(t_data *data);
+int				cmd_cd_change_oldpwd(t_data *data, char *new_old, char *str_tmp,
+					char *tmp);
+int				cmd_cd_path_file_or_dir_err(char *str);
+void			cmd_cd(t_data *data, char **str);
+
 // src/buitins/unset.c
-// int				cmd_unset_check_invalid(char *str);
-// void			cmd_unset_do_it(t_data *data, char *str);
-// void			cmd_unset_do_it_sec(t_data *data, char *str);
-// int				cmd_unset_check_in_env(t_data *data, char *str);
-// void			cmd_unset(t_data *data, char **str);
+int				cmd_unset_check_invalid(char *str);
+void			cmd_unset_do_it(t_data *data, char *str, int size_str,
+					int size_name);
+void			cmd_unset_do_it_sec(t_data *data, char *str, int size_str);
+int				cmd_unset_check_in_env(t_data *data, char *str);
+void			cmd_unset(t_data *data, char **str, int i);
 
-//src/buitins/export.c
-void	cmd_export(t_data *data, char **str);
-void	print_export(t_data *data, int count, t_env **env_array, int fd);
-int		lst_env_size(t_data *data);
-void	sort_tab(t_env **arr, int n);
-char	*cmd_export_get_name(t_data *data, char *str);
-int	cmd_export_check_invalid(char *str);
-int	cmd_export_check_no_egal(char *str);
-int	cmd_export_check_egal_no_val(char *str);
-int	cmd_export_check_plus_egal(char *str);
-int	cmd_export_plus_egal(t_data *data, char *str, char *val, char *new_name);
-void	cmd_export_print(t_data *data, int fd);
+// src/buitins/echo.c
+void			cmd_echo(char **str);
 
+// src/buitins/exit.c
+void			cmd_exit(t_data *data, char **str);
+int				cmd_exit_check_num(char *str);
+long			cmd_exit_convert(char *str);
 
-//src/buitins/cd.c
-void	cmd_cd_change_pwd(t_data *data, char *new_pwd);
-char	*cmd_cd_home_get_new_oldpwd(t_data *data);
-int	cmd_cd_change_oldpwd(t_data *data, char *new_old, char *str_tmp, char *tmp);
-int	cmd_cd_path_file_or_dir_err( char *str);
-void	cmd_cd(t_data *data, char **str);
-
-//src/buitins/unset.c
-int		cmd_unset_check_invalid(char *str);
-void	cmd_unset_do_it(t_data *data, char *str, int size_str, int size_name);
-void	cmd_unset_do_it_sec(t_data *data, char *str, int size_str);
-int		cmd_unset_check_in_env(t_data *data, char *str);
-void	cmd_unset(t_data *data, char **str, int i);
-
-//src/buitins/echo.c
-void	cmd_echo(char **str);
-
-//src/buitins/exit.c
-void	cmd_exit(t_data *data, char **str);
-int	cmd_exit_check_num(char *str);
-long	cmd_exit_convert(char *str);
-
-//src/buitins/buitlin.c
-int		check_if_builtin(char *str);
-int		dispatch_builtins(t_data *data, char **str, int which);
+// src/buitins/buitlin.c
+int				check_if_builtin(char *str);
+int				dispatch_builtins(t_data *data, char **str, int which);
 
 #endif
 
