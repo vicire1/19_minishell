@@ -6,18 +6,12 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:09:50 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:09:51 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:14:43 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/**
- * @brief handle the "pwd" command
- * 
- * @param data struct data (unused)
- * @param fd file descritpor
- */
 void	cmd_pwd(t_data *data)
 {
 	char	*pwd;

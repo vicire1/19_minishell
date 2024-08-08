@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:09:34 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:09:35 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:13:58 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,6 @@ int	cmd_cd_change_oldpwd(t_data *data, char *new_old, char *str_tmp, char *tmp)
 	return (free(tmp), 0);
 }
 
-/**
- * @brief check if the dir is correct
- * 
- * @param data struct data
- * @param str absolute path
- * @return int return 1 if incorrect or 0 if it is
- */
 int	cmd_cd_path_file_or_dir_err( char *str)
 {
 	if (access(str, F_OK) == -1)

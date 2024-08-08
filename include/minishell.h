@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:25:16 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:33:23 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,31 +107,24 @@ typedef struct s_data
 	char		**poss_path;
 }				t_data;
 
-// src/expand
-int				in_env(t_data *data, t_env *env, char *str, t_expander *expa);
-int				expander(t_data *data);
-
 void			rl_clear_history(void);
 void			rl_replace_line(const char *text, int clear_undo);
 void			rl_redisplay(void);
 void			handle_signal(void);
-int				init_env(t_data *data, char **envp);
 
 // src/expand
 int				in_env(t_data *data, t_env *env, char *str, t_expander *expa);
 int				expander(t_data *data);
 void			init_export(t_data *data);
-
-// src/expand_quotes
+int				init_env(t_data *data, char **envp);
 int				delete_quotes(t_data *data, t_lexer *exp);
 int				check_quotes_single(char *str, int j, int i);
 int				check_quotes_db(char *str, int j, int i);
 int				check_quotes(t_lexer *exp, int j, int i);
-// src/expand_env
 void			replace_env(t_data *data, t_lexer *exp, int j,
 					t_expander *expa);
 
-// src/lexer
+// lexer
 int				lexer(char *line, t_data *data);
 
 // parser
@@ -153,7 +146,7 @@ void			unlink_heredoc(t_data *data);
 // src/signals
 void			handle_sig(void);
 
-// src/utils
+// src/utils_libft
 char			*ft_substr(char const *s, unsigned int start, size_t len,
 					t_data *data);
 char			*ft_substr_bis(char const *s, unsigned int start, size_t len);
@@ -191,7 +184,7 @@ int				new_node_env(char *str, int status, t_data *data);
 int				new_node_env_w_data(char *val, char *name, int status,
 					t_data *data);
 
-// BUILTINS
+// buitins
 // src/buitins/pwd.c
 void			cmd_pwd(t_data *data);
 
@@ -248,14 +241,3 @@ int				check_if_builtin(char *str);
 int				dispatch_builtins(t_data *data, char **str, int which);
 
 #endif
-
-/*
-
-test"$USER"'$USER'$USER"test"$non$
-testlbirloue$USERlbirlouetest$
-
-
-check if directory : S_ISDIR
-
-
-*/

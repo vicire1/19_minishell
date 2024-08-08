@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:09:37 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:09:38 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:14:10 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,6 @@ void	cmd_cd_home(t_data *data)
 	cmd_cd_change_pwd(data, home_path);
 }
 
-/**
- * @brief Hendle the 'cd' command with path
- * 
- * @param data struct data
- * @param str arg
- */
 void	cmd_cd_path(t_data *data, char *str)
 {
 	if (cmd_cd_path_file_or_dir_err(str))
@@ -105,12 +99,6 @@ void	cmd_cd_dash(t_data *data)
 	}
 }
 
-/**
- * @brief Handles the 'cd' command to change the current directory.
- * 
- * @param data struct data
- * @param str [0] => cd [.;.;.]=> arg
- */
 void	cmd_cd(t_data *data, char **str)
 {
 	int	len_str2;

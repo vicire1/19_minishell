@@ -6,19 +6,12 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:09:40 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:09:41 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:14:23 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/**
- * @brief check if there is the option "-n" for echo
- * 
- * @param str 
- * @param which which char **str to check
- * @return int 0 if not or 1 if there is
- */
 int	cmd_echo_check_n(char **str, int which)
 {
 	int	i;
@@ -38,12 +31,6 @@ int	cmd_echo_check_n(char **str, int which)
 	return (1);
 }
 
-/**
- * @brief do echo -n
- * 
- * @param str options and params
- * @param fd file descriptor
- */
 void	cmd_echo_n_do_it(char **str, int fd)
 {
 	int	i;
@@ -66,12 +53,6 @@ void	cmd_echo_n_do_it(char **str, int fd)
 	return ;
 }
 
-/**
- * @brief do echo whithout option
- * 
- * @param str params
- * @param fd file descritpor
- */
 void	cmd_echo_do_it(char **str, int fd)
 {
 	int	i;
@@ -91,13 +72,6 @@ void	cmd_echo_do_it(char **str, int fd)
 	return ;
 }
 
-/**
- * @brief  Handles the 'echo' command to print strings.
- * 
- * @param data struct data (unused)
- * @param str [0] => echo [.;.;.]=> arg or option
- * @param fd file descriptor
- */
 void	cmd_echo(char **str)
 {
 	if (!str[1])

@@ -6,18 +6,12 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:09:32 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:09:33 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:13:52 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/**
- * @brief check if str is a builtin
- *
- * @param str string to compare
- * @return int which builtin is it or if it s not
- */
 int	check_if_builtin(char *str)
 {
 	int	len_str;
@@ -40,13 +34,6 @@ int	check_if_builtin(char *str)
 	return (0);
 }
 
-/**
- * @brief dispatch builtins
- *
- * @param data struct data
- * @param str char**
- * @param which which builtin is it
- */
 int	dispatch_builtins(t_data *data, char **str, int which)
 {
 	if (which == 0)
