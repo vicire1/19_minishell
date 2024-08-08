@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:36:55 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:51:27 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*find_abs_path(t_data *data, char *cmd)
 			i++;
 		}
 	}
-	else if (access(cmd, X_OK) == 0)
+	if (access(cmd, X_OK) == 0)
 		abs_path = ft_strdup(cmd, data);
 	return (abs_path);
 }
