@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:24:52 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:57:01 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	process(t_data *data)
 	char	*line;
 
 	init_global();
-	handle_sig();
+	handle_sig(SIG_OUT_CHILD);
 	init_data(data);
 	line = readline("minishell: ");
 	if (!line)
 	{
 		g_exit_s = 0;
-		free_all(data, NULL, 1);
+		free_all(data, "minishell: exit", 1);
 	}
 	if (line && line[0] != '\0')
 	{

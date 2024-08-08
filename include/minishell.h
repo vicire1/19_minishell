@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 14:33:23 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:19:24 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <termios.h>
 # include <unistd.h>
 
 // DEFINE
@@ -33,6 +36,8 @@
 # define ERR_PIP "Pipe failed."
 # define ERR_FORK "Fork failed."
 # define ERR_GETCWD "Getcwd failed."
+# define SIG_OUT_CHILD 1
+# define SIG_IN_CHILD 2
 
 int				g_exit_s;
 
@@ -144,7 +149,7 @@ void			check_heredoc(t_data *data);
 void			unlink_heredoc(t_data *data);
 
 // src/signals
-void			handle_sig(void);
+void			handle_sig(int which);
 
 // src/utils_libft
 char			*ft_substr(char const *s, unsigned int start, size_t len,

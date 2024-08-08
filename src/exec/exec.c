@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:51:27 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:12:25 by lbirloue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,14 @@ void	multiple_cmd(t_data *data)
 		if (pipe(pfd) == -1)
 			free_all(data, ERR_PIP, 1);
 		data->pid = fork();
+		if (data->pid > 0)
+			handle_sig(SIG_IN_CHILD);
 		if (data->pid == -1)
 			free_all(data, ERR_FORK, 1);
 		if (data->pid == 0)
 		{
 			close(pfd[0]);
+			handle_sig(SIG_IN_CHILD);
 			ft_child_exec(data, pfd, i, prev_fd);
 		}
 		close(prev_fd);
