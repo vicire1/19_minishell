@@ -25,13 +25,17 @@ SRC_MANDATORY	= 	src/main.c \
 					src/builtins/exit.c \
 					src/builtins/exit_utils.c \
 					src/builtins/builtin.c \
-					src/utils/utils_libft.c \
+					src/utils/utils_libft1.c \
+					src/utils/utils_libft2.c \
+					src/utils/utils_libft3.c \
+					src/utils/utils_libft4.c \
 					src/utils/utils_free.c \
-					src/utils/free_lex_pars.c \
+					src/utils/free_all.c \
 					src/exec/get_env.c \
 					src/exec/redirections.c \
 					src/exec/exec.c \
 					src/exec/heredoc.c \
+					src/signal.c \
 
 OBJ_MANDATORY	= ${SRC_MANDATORY:.c=.o}
 

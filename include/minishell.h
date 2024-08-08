@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:02 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/07 16:37:23 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:25:16 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void			rl_clear_history(void);
 void			rl_replace_line(const char *text, int clear_undo);
 void			rl_redisplay(void);
 void			handle_signal(void);
+int				init_env(t_data *data, char **envp);
 
 // src/expand
 int				in_env(t_data *data, t_env *env, char *str, t_expander *expa);
@@ -149,6 +150,9 @@ int				executor(t_data *data);
 void			check_heredoc(t_data *data);
 void			unlink_heredoc(t_data *data);
 
+// src/signals
+void			handle_sig(void);
+
 // src/utils
 char			*ft_substr(char const *s, unsigned int start, size_t len,
 					t_data *data);
@@ -177,7 +181,7 @@ int				env_cmp(char *str, char *str_env);
 void			free_env(t_data *data);
 void			free_pars(t_data *data);
 int				free_lex(t_data *data);
-void    free_cmd_arr(char **cmd);
+void			free_arr(char **cmd);
 
 // src/utils/utils_env
 void			init_export(t_data *data);

@@ -1,47 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset_utils.c                                      :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/08 13:09:52 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 13:09:53 by vdecleir         ###   ########.fr       */
+/*   Created: 2024/08/08 13:00:04 by vdecleir          #+#    #+#             */
+/*   Updated: 2024/08/08 13:35:53 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	cmd_unset_check_invalid(char *str)
+int	free_all(t_data *data, char *str, int esc)
 {
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(str[i]))
-		return (1);
-	while (str[i])
+	if (str)
+		ft_printf_fd(2, "%s\n", str);
+	free_lex(data);
+	free_pars(data);
+	free_arr(data->env_arr);
+	free_arr(data->poss_path);
+	if (esc)
 	{
-		if (!ft_isalnum(str[i]))
-		{
-			if (str[i] != '_')
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	cmd_unset_check_in_env(t_data *data, char *str)
-{
-	t_env	*tempo;
-
-	tempo = data->first_env;
-	while (tempo)
-	{
-		if (tempo->env_status
-			&& (ft_strncmp(str, tempo->name, ft_strlen(str)) == 0))
-			return (1);
-		tempo = tempo->next;
+		unlink_heredoc(data);
+		free_env(data);
+		exit(g_exit_s);
 	}
 	return (0);
 }

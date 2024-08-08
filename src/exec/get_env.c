@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:41:17 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/06 15:49:04 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:27:14 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,11 @@ static char	**put_slash(t_data *data)
 	return (data->poss_path);
 }
 
-char	**get_poss_path(t_data *data, int array_size)
+char	**get_poss_path(t_data *data)
 {
 	t_env	*current;
 
 	current = data->first_env;
-	data->poss_path = malloc(sizeof(char *) * array_size);
-	if (!data->poss_path)
-		free_all(data, ERR_MAL, 1);
 	while (current)
 	{
 		if (ft_strncmp(current->name, "PATH=\0", 6) == 0)
@@ -87,6 +84,6 @@ char	**env_in_array(t_data *data)
 		current = current->next;
 	}
 	data->env_arr[i] = NULL;
-	get_poss_path(data, i);
+	get_poss_path(data);
 	return (data->env_arr);
 }

@@ -1,4 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/08 13:08:47 by vdecleir          #+#    #+#             */
+/*   Updated: 2024/08/08 13:25:27 by vdecleir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
+
+int	init_env(t_data *data, char **envp)
+{
+	int	i;
+
+	i = 0;
+	data->first_env = NULL;
+	while (envp[i])
+	{
+		new_node_env(envp[i], 1, data);
+		i++;
+	}
+	init_export(data);
+	return (0);
+}
 
 void	init_oldpwd(t_data *data)
 {

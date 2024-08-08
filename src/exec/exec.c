@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/07 16:56:23 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:36:55 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	multiple_cmd(t_data *data)
 	prev_fd = -1;
 	while (++i < data->nb_cmd_node)
 	{
-		env_in_array(data);
 		if (pipe(pfd) == -1)
 			free_all(data, ERR_PIP, 1);
 		data->pid = fork();
@@ -116,6 +115,7 @@ int	executor(t_data *data)
 	int	bltn;
 	int	status;
 
+	env_in_array(data);
 	bltn = check_if_builtin(data->first_pars->cmd[0]);
 	check_heredoc(data);
 	if (data->nb_cmd_node == 1 && (bltn == 3 || bltn == 4 || bltn == 5
@@ -131,7 +131,5 @@ int	executor(t_data *data)
 	if (WIFEXITED(status))
 		g_exit_s = WEXITSTATUS(status);
 	unlink_heredoc(data);
-	// free_cmd_arr(data->env_arr);
-	// free_cmd_arr(data->poss_path);
 	return (0);
 }
