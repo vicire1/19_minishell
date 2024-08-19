@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbirloue <lbirloue@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:16:06 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/08/08 16:12:25 by lbirloue         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:35:51 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_child_exec(t_data *data, int pfd[2], int i, int prev_fd)
 	if (!abs_path)
 	{
 		ft_printf_fd(2, "%s: command not found\n", current->cmd[0]);
-		exit(1);
+		exit(127);
 	}
 	execve(abs_path, current->cmd, data->env_arr);
 }
