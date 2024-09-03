@@ -76,15 +76,15 @@ You can then enter commands at the prompt just like in a regular shell:
 
 ```bash
 $ ls -l
-$ echo `Hello, Minishell!`
+$ echo 'Hello, Minishell!'
 $ pwd
 ```
 
 You can also use features such as pipes, redirections, and environment variables:
 
 ```bash
-$ echo `This is a test` > output.txt
-$ cat output.txt | grep `test`
+$ echo 'This is a test' > output.txt
+$ cat output.txt | grep 'test'
 ```
 
 To exit the shell, use the `exit` command or press `ctrl-D`.
